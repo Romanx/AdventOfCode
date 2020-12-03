@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DayEighteen2019
+namespace Shared
 {
     public enum DirectionType
     {
