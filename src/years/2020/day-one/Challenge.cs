@@ -1,9 +1,8 @@
 ﻿using System.Collections.Immutable;
 using System.Linq;
+using MoreLinq;
 using NodaTime;
-using NodaTime.Extensions;
 using Shared;
-using static Shared.Helpers.CollectionHelpers;
 
 namespace DayOne2020
 {
@@ -35,8 +34,8 @@ namespace DayOne2020
 
         private static ImmutableArray<int> FindNThatSumTo(int[] lines, int subsetSize, int sum)
         {
-            var subsets = FindSubsetsOfSize(lines, subsetSize);
-            return subsets.First(s => s.Sum() == sum);
+            var subsets = lines.Subsets(subsetSize);
+            return subsets.First(s => s.Sum() == sum).ToImmutableArray();
         }
     }
 
