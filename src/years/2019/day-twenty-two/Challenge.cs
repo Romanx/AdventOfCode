@@ -93,7 +93,7 @@ namespace DayTwentyTwo2019
 
             var result = (TargetIndex - bGazillion) % NUMBER_OF_CARDS * ModuloInverse(power, NUMBER_OF_CARDS) % NUMBER_OF_CARDS;
 
-            output.WriteProperty($"Value at position {TargetIndex}", $"{result}");
+            output.WriteProperty($"Value at position {TargetIndex}", result);
             var outputFile = output.File("output.txt");
             outputFile.Write(Encoding.UTF8.GetBytes($"Value at position {TargetIndex}: {result}"));
         }

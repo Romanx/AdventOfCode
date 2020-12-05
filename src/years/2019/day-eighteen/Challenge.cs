@@ -19,7 +19,7 @@ namespace DayEighteen2019
 
             var overallPath = FindPathToAllKeys(map, start, allKeys);
 
-            output.WriteProperty("Number of Steps", overallPath.Length.ToString());
+            output.WriteProperty("Number of Steps", overallPath.Length);
         }
 
         public override void PartTwo(IInput input, IOutput output)

@@ -105,7 +105,6 @@ namespace Runner
             if (props.Length > 0)
             {
                 var table = new Table()
-                    .Title("Properties", new Style(foreground: Color.DeepSkyBlue1))
                     .Border(TableBorder.Square)
                     .LeftAligned()
                     .AddColumns("", "")
@@ -113,7 +112,7 @@ namespace Runner
 
                 foreach (var (name, value) in props)
                 {
-                    table.AddRow(new Markup($"[dodgerblue1]{name}[/]"), new Text(value));
+                    table.AddRow(new Markup($"[#00d7ff]{name}[/]"), new Text(value));
                 }
 
                 AnsiConsole.Render(table);

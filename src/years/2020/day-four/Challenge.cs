@@ -17,8 +17,8 @@ namespace DayFour2020
 
             var validPassports = passports.Count(p => ValidatePassport(p));
 
-            output.WriteProperty("Number of Passports", passports.Length.ToString());
-            output.WriteProperty("Number of Valid Passports", validPassports.ToString());
+            output.WriteProperty("Number of Passports", passports.Length);
+            output.WriteProperty("Number of Valid Passports", validPassports);
 
             static bool ValidatePassport(Passport passport)
             {
@@ -40,8 +40,8 @@ namespace DayFour2020
 
             var validPassports = passports.Count(p => ValidatePassport(p));
 
-            output.WriteProperty("Number of Passports", passports.Length.ToString());
-            output.WriteProperty("Number of Valid Passports", validPassports.ToString());
+            output.WriteProperty("Number of Passports", passports.Length);
+            output.WriteProperty("Number of Valid Passports", validPassports);
 
             static bool ValidatePassport(Passport passport)
             {

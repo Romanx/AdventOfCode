@@ -11,7 +11,7 @@ namespace DayThree2020
         public override void PartOne(IInput input, IOutput output)
         {
             var treeCount = CountTreesOnVector(input.As2DArray(), (3, 1));
-            output.WriteProperty("Number of Trees", treeCount.ToString());
+            output.WriteProperty("Number of Trees", treeCount);
         }
 
         public override void PartTwo(IInput input, IOutput output)
@@ -23,11 +23,11 @@ namespace DayThree2020
             foreach (var vector in vectors)
             {
                 var treeCount = CountTreesOnVector(map, vector);
-                output.WriteProperty($"Number of Trees {vector}", treeCount.ToString());
+                output.WriteProperty($"Number of Trees {vector}", treeCount);
                 totalTrees *= treeCount;
             }
 
-            output.WriteProperty($"Total Trees Multiplied", totalTrees.ToString());
+            output.WriteProperty($"Total Trees Multiplied", totalTrees);
         }
 
         internal static uint CountTreesOnVector(char[,] map, Point moveVector)

@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -37,9 +39,18 @@ namespace Shared
             return image;
         }
 
-        public void WriteProperty(string name, string value)
+        public void WriteProperty(string name, object value, IFormatProvider? formatProvider = null)
         {
-            _values.Add(name, value);
+            if (value is string str)
+            {
+                _values.Add(name, str);
+            }
+            else
+            {
+                var objStr = Convert.ToString(value, formatProvider);
+                Debug.Assert(objStr is not null, "Should be able to turn object into a string");
+                _values.Add(name, objStr);
+            }
         }
 
         public ImmutableArray<(string Name, string Value)> GetProperties() => _values

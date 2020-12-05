@@ -16,8 +16,8 @@ namespace DayTwo2020
             var records = input.AsRecords();
             var validPasswords = records.Where(r => r.IsValidBasedOnCount()).Count();
 
-            output.WriteProperty("Total Passwords", records.Length.ToString());
-            output.WriteProperty("Number of Valid Passwords", validPasswords.ToString());
+            output.WriteProperty("Total Passwords", records.Length);
+            output.WriteProperty("Number of Valid Passwords", validPasswords);
         }
 
         public override void PartTwo(IInput input, IOutput output)
@@ -25,8 +25,8 @@ namespace DayTwo2020
             var records = input.AsRecords();
             var validPasswords = records.Where(r => r.IsValidBasedOnPosition()).Count();
 
-            output.WriteProperty("Total Passwords", records.Length.ToString());
-            output.WriteProperty("Number of Valid Passwords", validPasswords.ToString());
+            output.WriteProperty("Total Passwords", records.Length);
+            output.WriteProperty("Number of Valid Passwords", validPasswords);
         }
     }
 

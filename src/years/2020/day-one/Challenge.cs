@@ -19,7 +19,7 @@ namespace DayOne2020
             var result = items.Aggregate(1, (acc, i) => acc * i);
 
             output.WriteProperty("Numbers", string.Join(", ", items));
-            output.WriteProperty("Result", result.ToString());
+            output.WriteProperty("Result", result);
         }
 
         public override void PartTwo(IInput input, IOutput output)
@@ -30,7 +30,7 @@ namespace DayOne2020
             var result = items.Aggregate(1, (acc, i) => acc * i);
 
             output.WriteProperty("Numbers", string.Join(", ", items));
-            output.WriteProperty("Result", result.ToString());
+            output.WriteProperty("Result", result);
         }
 
         private static ImmutableArray<int> FindNThatSumTo(int[] lines, int subsetSize, int sum)
