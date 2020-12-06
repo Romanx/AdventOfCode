@@ -17,7 +17,7 @@ namespace Shared
 
         public Input(DirectoryEntry inputDirectory, LocalDate date)
         {
-            foreach (var file in inputDirectory.EnumerateFiles())
+            foreach (var file in inputDirectory.EnumerateFiles(searchOption: SearchOption.AllDirectories))
             {
                 if (IsCorrectInputFile(file, date))
                 {
