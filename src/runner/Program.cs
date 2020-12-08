@@ -14,29 +14,16 @@ namespace Runner
     {
         public static async Task Main(string[] args)
         {
+            var console = AnsiConsole.Console;
             if (HasSelectedPosition(args, out var position))
             {
                 await RunChallenge(position);
                 return;
             }
 
-            AnsiConsole.Render(new FigletText("Advent of Code!").Centered().Color(Color.Red));
+            WriteMenu(console);
 
-            var index = 1;
-            foreach (var group in Challenges.GroupBy(c => c.Info.Date.Year).OrderBy(c => c.Key))
-            {
-                AnsiConsole.Render(new Rule(group.Key.ToString()) { Style = new Style(foreground: Color.Gold1) }.LeftAligned());
-
-                foreach (var challenge in group)
-                {
-                    AnsiConsole.MarkupLine("[#00d7ff]({0}) {1}:[/] {2}", index, challenge.Info.Date, challenge.Info.Name);
-                    index++;
-                }
-            }
-
-            AnsiConsole.Render(new Rule() { Style = new Style(foreground: Color.Gold1) }.LeftAligned());
-
-            var selectedIndex = AnsiConsole.Ask<int>("What challenge would you like to run?");
+            var selectedIndex = console.Ask<int>("What challenge would you like to run?");
             await RunChallenge(selectedIndex);
 
             static bool HasSelectedPosition(string[] args, out int position)
@@ -94,6 +81,36 @@ namespace Runner
 
                 return dir;
             }
+        }
+
+        private static void WriteMenu(IAnsiConsole console)
+        {
+            console.Render(new FigletText("Advent of Code!").Centered().Color(Color.Red));
+
+            var index = 1;
+            foreach (var group in Challenges.GroupBy(c => c.Info.Date.Year).OrderBy(c => c.Key))
+            {
+                console.Render(new Rule($"[[ {group.Key} ]]") { Style = new Style(foreground: Color.Gold1) }.LeftAligned());
+                var table = new Table()
+                    .AddColumn(new TableColumn("").RightAligned())
+                    .AddColumns("")
+                    .HideHeaders()
+                    .MinimalBorder();
+
+                var color = new Color(0, 215, 255);
+                foreach (var challenge in group)
+                {
+                    table.AddRow(
+                        new Markup($"{index}".PadLeft(2), new Style(foreground: color, decoration: Decoration.Bold)),
+                        new Markup($"[#00d7ff]{challenge.Info.Date} - [/]{challenge.Info.Name}"));
+
+                    index++;
+                }
+
+                console.Render(table);
+            }
+
+            console.Render(new Rule() { Style = new Style(foreground: Color.Gold1) }.LeftAligned());
         }
 
         private static async Task WriteOutputs(string header, Output output, PhysicalFileSystem fs)
