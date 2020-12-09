@@ -22,8 +22,18 @@ namespace Runner
             }
 
             WriteMenu(console);
+            var challengeRange = 1..Challenges.Length;
 
-            var selectedIndex = console.Ask<int>("What challenge would you like to run?");
+            var prompt = new TextPrompt<int>("What challenge would you like to run?")
+                .DefaultValue(Challenges.Length)
+                .Validate(index =>
+                {
+                    return challengeRange.Contains(index) is false
+                        ? ValidationResult.Error($"[red]Index not in the range of[/] [aqua]{challengeRange.Start} to {challengeRange.End}[/]")
+                        : ValidationResult.Success();
+                });
+
+            var selectedIndex = console.Prompt(prompt);
             await RunChallenge(console, selectedIndex);
 
             static bool HasSelectedPosition(string[] args, out int position)
