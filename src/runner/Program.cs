@@ -17,14 +17,14 @@ namespace Runner
             var console = AnsiConsole.Console;
             if (HasSelectedPosition(args, out var position))
             {
-                await RunChallenge(position);
+                await RunChallenge(console, position);
                 return;
             }
 
             WriteMenu(console);
 
             var selectedIndex = console.Ask<int>("What challenge would you like to run?");
-            await RunChallenge(selectedIndex);
+            await RunChallenge(console, selectedIndex);
 
             static bool HasSelectedPosition(string[] args, out int position)
             {
@@ -38,7 +38,7 @@ namespace Runner
             }
         }
 
-        public static async Task RunChallenge(int position)
+        public static async Task RunChallenge(IAnsiConsole console, int position)
         {
             var index = position - 1;
             if (index < 0 || index > Challenges.Length)
@@ -47,9 +47,7 @@ namespace Runner
             }
 
             var challenge = Challenges[index];
-            Console.Clear();
-            AnsiConsole.Render(new FigletText("Advent of Code!").Centered().Color(Color.Red));
-            AnsiConsole.Render(new Markup($"[bold #00d7ff]{challenge.Info.Date}: {challenge.Info.Name}[/]").Centered());
+            ChallengeHeader(console, challenge);
 
             var fs = new PhysicalFileSystem();
             var basePath = fs.ConvertPathFromInternal(AppDomain.CurrentDomain.BaseDirectory);
@@ -63,8 +61,6 @@ namespace Runner
             var partOneOutput = new Output(dayOutputDirectory, fs);
             challenge.PartOne(input, partOneOutput);
             await WriteOutputs("Part 1", partOneOutput, fs);
-
-            Console.WriteLine();
 
             var partTwoOutput = new Output(dayOutputDirectory, fs);
             challenge.PartTwo(input, partTwoOutput);
@@ -80,6 +76,13 @@ namespace Runner
                 }
 
                 return dir;
+            }
+
+            static void ChallengeHeader(IAnsiConsole console, Challenge challenge)
+            {
+                console.Clear(true);
+                console.Render(new FigletText("Advent of Code!").Centered().Color(Color.Red));
+                console.Render(new Markup($"[bold #00d7ff]{challenge.Info.Date}: {challenge.Info.Name}[/]").Centered());
             }
         }
 
