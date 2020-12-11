@@ -14,10 +14,10 @@ namespace DayEighteen2019
         public Map(ImmutableDictionary<Point, Cell> cells)
         {
             Cells = cells;
-            MaxX = cells.Keys.Max(p => p.X);
-            MinX = cells.Keys.Min(p => p.X);
-            MaxY = cells.Keys.Max(p => p.Y);
-            MinY = cells.Keys.Min(p => p.Y);
+            MaxX = cells.Keys.Max(p => p.Row);
+            MinX = cells.Keys.Min(p => p.Row);
+            MaxY = cells.Keys.Max(p => p.Column);
+            MinY = cells.Keys.Min(p => p.Column);
         }
 
         public ImmutableDictionary<Point, Cell> Cells { get; }
@@ -36,11 +36,11 @@ namespace DayEighteen2019
 
             foreach (var point in points)
             {
-                if (point.X > MaxX || point.X < MinX)
+                if (point.Row > MaxX || point.Row < MinX)
                 {
                     continue;
                 }
-                else if (point.Y > MaxY || point.Y < MinY)
+                else if (point.Column > MaxY || point.Column < MinY)
                 {
                     continue;
                 }

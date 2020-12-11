@@ -37,12 +37,12 @@ namespace DayThree2020
             var maxX = map.GetLength(0);
             var maxY = map.GetLength(1);
 
-            while (pos.Y < maxY - 1)
+            while (pos.Column < maxY - 1)
             {
                 pos += moveVector;
-                var adjustedX = pos.X % maxX;
+                var adjustedX = pos.Row % maxX;
 
-                if (map[adjustedX, pos.Y] is '#')
+                if (map[adjustedX, pos.Column] is '#')
                 {
                     treeCount++;
                 }
