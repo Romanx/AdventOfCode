@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace Shared.Math
+namespace Shared
 {
     public static class ChineseRemainderTheorem
     {

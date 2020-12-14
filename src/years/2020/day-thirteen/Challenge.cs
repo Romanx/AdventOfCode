@@ -4,7 +4,6 @@ using System.Collections.Immutable;
 using System.Linq;
 using NodaTime;
 using Shared;
-using Shared.Math;
 
 namespace DayThirteen2020
 {
