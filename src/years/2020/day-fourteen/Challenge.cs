@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
@@ -8,7 +7,7 @@ using MoreLinq;
 using NodaTime;
 using Shared;
 
-namespace DayX2020
+namespace DayFourteen2020
 {
     public class Challenge : Shared.Challenge
     {

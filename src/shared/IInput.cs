@@ -9,6 +9,8 @@ namespace Shared
 
         ReadOnlyMemory<char> AsReadOnlyMemory();
 
+        string AsString();
+
         IEnumerable<ReadOnlyMemory<char>> AsLines();
     }
 }
