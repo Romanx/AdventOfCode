@@ -30,10 +30,10 @@ namespace DayThree2020
             output.WriteProperty($"Total Trees Multiplied", totalTrees);
         }
 
-        internal static uint CountTreesOnVector(char[,] map, Point moveVector)
+        internal static uint CountTreesOnVector(char[,] map, Point2d moveVector)
         {
             uint treeCount = 0;
-            Point pos = new(0, 0);
+            Point2d pos = new(0, 0);
             var maxX = map.GetLength(0);
             var maxY = map.GetLength(1);
 

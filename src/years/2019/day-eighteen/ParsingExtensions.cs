@@ -8,14 +8,14 @@ namespace DayEighteen2019
     {
         internal static Map Parse(this IInput input)
         {
-            var map = ImmutableDictionary.CreateBuilder<Point, Cell>();
+            var map = ImmutableDictionary.CreateBuilder<Point2d, Cell>();
             var array = input.As2DArray();
 
             for (var x = 0; x < array.GetLength(0); x++)
             {
                 for (var y = 0; y < array.GetLength(1); y++)
                 {
-                    Point point = new(x, y);
+                    Point2d point = new(x, y);
 
                     map[point] = array[x, y] switch
                     {

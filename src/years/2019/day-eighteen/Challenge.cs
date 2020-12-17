@@ -26,9 +26,9 @@ namespace DayEighteen2019
         {
         }
 
-        private static ImmutableArray<Point> FindPathToAllKeys(Map map, Cell start, ImmutableArray<Key> allKeys)
+        private static ImmutableArray<Point2d> FindPathToAllKeys(Map map, Cell start, ImmutableArray<Key> allKeys)
         {
-            var overallPath = ImmutableArray.CreateBuilder<Point>();
+            var overallPath = ImmutableArray.CreateBuilder<Point2d>();
 
             var keyChain = ImmutableArray<char>.Empty;
             bool hasAllKeys = false;
@@ -58,7 +58,7 @@ namespace DayEighteen2019
             return overallPath.ToImmutable();
         }
 
-        private static Func<Cell, Point[]> BuildShortestPathToKeyFunction(Map map, Cell start, ImmutableArray<char> keyChain)
+        private static Func<Cell, Point2d[]> BuildShortestPathToKeyFunction(Map map, Cell start, ImmutableArray<char> keyChain)
         {
             var previous = new Dictionary<Cell, Cell>();
             var queue = new Queue<Cell>();
@@ -83,7 +83,7 @@ namespace DayEighteen2019
             {
                 if (previous.ContainsKey(target) is false)
                 {
-                    return Array.Empty<Point>();
+                    return Array.Empty<Point2d>();
                 }
 
                 var path = new List<Cell>();
@@ -103,9 +103,9 @@ namespace DayEighteen2019
 
     enum CellType { Wall, Key, Door, Entrance, Empty }
 
-    record Cell(CellType CellType, Point Point);
+    record Cell(CellType CellType, Point2d Point);
 
-    record Key(char Id, Point Point) : Cell(CellType.Key, Point);
+    record Key(char Id, Point2d Point) : Cell(CellType.Key, Point);
 
-    record Door(char DoorId, char KeyId, Point Point) : Cell(CellType.Door, Point);
+    record Door(char DoorId, char KeyId, Point2d Point) : Cell(CellType.Door, Point);
 }

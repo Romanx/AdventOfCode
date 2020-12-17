@@ -11,7 +11,7 @@ namespace DayEighteen2019
         private int MaxY;
         private int MinY;
 
-        public Map(ImmutableDictionary<Point, Cell> cells)
+        public Map(ImmutableDictionary<Point2d, Cell> cells)
         {
             Cells = cells;
             MaxX = cells.Keys.Max(p => p.Row);
@@ -20,7 +20,7 @@ namespace DayEighteen2019
             MinY = cells.Keys.Min(p => p.Column);
         }
 
-        public ImmutableDictionary<Point, Cell> Cells { get; }
+        public ImmutableDictionary<Point2d, Cell> Cells { get; }
 
         public ImmutableArray<Cell> Adjacent(Cell cell, ImmutableArray<char> keyChain)
         {

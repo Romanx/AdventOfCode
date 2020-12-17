@@ -18,7 +18,7 @@ namespace DayEleven2020
             var numberOfOccupiedSeats = result.Seats.Count(s => s.Value is true);
             output.WriteProperty("Number of occupied seats", numberOfOccupiedSeats);
 
-            static bool AdjacentFunction(Map map, Point seat, bool occupied)
+            static bool AdjacentFunction(Map map, Point2d seat, bool occupied)
             {
                 var occupiedCount = map.AdjacentSeats(seat).Count(p => p.Occupied is true);
 
@@ -35,7 +35,7 @@ namespace DayEleven2020
 
             output.WriteProperty("Number of occupied seats", numberOfOccupiedSeats);
 
-            static bool AdjacentFunction(Map map, Point seat, bool occupied)
+            static bool AdjacentFunction(Map map, Point2d seat, bool occupied)
             {
                 var occupiedCount = map.VisibleAdjacentSeats(seat).Count(p => p.Occupied is true);
 
@@ -43,7 +43,7 @@ namespace DayEleven2020
             }
         }
 
-        internal static Map RunUntilMapStable(Map current, Func<Map, Point, bool, bool> adjacentFunc)
+        internal static Map RunUntilMapStable(Map current, Func<Map, Point2d, bool, bool> adjacentFunc)
         {
             Map next = current;
 
@@ -73,7 +73,7 @@ namespace DayEleven2020
     {
         public static Map ParseMap(this IInput input)
         {
-            var seats = ImmutableDictionary.CreateBuilder<Point, bool>();
+            var seats = ImmutableDictionary.CreateBuilder<Point2d, bool>();
 
             var arr = input.As2DArray();
             var rows = arr.GetLength(0);

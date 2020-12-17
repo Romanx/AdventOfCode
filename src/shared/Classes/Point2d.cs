@@ -2,26 +2,26 @@
 
 namespace Shared
 {
-    public record Point(int Row, int Column) : IComparable<Point?>
+    public record Point2d(int Row, int Column) : IComparable<Point2d?>
     {
         public int X => Row;
 
         public int Y => Column;
 
-        public static Point Origin { get; } = new(0, 0);
+        public static Point2d Origin { get; } = new(0, 0);
 
-        public int CompareTo(Point? other) =>
+        public int CompareTo(Point2d? other) =>
             other is null
                 ? -1
                 : (Row, Column).CompareTo((other.Row, other.Column));
 
-        public static Point operator +(Point left, Point right)
+        public static Point2d operator +(Point2d left, Point2d right)
             => new(left.Row + right.Row, left.Column + right.Column);
 
-        public static Point operator -(Point left, Point right)
+        public static Point2d operator -(Point2d left, Point2d right)
             => new(left.Row - right.Row, left.Column - right.Column);
 
-        public static Point operator +(Point point, Direction direction) => direction.DirectionType switch
+        public static Point2d operator +(Point2d point, Direction direction) => direction.DirectionType switch
         {
             DirectionType.North => point + (0, -1),
             DirectionType.NorthEast => point + (1, -1),
@@ -34,7 +34,7 @@ namespace Shared
             _ => point
         };
 
-        public static Point AddInDirection(Point point, Direction direction, int count)
+        public static Point2d AddInDirection(Point2d point, Direction direction, int count)
         {
             return direction.DirectionType switch
             {
@@ -50,7 +50,7 @@ namespace Shared
             };
         }
 
-        public Point RotateAroundPivot(Point pivot, int angleInDegrees)
+        public Point2d RotateAroundPivot(Point2d pivot, int angleInDegrees)
         {
             var radians = angleInDegrees * MathF.PI / 180;
 
@@ -63,9 +63,9 @@ namespace Shared
             var xnew = (int)MathF.Round(translated.X * c - translated.Y * s);
             var ynew = (int)MathF.Round(translated.X * s + translated.Y * c);
 
-            return new Point(xnew + pivot.X, ynew + pivot.Y);
+            return new Point2d(xnew + pivot.X, ynew + pivot.Y);
         }
 
-        public static implicit operator Point((int X, int Y) i) => new(i.X, i.Y);
+        public static implicit operator Point2d((int X, int Y) i) => new(i.X, i.Y);
     }
 }
