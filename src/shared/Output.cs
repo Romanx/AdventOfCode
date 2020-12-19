@@ -15,7 +15,7 @@ namespace Shared
     {
         private readonly UPath _outputDirectory;
         private readonly IFileSystem _fileSystem;
-        private readonly Dictionary<string, string> _values = new Dictionary<string, string>();
+        private readonly List<(string Key, string Value)> _values = new();
         private readonly Dictionary<string, Image<Rgba32>> _images = new Dictionary<string, Image<Rgba32>>();
         private readonly Dictionary<string, MemoryStream> _files = new Dictionary<string, MemoryStream>();
 
@@ -39,23 +39,25 @@ namespace Shared
             return image;
         }
 
-        public void WriteProperty(string name, object value, IFormatProvider? formatProvider = null)
+        public void WriteProperty(string name, object? value, IFormatProvider? formatProvider = null)
         {
-            if (value is string str)
+            if (value is null)
             {
-                _values.Add(name, str);
+                _values.Add((name, string.Empty));
+            }
+            else if (value is string str)
+            {
+                _values.Add((name, str));
             }
             else
             {
                 var objStr = Convert.ToString(value, formatProvider);
                 Debug.Assert(objStr is not null, "Should be able to turn object into a string");
-                _values.Add(name, objStr);
+                _values.Add((name, objStr));
             }
         }
 
-        public ImmutableArray<(string Name, string Value)> GetProperties() => _values
-            .Select((kvp) => (kvp.Key, kvp.Value))
-            .ToImmutableArray();
+        public ImmutableArray<(string Name, string Value)> GetProperties() => _values.ToImmutableArray();
 
         public async Task<ImmutableArray<string>> OutputFiles()
         {

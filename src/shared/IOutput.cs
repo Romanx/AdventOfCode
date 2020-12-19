@@ -11,6 +11,6 @@ namespace Shared
 
         Image<Rgba32> Image(string imageName, int width, int height);
 
-        void WriteProperty(string name, object value, IFormatProvider? formatProvider = null);
+        void WriteProperty(string name, object? value, IFormatProvider? formatProvider = null);
     }
 }

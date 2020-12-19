@@ -34,7 +34,14 @@ namespace Runner
                 });
 
             var selectedIndex = console.Prompt(prompt);
-            await RunChallenge(console, selectedIndex);
+            try
+            {
+                await RunChallenge(console, selectedIndex);
+            }
+            catch (Exception ex)
+            {
+                console.WriteException(ex);
+            }
 
             static bool HasSelectedPosition(string[] args, out int position)
             {
