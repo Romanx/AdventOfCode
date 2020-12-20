@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.IO;
 using System.Linq;
 using MoreLinq;
 
@@ -82,6 +83,27 @@ namespace Shared.Helpers
             var cart = ranges.CartesianProduct();
 
             return cart.Select(num => factory(num));
+        }
+
+        public static ImmutableDictionary<Point2d, char> StringToPoints(string str)
+        {
+            var builder = ImmutableDictionary.CreateBuilder<Point2d, char>();
+            using var reader = new StringReader(str);
+
+            string? line;
+            var rowNum = 0;
+            while ((line = reader.ReadLine()) != null)
+            {
+                builder.AddRange(LineToPoints(rowNum, line));
+                rowNum++;
+            }
+
+            return builder.ToImmutable();
+
+            IEnumerable<KeyValuePair<Point2d, char>> LineToPoints(int rowNum, string str) => str
+                .ToCharArray()
+                .Index()
+                .Select(kvp => KeyValuePair.Create(new Point2d(rowNum, kvp.Key), kvp.Value));
         }
     }
 }

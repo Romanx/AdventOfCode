@@ -7,7 +7,7 @@ namespace Shared
 {
     public record Point3d : Point, IComparable<Point3d?>
     {
-        public static int NumberOfDimensions = 3;
+        public const int NumberOfDimensions = 3;
 
         public Point3d(ImmutableArray<int> dimensions) : base(dimensions)
         {

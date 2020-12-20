@@ -11,8 +11,6 @@ namespace DayNineteen2020
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2020, 12, 19), "Monster Messages");
 
-        private static readonly Dictionary<int, string[]> RuleCache = new();
-
         public override void PartOne(IInput input, IOutput output)
         {
             var (rules, messages) = input.Parse();

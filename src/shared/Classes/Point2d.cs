@@ -1,9 +1,28 @@
 ﻿using System;
+using System.Collections.Immutable;
 
 namespace Shared
 {
-    public record Point2d(int Row, int Column) : IComparable<Point2d?>
+    public record Point2d : Point, IComparable<Point2d?>
     {
+        public const int NumberOfDimensions = 2;
+
+        protected Point2d(Point original) : base(original)
+        {
+        }
+
+        public Point2d(int row, int column) : this(ImmutableArray.Create(row, column))
+        {
+        }
+
+        public Point2d(ImmutableArray<int> dimensions) : base(dimensions)
+        {
+        }
+
+        public int Row => Dimensions[0];
+
+        public int Column => Dimensions[1];
+
         public int X => Row;
 
         public int Y => Column;

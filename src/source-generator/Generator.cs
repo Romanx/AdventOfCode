@@ -67,6 +67,7 @@ namespace Runner
             return GetAllTypes(compilation)
                 .OfType<INamedTypeSymbol>()
                 .Where(a => SymbolEqualityComparer.Default.Equals(a.BaseType, challengeBase))
+                .Where(a => a.DeclaredAccessibility == Accessibility.Public)
                 .ToArray();
         }
 

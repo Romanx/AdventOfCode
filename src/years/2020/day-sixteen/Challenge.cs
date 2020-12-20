@@ -82,7 +82,7 @@ namespace DaySixteen2020
                 return ArrayHelpers.CreateRectangularArray(array);
             }
 
-            static bool WholeColumnMatchesRule(Array2DColumnEnumerable<int> column, Rule rule)
+            static bool WholeColumnMatchesRule(RefEnumerable<int> column, Rule rule)
             {
                 foreach (var val in column)
                 {

@@ -61,7 +61,7 @@ namespace Shared
 
         public async Task<ImmutableArray<string>> OutputFiles()
         {
-            List<string> paths = new List<string>(_images.Count + _files.Count);
+            var paths = new List<string>(_images.Count + _files.Count);
 
             foreach (var (fileName, image) in _images)
             {
