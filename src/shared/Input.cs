@@ -59,6 +59,16 @@ namespace Shared
 
         public IEnumerable<ReadOnlyMemory<char>> AsLines()
         {
+            foreach (var line in AsStringLines())
+                yield return line.AsMemory();
+        }
+
+        public ReadOnlyMemory<char> AsReadOnlyMemory() => ReadAndCacheInput().AsMemory();
+
+        public string AsString() => ReadAndCacheInput();
+
+        public IEnumerable<string> AsStringLines()
+        {
             var @in = ReadAndCacheInput();
 
             using var reader = new StringReader(@in);
@@ -66,13 +76,9 @@ namespace Shared
             string? line;
             while ((line = reader.ReadLine()) != null)
             {
-                yield return line.AsMemory();
+                yield return line;
             }
         }
-
-        public ReadOnlyMemory<char> AsReadOnlyMemory() => ReadAndCacheInput().AsMemory();
-
-        public string AsString() => ReadAndCacheInput();
 
         private string ReadAndCacheInput()
         {

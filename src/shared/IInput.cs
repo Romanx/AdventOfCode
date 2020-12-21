@@ -12,5 +12,7 @@ namespace Shared
         string AsString();
 
         IEnumerable<ReadOnlyMemory<char>> AsLines();
+
+        IEnumerable<string> AsStringLines();
     }
 }

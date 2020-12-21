@@ -7,7 +7,7 @@ using Shared;
 
 namespace DayTwentyOne2020
 {
-    internal class Challenge : Shared.Challenge
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2020, 12, 21), "Allergen Assessment");
 
