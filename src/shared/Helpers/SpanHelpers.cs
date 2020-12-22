@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Shared.Helpers
 {
     public static class SpanHelpers
     {
-        public static Span<ReadOnlyMemory<char>> SliceUntilBlankLine(Span<ReadOnlyMemory<char>> lines, out Span<ReadOnlyMemory<char>> rest)
+        public static ReadOnlySpan<ReadOnlyMemory<char>> SliceUntilBlankLine(ReadOnlySpan<ReadOnlyMemory<char>> lines, out ReadOnlySpan<ReadOnlyMemory<char>> rest)
         {
             var index = 0;
             foreach (var line in lines)
@@ -17,11 +19,11 @@ namespace Shared.Helpers
                 index++;
             }
 
-            rest = Span<ReadOnlyMemory<char>>.Empty;
+            rest = ReadOnlySpan<ReadOnlyMemory<char>>.Empty;
             return lines;
         }
 
-        public static Memory<ReadOnlyMemory<char>> SliceUntilBlankLine(Memory<ReadOnlyMemory<char>> lines, out Memory<ReadOnlyMemory<char>> rest)
+        public static ReadOnlyMemory<ReadOnlyMemory<char>> SliceUntilBlankLine(ReadOnlyMemory<ReadOnlyMemory<char>> lines, out ReadOnlyMemory<ReadOnlyMemory<char>> rest)
         {
             var index = 0;
             foreach (var line in lines.Span)
@@ -34,11 +36,20 @@ namespace Shared.Helpers
                 index++;
             }
 
-            rest = Memory<ReadOnlyMemory<char>>.Empty;
+            rest = ReadOnlyMemory<ReadOnlyMemory<char>>.Empty;
             return lines;
         }
 
-        public static char[,] As2dArray(Memory<ReadOnlyMemory<char>> lines)
+        public static IEnumerable<ReadOnlyMemory<ReadOnlyMemory<char>>> SplitByBlankLines(ReadOnlyMemory<ReadOnlyMemory<char>> lines)
+        {
+            while (lines.IsEmpty is false)
+            {
+                var slice = SliceUntilBlankLine(lines, out lines);
+                yield return slice;
+            }
+        }
+
+        public static char[,] As2dArray(ReadOnlyMemory<ReadOnlyMemory<char>> lines)
         {
             var lineSpan = lines.Span;
 

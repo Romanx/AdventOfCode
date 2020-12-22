@@ -14,14 +14,14 @@ namespace DayTwenty2020
         {
             var builder = ImmutableArray.CreateBuilder<Tile>();
 
-            foreach (var block in SplitByBlankLines(input))
+            foreach (var block in SpanHelpers.SplitByBlankLines(input.AsLines().ToArray()))
             {
                 builder.Add(ParseBlock(block));
             }
 
             return builder.ToImmutable();
 
-            static Tile ParseBlock(Memory<ReadOnlyMemory<char>> block)
+            static Tile ParseBlock(ReadOnlyMemory<ReadOnlyMemory<char>> block)
             {
                 var firstLine = block.Span[0].Span;
 
