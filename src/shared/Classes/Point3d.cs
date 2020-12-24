@@ -48,8 +48,12 @@ namespace Shared
             ? -1
             : (other.Row, other.Column, other.Level).CompareTo((Row, Column, Level));
 
+        public static implicit operator Point3d((int X, int Y, int Z) i) => new(i.X, i.Y, i.Z);
+
         public override int GetHashCode() => base.GetHashCode();
 
         public virtual bool Equals(Point3d? other) => base.Equals(other);
+
+        public override string ToString() => base.ToString();
     }
 }
