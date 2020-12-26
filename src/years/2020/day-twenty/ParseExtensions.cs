@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Linq;
 using Microsoft.Toolkit.HighPerformance.Extensions;
 using Shared;
 using Shared.Helpers;
@@ -14,9 +12,9 @@ namespace DayTwenty2020
         {
             var builder = ImmutableArray.CreateBuilder<Tile>();
 
-            foreach (var block in SpanHelpers.SplitByBlankLines(input.AsLines().ToArray()))
+            foreach (var paragraph in input.AsParagraphs())
             {
-                builder.Add(ParseBlock(block));
+                builder.Add(ParseBlock(paragraph));
             }
 
             return builder.ToImmutable();

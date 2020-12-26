@@ -173,9 +173,9 @@ namespace DayTwentyTwo2020
     {
         public static (Queue<int> PlayerOne, Queue<int> PlayerTwo) ParseGameState(this IInput input)
         {
-            var blocks = SpanHelpers.SplitByBlankLines(input.AsLines().ToArray()).ToArray();
+            var paragraphs = input.AsParagraphs();
 
-            return (ParseDeck(blocks[0]), ParseDeck(blocks[1]));
+            return (ParseDeck(paragraphs[0]), ParseDeck(paragraphs[1]));
 
             static Queue<int> ParseDeck(ReadOnlyMemory<ReadOnlyMemory<char>> readOnlyMemory)
             {

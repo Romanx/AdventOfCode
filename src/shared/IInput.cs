@@ -14,5 +14,7 @@ namespace Shared
         IEnumerable<ReadOnlyMemory<char>> AsLines();
 
         IEnumerable<string> AsStringLines();
+
+        ReadOnlyMemory<ReadOnlyMemory<char>>[] AsParagraphs();
     }
 }

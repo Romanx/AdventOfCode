@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using NodaTime;
 using NodaTime.Text;
+using Shared.Helpers;
 using Zio;
 
 namespace Shared
@@ -61,6 +62,14 @@ namespace Shared
         {
             foreach (var line in AsStringLines())
                 yield return line.AsMemory();
+        }
+
+        public ReadOnlyMemory<ReadOnlyMemory<char>>[] AsParagraphs()
+        {
+            var lines = AsLines().ToArray().AsMemory();
+
+            return SpanHelpers.SplitByBlankLines(lines)
+                .ToArray();
         }
 
         public ReadOnlyMemory<char> AsReadOnlyMemory() => ReadAndCacheInput().AsMemory();
