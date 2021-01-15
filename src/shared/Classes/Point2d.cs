@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
+using Shared.Helpers;
 
 namespace Shared
 {
@@ -85,6 +87,21 @@ namespace Shared
             return new Point2d(xnew + pivot.X, ynew + pivot.Y);
         }
 
+        public static (GridRange Row, GridRange Column) FindSpaceOfPoints(IEnumerable<Point2d> points)
+        {
+            var spaces = PointHelpers.FindSpaceOfPoints(points, NumberOfDimensions);
+
+            return (spaces[0], spaces[1]);
+        }
+
         public static implicit operator Point2d((int X, int Y) i) => new(i.X, i.Y);
+
+        public Point3d Z(int depth) => new Point3d(Row, Column, depth);
+
+        public void Deconstruct(out int x, out int y)
+        {
+            x = X;
+            y = Y;
+        }
     }
 }

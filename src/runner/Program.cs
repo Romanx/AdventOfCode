@@ -97,7 +97,7 @@ namespace Runner
 
             static void ChallengeHeader(IAnsiConsole console, Challenge challenge)
             {
-                console.Clear(true);
+                Console.Clear();
                 console.Render(new FigletText("Advent of Code!").Centered().Color(Color.Red));
                 console.Render(new Markup($"[bold #00d7ff]{challenge.Info.Date}: {challenge.Info.Name}[/]").Centered());
             }
