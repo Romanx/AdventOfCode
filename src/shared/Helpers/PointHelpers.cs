@@ -77,6 +77,9 @@ namespace Shared.Helpers
                 .ToImmutableArray();
         }
 
+        public static IEnumerable<Point2d> GetDirectNeighbours(Point2d point)
+            => Direction.CardinalDirections.Select(dir => point + dir);
+
         public static IEnumerable<T> PointsInSpace<T>(IEnumerable<GridRange> ranges, Func<IEnumerable<int>, T> factory)
             where T : Point
         {

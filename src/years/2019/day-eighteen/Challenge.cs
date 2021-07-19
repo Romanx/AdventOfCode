@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using Microsoft.Toolkit.HighPerformance.Extensions;
 using NodaTime;
 using Shared;
 
@@ -14,90 +15,58 @@ namespace DayEighteen2019
         public override void PartOne(IInput input, IOutput output)
         {
             var map = input.Parse();
-            var allKeys = map.Cells.Values.OfType<Key>().ToImmutableArray();
-            var start = map.Cells.Values.Single(cell => cell is { CellType: CellType.Entrance });
+            var result = map.MinimumSteps();
 
-            var overallPath = FindPathToAllKeys(map, start, allKeys);
-
-            output.WriteProperty("Number of Steps", overallPath.Length);
+            output.WriteProperty("Number of steps", result);
         }
 
         public override void PartTwo(IInput input, IOutput output)
         {
-        }
+            var map = ConvertMap(input);
+            var result = map.MinimumSteps();
 
-        private static ImmutableArray<Point2d> FindPathToAllKeys(Map map, Cell start, ImmutableArray<Key> allKeys)
-        {
-            var overallPath = ImmutableArray.CreateBuilder<Point2d>();
+            output.WriteProperty("Number of steps", result);
 
-            var keyChain = ImmutableArray<char>.Empty;
-            bool hasAllKeys = false;
-
-            while (hasAllKeys is false)
+            static Map ConvertMap(IInput input)
             {
-                var missingKeys = allKeys.Where(k => keyChain.Contains(k.Id) is false);
-                if (missingKeys.Any() is false)
+                var replacement = new char[,]
                 {
-                    hasAllKeys = true;
-                    break;
+                    {  '@', '#', '@' },
+                    {  '#', '#', '#' },
+                    {  '@', '#', '@' },
+                }.AsSpan2D();
+
+                var entrances = new HashSet<Point2d>();
+
+                var array = input.As2DArray();
+                var xLength = array.GetLength(0);
+                var yLength = array.GetLength(1);
+                for (var y = 0; y < yLength; y++)
+                {
+                    for (var x = 0; x < xLength; x++)
+                    {
+                        if (array[x, y] == '@')
+                        {
+                            entrances.Add(new(x, y));
+                            break;
+                        }
+                    }
                 }
 
-                var func = BuildShortestPathToKeyFunction(map, start, keyChain);
+                if (entrances.Count > 1)
+                {
+                    return array.Parse();
+                }
+                var entrance = entrances.First();
 
-                var (key, keyPath) = missingKeys
-                    .Select(key => (Key: key, Path: func(key)))
-                    .Where(kvp => kvp.Path.Length > 0)
-                    .OrderBy(kvp => kvp.Path.Length)
-                    .First();
+                var arraySpan = array.AsSpan2D();
+                var entranceArea = arraySpan[
+                    (entrance.X - 1)..(entrance.X + 2),
+                    (entrance.Y - 1)..(entrance.Y + 2)];
 
-                keyChain = keyChain.Add(key.Id);
-                overallPath.AddRange(keyPath);
-                start = key;
+                replacement.CopyTo(entranceArea);
+                return array.Parse();
             }
-
-            return overallPath.ToImmutable();
-        }
-
-        private static Func<Cell, Point2d[]> BuildShortestPathToKeyFunction(Map map, Cell start, ImmutableArray<char> keyChain)
-        {
-            var previous = new Dictionary<Cell, Cell>();
-            var queue = new Queue<Cell>();
-            queue.Enqueue(start);
-
-            while (queue.Count > 0)
-            {
-                var vertex = queue.Dequeue();
-
-                var neighbours = map.Adjacent(vertex, keyChain);
-                foreach (var neighbour in neighbours)
-                {
-                    if (previous.ContainsKey(neighbour))
-                        continue;
-
-                    previous[neighbour] = vertex;
-                    queue.Enqueue(neighbour);
-                }
-            }
-
-            return (target) =>
-            {
-                if (previous.ContainsKey(target) is false)
-                {
-                    return Array.Empty<Point2d>();
-                }
-
-                var path = new List<Cell>();
-
-                var current = target;
-                while (current != start)
-                {
-                    path.Add(current);
-                    current = previous[current];
-                }
-
-                path.Reverse();
-                return path.Select(p => p.Point).ToArray();
-            };
         }
     }
 
@@ -108,4 +77,38 @@ namespace DayEighteen2019
     record Key(char Id, Point2d Point) : Cell(CellType.Key, Point);
 
     record Door(char DoorId, char KeyId, Point2d Point) : Cell(CellType.Door, Point);
+
+    class State : IEquatable<State?>
+    {
+        public State(ImmutableHashSet<Point2d> from, ImmutableHashSet<char> keychain)
+        {
+            From = from;
+            Keychain = keychain;
+        }
+
+        public ImmutableHashSet<Point2d> From { get; }
+
+        public ImmutableHashSet<char> Keychain { get; }
+
+        public bool Equals(State? other)
+        {
+            return other is not null
+                && From.SetEquals(other.From)
+                && Keychain.SetEquals(other.Keychain);
+        }
+
+        public override bool Equals(object? obj) => Equals(obj as State);
+
+        public override int GetHashCode()
+        {
+            HashCode hashcode = default;
+            foreach (var item in From)
+                hashcode.Add(item);
+
+            foreach (var item in Keychain)
+                hashcode.Add(item);
+
+            return hashcode.ToHashCode();
+        }
+    }
 }

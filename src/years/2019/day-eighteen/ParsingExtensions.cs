@@ -6,10 +6,11 @@ namespace DayEighteen2019
 {
     internal static class ParsingExtensions
     {
-        internal static Map Parse(this IInput input)
+        internal static Map Parse(this IInput input) => Parse(input.As2DArray());
+
+        internal static Map Parse(this char[,] array)
         {
             var map = ImmutableDictionary.CreateBuilder<Point2d, Cell>();
-            var array = input.As2DArray();
 
             for (var x = 0; x < array.GetLength(0); x++)
             {

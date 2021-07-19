@@ -29,16 +29,11 @@ namespace Shared
         public static ImmutableArray<Direction> All { get; } = ImmutableArray.Create(
             North, NorthEast, NorthWest, East, South, SouthEast, SouthWest, West);
 
-        private static readonly Direction[] values = new[]
-        {
-            North,
-            East,
-            South,
-            West
-        };
+        public static ImmutableArray<Direction> CardinalDirections { get; } = ImmutableArray.Create(
+            North, East, South, West);
 
-        public Direction Right() => values[(Array.IndexOf(values, this) + 1) % 4];
+        public Direction Right() => CardinalDirections[(CardinalDirections.IndexOf(this) + 1) % 4];
 
-        public Direction Left() => values[(Array.IndexOf(values, this) + 3) % 4];
+        public Direction Left() => CardinalDirections[(CardinalDirections.IndexOf(this) + 3) % 4];
     }
 }
