@@ -7,15 +7,15 @@ namespace Shared
     {
         North,
         NorthEast,
-        NorthWest,
-        South,
-        SouthEast,
-        SouthWest,
         East,
-        West
+        SouthEast,
+        South,
+        SouthWest,
+        West,
+        NorthWest,
     }
 
-    public record Direction(DirectionType DirectionType)
+    public record Direction(DirectionType DirectionType) : IComparable<Direction>
     {
         public static Direction North { get; } = new Direction(DirectionType.North);
         public static Direction NorthEast { get; } = new Direction(DirectionType.NorthEast);
@@ -35,5 +35,9 @@ namespace Shared
         public Direction Right() => CardinalDirections[(CardinalDirections.IndexOf(this) + 1) % 4];
 
         public Direction Left() => CardinalDirections[(CardinalDirections.IndexOf(this) + 3) % 4];
+
+        public Direction Reverse() => All[(All.IndexOf(this) + 4) % All.Length];
+
+        public int CompareTo(Direction? other) => DirectionType.CompareTo(other?.DirectionType);
     }
 }
