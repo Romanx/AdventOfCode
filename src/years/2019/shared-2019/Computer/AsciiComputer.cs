@@ -24,7 +24,7 @@ namespace Shared2019.Computer
             _intcodeComputer.Input.Enqueue(newline);
         }
 
-        public string? EnqueueCommandAndRun(string command)
+        public string EnqueueCommandAndRun(string command)
         {
             EnqueueCommand(command);
             return Run();

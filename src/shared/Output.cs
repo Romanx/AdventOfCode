@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
+using Spectre.Console;
 using Zio;
 
 namespace Shared
@@ -18,6 +19,7 @@ namespace Shared
         private readonly List<(string Key, string Value)> _values = new();
         private readonly Dictionary<string, Image<Rgba32>> _images = new Dictionary<string, Image<Rgba32>>();
         private readonly Dictionary<string, MemoryStream> _files = new Dictionary<string, MemoryStream>();
+        private readonly List<Action<IAnsiConsole>> blocks = new();
 
         public Output(UPath outputDirectory, IFileSystem fileSystem)
         {
@@ -57,6 +59,8 @@ namespace Shared
             }
         }
 
+        public void WriteBlock(Action<IAnsiConsole> blockAction) => blocks.Add(blockAction);
+
         public ImmutableArray<(string Name, string Value)> GetProperties() => _values.ToImmutableArray();
 
         public async Task<ImmutableArray<string>> OutputFiles()
@@ -88,6 +92,15 @@ namespace Shared
             }
 
             return paths.ToImmutableArray();
+        }
+
+        public void WriteBlocks(IAnsiConsole console)
+        {
+            foreach (var action in blocks)
+            {
+                console.WriteLine();
+                action(console);
+            }
         }
 
         private (Stream stream, FileEntry entry) GetFileOutputStream(string fileNameAndExtension)

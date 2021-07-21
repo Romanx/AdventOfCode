@@ -155,6 +155,8 @@ namespace Runner
                 AnsiConsole.Render(table);
             }
 
+            output.WriteBlocks(AnsiConsole.Console);
+
             var paths = await output.OutputFiles();
             if (paths.Length > 0)
             {
