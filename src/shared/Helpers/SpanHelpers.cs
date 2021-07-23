@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 
 namespace Shared.Helpers
@@ -25,15 +26,20 @@ namespace Shared.Helpers
 
         public static ReadOnlyMemory<ReadOnlyMemory<char>> SliceUntilBlankLine(ReadOnlyMemory<ReadOnlyMemory<char>> lines, out ReadOnlyMemory<ReadOnlyMemory<char>> rest)
         {
-            var index = 0;
-            foreach (var line in lines.Span)
+            for (var index = 0; index < lines.Length; index++)
             {
+                var line = lines.Span[index];
                 if (line.IsEmpty)
                 {
+                    var content = lines[..index];
+                    while (lines.Span[index + 1].IsEmpty)
+                    {
+                        index++;
+                    }
                     rest = lines[(index + 1)..];
-                    return lines[..index];
+
+                    return content;
                 }
-                index++;
             }
 
             rest = ReadOnlyMemory<ReadOnlyMemory<char>>.Empty;
@@ -47,6 +53,30 @@ namespace Shared.Helpers
                 var slice = SliceUntilBlankLine(lines, out lines);
                 yield return slice;
             }
+        }
+
+        public static ImmutableArray<int> ParseCommaSeparatedList(ReadOnlySpan<char> span)
+        {
+            var builder = ImmutableArray.CreateBuilder<int>();
+
+            while (span.IsEmpty is false)
+            {
+                var index = span.IndexOf(',');
+
+                if (index == -1)
+                {
+                    builder.Add(int.Parse(span));
+                    span = ReadOnlySpan<char>.Empty;
+                }
+                else
+                {
+                    var number = span.Slice(0, index);
+                    span = span[(index + 1)..];
+                    builder.Add(int.Parse(number));
+                }
+            }
+
+            return builder.ToImmutable();
         }
 
         public static char[,] As2dArray(ReadOnlyMemory<ReadOnlyMemory<char>> lines)
