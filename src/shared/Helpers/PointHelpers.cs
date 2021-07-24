@@ -50,7 +50,7 @@ namespace Shared.Helpers
             where T : Point
         {
             var dimensionRanges = Enumerable.Range(0, dimensions)
-                .Select(_ => (Min: 0, Max: 0))
+                .Select(_ => (Min: (int?)null, Max: (int?)null))
                 .ToArray();
 
             foreach (var point in points)
@@ -60,11 +60,11 @@ namespace Shared.Helpers
                     var dimensionVal = point.Dimensions[i];
                     var dimensionRange = dimensionRanges[i];
 
-                    if (dimensionVal < dimensionRange.Min)
+                    if (dimensionRange.Min is null || dimensionVal < dimensionRange.Min)
                     {
                         dimensionRange.Min = dimensionVal;
                     }
-                    else if (dimensionVal > dimensionRange.Max)
+                    else if (dimensionRange.Max is null || dimensionVal > dimensionRange.Max)
                     {
                         dimensionRange.Max = dimensionVal;
                     }
@@ -73,7 +73,7 @@ namespace Shared.Helpers
             }
 
             return dimensionRanges
-                .Select(r => new GridRange(r.Min, r.Max))
+                .Select(r => new GridRange(r.Min!.Value, r.Max!.Value))
                 .ToImmutableArray();
         }
 

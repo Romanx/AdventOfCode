@@ -8,5 +8,11 @@ namespace Shared
         public IEnumerator<int> GetEnumerator() => MoreEnumerable.Sequence(Min, Max).GetEnumerator();
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
+
+        public GridRange Pad(int value) => this with
+        {
+            Min = Min - value < 0 ? Min : Min - value,
+            Max = Max + value,
+        };
     }
 }

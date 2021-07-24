@@ -40,4 +40,12 @@ namespace Shared
 
         public int CompareTo(Direction? other) => DirectionType.CompareTo(other?.DirectionType);
     }
+
+    public static class GridDirection
+    {
+        public static Direction Up { get; } = new Direction(DirectionType.North);
+        public static Direction Down { get; } = new Direction(DirectionType.South);
+        public static Direction Left { get; } = new Direction(DirectionType.West);
+        public static Direction Right { get; } = new Direction(DirectionType.East);
+    }
 }
