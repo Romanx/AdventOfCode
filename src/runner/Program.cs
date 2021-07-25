@@ -98,19 +98,19 @@ namespace Runner
             static void ChallengeHeader(IAnsiConsole console, Challenge challenge)
             {
                 Console.Clear();
-                console.Render(new FigletText("Advent of Code!").Centered().Color(Color.Red));
-                console.Render(new Markup($"[bold #00d7ff]{challenge.Info.Date}: {challenge.Info.Name}[/]").Centered());
+                console.Write(new FigletText("Advent of Code!").Centered().Color(Color.Red));
+                console.Write(new Markup($"[bold #00d7ff]{challenge.Info.Date}: {challenge.Info.Name}[/]").Centered());
             }
         }
 
         private static void WriteMenu(IAnsiConsole console)
         {
-            console.Render(new FigletText("Advent of Code!").Centered().Color(Color.Red));
+            console.Write(new FigletText("Advent of Code!").Centered().Color(Color.Red));
 
             var index = 1;
             foreach (var group in Challenges.GroupBy(c => c.Info.Date.Year).OrderBy(c => c.Key))
             {
-                console.Render(new Rule($"[[ {group.Key} ]]") { Style = new Style(foreground: Color.Gold1) }.LeftAligned());
+                console.Write(new Rule($"[[ {group.Key} ]]") { Style = new Style(foreground: Color.Gold1) }.LeftAligned());
                 var table = new Table()
                     .AddColumn(new TableColumn("").RightAligned())
                     .AddColumns("")
@@ -127,10 +127,10 @@ namespace Runner
                     index++;
                 }
 
-                console.Render(table);
+                console.Write(table);
             }
 
-            console.Render(new Rule() { Style = new Style(foreground: Color.Gold1) }.LeftAligned());
+            console.Write(new Rule() { Style = new Style(foreground: Color.Gold1) }.LeftAligned());
         }
 
         private static async Task WriteOutputs(string header, Output output, PhysicalFileSystem fs)

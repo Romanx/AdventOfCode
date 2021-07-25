@@ -6,9 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Humanizer.Core" Version="2.8.26" />
-    <PackageReference Include="NodaTime" Version="3.0.3" />
-    <PackageReference Include="Zio" Version="0.9.1" />
+    <PackageReference Include="Humanizer.Core" Version="2.11.10" />
+    <PackageReference Include="NodaTime" Version="3.0.5" />
+    <PackageReference Include="Zio" Version="0.12.0" />
   </ItemGroup>
 
 </Project>

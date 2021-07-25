@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Linq;
 using Shared.Helpers;
 
 namespace Shared
@@ -36,6 +37,42 @@ namespace Shared
                 ? -1
                 : (Row, Column).CompareTo((other.Row, other.Column));
 
+        public Point2d RotateAroundPivot(Point2d pivot, int angleInDegrees)
+        {
+            var radians = angleInDegrees * MathF.PI / 180;
+
+            var s = MathF.Sin(radians);
+            var c = MathF.Cos(radians);
+
+            var translated = this - pivot;
+
+            // Rotate
+            var xnew = (int)MathF.Round(translated.X * c - translated.Y * s);
+            var ynew = (int)MathF.Round(translated.X * s + translated.Y * c);
+
+            return new Point2d(xnew + pivot.X, ynew + pivot.Y);
+        }
+
+        public IEnumerable<Point2d> GetAllNeighbours()
+            => Direction.All.Select(dir => this + dir);
+
+        public Point3d Z(int depth) => new Point3d(Row, Column, depth);
+
+        public void Deconstruct(out int x, out int y)
+        {
+            x = X;
+            y = Y;
+        }
+
+        public static (GridRange Row, GridRange Column) FindSpaceOfPoints(IEnumerable<Point2d> points)
+        {
+            var spaces = PointHelpers.FindSpaceOfPoints(points, NumberOfDimensions);
+
+            return (spaces[0], spaces[1]);
+        }
+
+        public static implicit operator Point2d((int X, int Y) i) => new(i.X, i.Y);
+
         public static Point2d operator +(Point2d left, Point2d right)
             => new(left.Row + right.Row, left.Column + right.Column);
 
@@ -69,39 +106,6 @@ namespace Shared
                 DirectionType.West => point + (-count, 0),
                 _ => point
             };
-        }
-
-        public Point2d RotateAroundPivot(Point2d pivot, int angleInDegrees)
-        {
-            var radians = angleInDegrees * MathF.PI / 180;
-
-            var s = MathF.Sin(radians);
-            var c = MathF.Cos(radians);
-
-            var translated = this - pivot;
-
-            // Rotate
-            var xnew = (int)MathF.Round(translated.X * c - translated.Y * s);
-            var ynew = (int)MathF.Round(translated.X * s + translated.Y * c);
-
-            return new Point2d(xnew + pivot.X, ynew + pivot.Y);
-        }
-
-        public static (GridRange Row, GridRange Column) FindSpaceOfPoints(IEnumerable<Point2d> points)
-        {
-            var spaces = PointHelpers.FindSpaceOfPoints(points, NumberOfDimensions);
-
-            return (spaces[0], spaces[1]);
-        }
-
-        public static implicit operator Point2d((int X, int Y) i) => new(i.X, i.Y);
-
-        public Point3d Z(int depth) => new Point3d(Row, Column, depth);
-
-        public void Deconstruct(out int x, out int y)
-        {
-            x = X;
-            y = Y;
         }
     }
 }

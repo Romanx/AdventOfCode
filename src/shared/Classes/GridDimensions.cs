@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Shared
 {
@@ -22,5 +23,17 @@ namespace Shared
         }
 
         public void Deconstruct(out GridRange x, out GridRange y) => (x, y) = (_x, _y);
+
+        public static GridDimensions Create(IEnumerable<Point2d> points, int? padding = null)
+        {
+            var (x, y) = Point2d.FindSpaceOfPoints(points);
+            if (padding is not null)
+            {
+                x = x.Pad(padding.Value);
+                y = y.Pad(padding.Value);
+            }
+
+            return new GridDimensions(x, y);
+        }
     }
 }

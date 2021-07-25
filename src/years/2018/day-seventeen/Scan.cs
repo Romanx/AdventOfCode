@@ -110,8 +110,29 @@ namespace DaySeventeen2018
             ? ct
             : CellType.Sand;
 
-        public string Print() => Printer.Print(_map, gridDimensions);
+        public string Print() => GridPrinter.Print(_map);
 
-        public void Write(MemoryStream stream) => stream.Write(Encoding.UTF8.GetBytes(Printer.Print(_map, gridDimensions)));
+        public void Write(MemoryStream stream)
+        {
+            using var writer = new StreamWriter(stream, leaveOpen: true);
+            GridPrinter.Write(_map, writer, static (map, writer) => new ScanGridPrinter(map, writer));
+        }
+
+        private class ScanGridPrinter : GridPrinter<CellType>
+        {
+            public ScanGridPrinter(IReadOnlyDictionary<Point2d, CellType> map, IGridWriter writer)
+                : base(map, writer)
+            {
+            }
+
+            public override void OnPosition(Point2d point)
+            {
+                var cellType = _map.TryGetValue(point, out var ct)
+                    ? ct
+                    : CellType.Sand;
+
+                _writer.Append(EnumHelpers.ToDisplayName(cellType));
+            }
+        }
     }
 }

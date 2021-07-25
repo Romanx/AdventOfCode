@@ -1,0 +1,93 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.IO;
+using System.Text;
+
+namespace Shared
+{
+    public static class GridPrinter
+    {
+        public static string Print<T>(IReadOnlyDictionary<Point2d, T> map)
+            where T : struct
+            => Print(map, static (map, writer) => new GridPrinter<T>(map, writer));
+
+        public static string Print<T>(IReadOnlyDictionary<Point2d, T> map, Func<IReadOnlyDictionary<Point2d, T>, IGridWriter, GridPrinter<T>> printerFactory)
+            where T : struct
+        {
+            var builder = new StringBuilder();
+            var writer = new StringGridWriter(builder);
+            var printer = printerFactory(map, writer);
+            printer.Scan();
+            return builder.ToString();
+        }
+
+        public static void Write<T>(IReadOnlyDictionary<Point2d, T> map, StreamWriter streamWriter)
+            where T : struct
+            => Write(map, streamWriter, static (map, writer) => new GridPrinter<T>(map, writer));
+
+        public static void Write<T>(IReadOnlyDictionary<Point2d, T> map, StreamWriter streamWriter, Func<IReadOnlyDictionary<Point2d, T>, IGridWriter, GridPrinter<T>> printerFactory)
+            where T : struct
+        {
+            var writer = new StreamGridWriter(streamWriter);
+            var printer = printerFactory(map, writer);
+            printer.Scan();
+        }
+
+        private readonly struct StringGridWriter : IGridWriter
+        {
+            private readonly StringBuilder _builder;
+
+            public StringGridWriter(StringBuilder builder)
+            {
+                _builder = builder;
+            }
+
+            public void Append(char c) => _builder.Append(c);
+
+            public void AppendLine() => _builder.AppendLine();
+        }
+
+        private readonly struct StreamGridWriter : IGridWriter
+        {
+            private readonly StreamWriter _streamWriter;
+
+            public StreamGridWriter(StreamWriter streamWriter)
+            {
+                _streamWriter = streamWriter;
+            }
+
+            public void Append(char c) => _streamWriter.Write(c);
+
+            public void AppendLine() => _streamWriter.WriteLine();
+        }
+    }
+
+    public class GridPrinter<T> : GridScanner where T : struct
+    {
+        protected readonly IReadOnlyDictionary<Point2d, T> _map;
+        protected readonly IGridWriter _writer;
+
+        public GridPrinter(IReadOnlyDictionary<Point2d, T> map, IGridWriter writer)
+            : base(GridDimensions.Create(map.Keys))
+        {
+            _map = map;
+            _writer = writer;
+        }
+
+        public override void OnEndOfRow() => _writer.AppendLine();
+
+        public override void OnPosition(Point2d point)
+        {
+            _writer.Append(EnumHelpers.ToDisplayName(_map[point]));
+        }
+    }
+
+
+    public interface IGridWriter
+    {
+        public void AppendLine();
+
+        public void Append(char c);
+    }
+}
