@@ -4,7 +4,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using NodaTime;
 using Shared;
-using static DaySixteen2018.InstructionHelper;
+using static Shared.InstructionHelper;
 
 namespace DaySixteen2018
 {

@@ -33,9 +33,9 @@ namespace Runner
 {{
     public static class Challenges
     {{
-        public static ImmutableArray<Shared.Challenge> BuildChallenges()
+        public static ImmutableList<Shared.Challenge> BuildChallenges()
         {{
-            var builder = ImmutableArray.CreateBuilder<Shared.Challenge>();
+            var builder = ImmutableList.CreateBuilder<Shared.Challenge>();
 {GenerateChallenges(compilation)}
 
             builder.Sort((x, y) => x.Info.Date.CompareTo(y.Info.Date));

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.31512.422
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31507.150
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{38B97986-BDEA-4FDA-A7C4-E2584D17A573}"
 EndProject
@@ -96,14 +96,21 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared2019", "src\years\2019\shared-2019\Shared2019.csproj", "{3F26043F-E18A-4890-A60D-2A54ADC7F4C3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2018", "2018", "{371382F3-6E89-4023-BAE0-0DD697E15C7C}"
+	ProjectSection(SolutionItems) = preProject
+		src\years\2018\Directory.Build.targets = src\years\2018\Directory.Build.targets
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayFifteen2018", "src\years\2018\day-fifteen\DayFifteen2018.csproj", "{50DD112F-4581-424B-854F-02C09B712829}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaySixteen2018", "src\years\2018\day-sixteen\DaySixteen2018.csproj", "{730E98BC-9575-48E1-B3A5-777043E6276A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DaySixteen2018", "src\years\2018\day-sixteen\DaySixteen2018.csproj", "{730E98BC-9575-48E1-B3A5-777043E6276A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaySeventeen2018", "src\years\2018\day-seventeen\DaySeventeen2018.csproj", "{8BE2B701-AA80-4BB9-A7B6-AC9926062760}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DaySeventeen2018", "src\years\2018\day-seventeen\DaySeventeen2018.csproj", "{8BE2B701-AA80-4BB9-A7B6-AC9926062760}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayEighteen2018", "src\years\2018\day-eighteen\DayEighteen2018.csproj", "{CBB5B6B2-AF6D-41FE-9ED2-D21EC3F07A70}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayEighteen2018", "src\years\2018\day-eighteen\DayEighteen2018.csproj", "{CBB5B6B2-AF6D-41FE-9ED2-D21EC3F07A70}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayNineteen2018", "src\years\2018\day-nineteen\DayNineteen2018.csproj", "{B44AFAE3-7920-47FB-8409-737AE63F20E5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared2018", "src\years\2018\shared-2018\Shared2018.csproj", "{3652D1C0-9C29-44D0-A193-BEDEBA8A7BCE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -583,6 +590,30 @@ Global
 		{CBB5B6B2-AF6D-41FE-9ED2-D21EC3F07A70}.Release|x64.Build.0 = Release|Any CPU
 		{CBB5B6B2-AF6D-41FE-9ED2-D21EC3F07A70}.Release|x86.ActiveCfg = Release|Any CPU
 		{CBB5B6B2-AF6D-41FE-9ED2-D21EC3F07A70}.Release|x86.Build.0 = Release|Any CPU
+		{B44AFAE3-7920-47FB-8409-737AE63F20E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B44AFAE3-7920-47FB-8409-737AE63F20E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B44AFAE3-7920-47FB-8409-737AE63F20E5}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B44AFAE3-7920-47FB-8409-737AE63F20E5}.Debug|x64.Build.0 = Debug|Any CPU
+		{B44AFAE3-7920-47FB-8409-737AE63F20E5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B44AFAE3-7920-47FB-8409-737AE63F20E5}.Debug|x86.Build.0 = Debug|Any CPU
+		{B44AFAE3-7920-47FB-8409-737AE63F20E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B44AFAE3-7920-47FB-8409-737AE63F20E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B44AFAE3-7920-47FB-8409-737AE63F20E5}.Release|x64.ActiveCfg = Release|Any CPU
+		{B44AFAE3-7920-47FB-8409-737AE63F20E5}.Release|x64.Build.0 = Release|Any CPU
+		{B44AFAE3-7920-47FB-8409-737AE63F20E5}.Release|x86.ActiveCfg = Release|Any CPU
+		{B44AFAE3-7920-47FB-8409-737AE63F20E5}.Release|x86.Build.0 = Release|Any CPU
+		{3652D1C0-9C29-44D0-A193-BEDEBA8A7BCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3652D1C0-9C29-44D0-A193-BEDEBA8A7BCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3652D1C0-9C29-44D0-A193-BEDEBA8A7BCE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3652D1C0-9C29-44D0-A193-BEDEBA8A7BCE}.Debug|x64.Build.0 = Debug|Any CPU
+		{3652D1C0-9C29-44D0-A193-BEDEBA8A7BCE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3652D1C0-9C29-44D0-A193-BEDEBA8A7BCE}.Debug|x86.Build.0 = Debug|Any CPU
+		{3652D1C0-9C29-44D0-A193-BEDEBA8A7BCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3652D1C0-9C29-44D0-A193-BEDEBA8A7BCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3652D1C0-9C29-44D0-A193-BEDEBA8A7BCE}.Release|x64.ActiveCfg = Release|Any CPU
+		{3652D1C0-9C29-44D0-A193-BEDEBA8A7BCE}.Release|x64.Build.0 = Release|Any CPU
+		{3652D1C0-9C29-44D0-A193-BEDEBA8A7BCE}.Release|x86.ActiveCfg = Release|Any CPU
+		{3652D1C0-9C29-44D0-A193-BEDEBA8A7BCE}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -631,6 +662,8 @@ Global
 		{730E98BC-9575-48E1-B3A5-777043E6276A} = {371382F3-6E89-4023-BAE0-0DD697E15C7C}
 		{8BE2B701-AA80-4BB9-A7B6-AC9926062760} = {371382F3-6E89-4023-BAE0-0DD697E15C7C}
 		{CBB5B6B2-AF6D-41FE-9ED2-D21EC3F07A70} = {371382F3-6E89-4023-BAE0-0DD697E15C7C}
+		{B44AFAE3-7920-47FB-8409-737AE63F20E5} = {371382F3-6E89-4023-BAE0-0DD697E15C7C}
+		{3652D1C0-9C29-44D0-A193-BEDEBA8A7BCE} = {371382F3-6E89-4023-BAE0-0DD697E15C7C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B10669BA-EA0E-4A1C-8B50-BD906A20D461}

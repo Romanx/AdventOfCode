@@ -3,6 +3,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
 using NodaTime;
+using NodaTime.Text;
 using Shared;
 using Spectre.Console;
 using Zio;
@@ -22,10 +23,10 @@ namespace Runner
             }
 
             WriteMenu(console);
-            var challengeRange = 1..Challenges.Length;
+            var challengeRange = 1..Challenges.Count;
 
             var prompt = new TextPrompt<int>("What challenge would you like to run?")
-                .DefaultValue(Challenges.Length)
+                .DefaultValue(Challenges.Count)
                 .Validate(index =>
                 {
                     return challengeRange.Contains(index) is false
@@ -47,7 +48,19 @@ namespace Runner
             {
                 if (args.Length == 1)
                 {
-                    return int.TryParse(args[0], out position);
+                    if (int.TryParse(args[0], out position))
+                    {
+                        return true;
+                    }
+                    else if (LocalDatePattern.Iso.Parse(args[0]).TryGetValue(default, out var date))
+                    {
+                        var challengePosition = Challenges.FindIndex(c => c.Info.Date == date);
+                        if (challengePosition != -1)
+                        {
+                            position = challengePosition + 1;
+                            return true;
+                        }
+                    }
                 }
 
                 position = 0;
@@ -58,7 +71,7 @@ namespace Runner
         public static async Task RunChallenge(IAnsiConsole console, int position)
         {
             var index = position - 1;
-            if (index < 0 || index > Challenges.Length)
+            if (index < 0 || index > Challenges.Count)
             {
                 throw new IndexOutOfRangeException($"Challenge does not exist at position: '{position}'");
             }
@@ -176,6 +189,6 @@ namespace Runner
             }
         }
 
-        private static ImmutableArray<Challenge> Challenges { get; } = Runner.Challenges.BuildChallenges();
+        private static ImmutableList<Challenge> Challenges { get; } = Runner.Challenges.BuildChallenges().ToImmutableList();
     }
 }
