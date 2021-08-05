@@ -189,6 +189,6 @@ namespace Runner
             }
         }
 
-        private static ImmutableList<Challenge> Challenges { get; } = Runner.Challenges.BuildChallenges().ToImmutableList();
+        private static ImmutableList<Challenge> Challenges { get; } = Runner.Challenges.BuildChallenges();
     }
 }

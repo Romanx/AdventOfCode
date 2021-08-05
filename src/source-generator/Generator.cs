@@ -5,17 +5,40 @@ using System.Linq;
 using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
+using Scriban;
 
 namespace SourceGenerator
 {
     [Generator]
     public class Generator : ISourceGenerator
     {
+        private static readonly SymbolDisplayFormat displayFormat = new SymbolDisplayFormat(typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces);
+        private const string ClassTemplate = @"
+using System;
+using System.Collections.Immutable;
+
+namespace Runner
+{
+    public static class Challenges
+    {
+        public static ImmutableList<Shared.Challenge> BuildChallenges()
+        {
+            var builder = ImmutableList.CreateBuilder<Shared.Challenge>();
+            {{~ for challenge in challenges ~}}
+            builder.Add(new {{challenge}}());
+            {{~ end ~}}
+
+            builder.Sort((x, y) => x.Info.Date.CompareTo(y.Info.Date));
+
+            return builder.ToImmutable();
+        }
+    }
+}";
+
         public void Execute(GeneratorExecutionContext context)
         {
-            var compilation = context.Compilation;
-
-            var sourceBuilder = Generate(context, compilation);
+            Debugger.Launch();
+            var sourceBuilder = Generate(context.Compilation);
             context.AddSource("GeneratedChallenges.cs", SourceText.From(sourceBuilder, Encoding.UTF8));
         }
 
@@ -23,41 +46,15 @@ namespace SourceGenerator
         {
         }
 
-        public static string Generate(GeneratorExecutionContext context, Compilation compilation)
+        public static string Generate(Compilation compilation)
         {
-            return @$"
-using System;
-using System.Collections.Immutable;
+            var typesToCreate = GetAllChallenges(compilation);
+            var template = Template.Parse(ClassTemplate.Trim());
 
-namespace Runner
-{{
-    public static class Challenges
-    {{
-        public static ImmutableList<Shared.Challenge> BuildChallenges()
-        {{
-            var builder = ImmutableList.CreateBuilder<Shared.Challenge>();
-{GenerateChallenges(compilation)}
-
-            builder.Sort((x, y) => x.Info.Date.CompareTo(y.Info.Date));
-
-            return builder.ToImmutable();
-        }}
-    }}
-}}";
-
-            static string GenerateChallenges(Compilation compilation)
+            return template.Render(new
             {
-                var builder = new StringBuilder();
-                var displayFormat = new SymbolDisplayFormat(typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces);
-                var typesToCreate = GetAllChallenges(compilation);
-                foreach (var type in typesToCreate)
-                {
-                    builder.Append(new string(' ', 12));
-                    builder.AppendLine($"builder.Add(new {type.ToDisplayString(displayFormat)}());");
-                }
-
-                return builder.ToString();
-            }
+                Challenges = typesToCreate.Select(static challenge => challenge.ToDisplayString(displayFormat)).ToArray(),
+            });
         }
 
         public static IEnumerable<INamedTypeSymbol> GetAllChallenges(Compilation compilation)
