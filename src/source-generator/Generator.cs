@@ -12,7 +12,7 @@ namespace SourceGenerator
     [Generator]
     public class Generator : ISourceGenerator
     {
-        private static readonly SymbolDisplayFormat displayFormat = new SymbolDisplayFormat(typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces);
+        private static readonly SymbolDisplayFormat displayFormat = new(typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces);
         private const string ClassTemplate = @"
 using System;
 using System.Collections.Immutable;
@@ -37,7 +37,6 @@ namespace Runner
 
         public void Execute(GeneratorExecutionContext context)
         {
-            Debugger.Launch();
             var sourceBuilder = Generate(context.Compilation);
             context.AddSource("GeneratedChallenges.cs", SourceText.From(sourceBuilder, Encoding.UTF8));
         }
