@@ -15,7 +15,7 @@ namespace DayTwentyOne2018
 
         public override void PartOne(IInput input, IOutput output)
         {
-            var (instructionPointerBinding, commands) = input.Parse();
+            var (instructionPointerBinding, commands) = Parse(input);
             var targetCommand = FindCommandUsingRegisterZero(commands);
             var number = Execute(instructionPointerBinding, commands, targetCommand).First();
 
@@ -23,7 +23,7 @@ namespace DayTwentyOne2018
         }
         public override void PartTwo(IInput input, IOutput output)
         {
-            var (instructionPointerBinding, commands) = input.Parse();
+            var (instructionPointerBinding, commands) = Parse(input);
             var targetCommand = FindCommandUsingRegisterZero(commands);
             var values = Execute(instructionPointerBinding, commands, targetCommand);
 

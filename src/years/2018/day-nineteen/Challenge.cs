@@ -12,7 +12,7 @@ namespace DayNineteen2018
 
         public override void PartOne(IInput input, IOutput output)
         {
-            var device = input.ParseDevice();
+            var device = ParseDevice(input);
             device.Run();
             var registers = device.Registers;
 

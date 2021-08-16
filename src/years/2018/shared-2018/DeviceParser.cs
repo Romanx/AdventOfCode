@@ -6,14 +6,14 @@ namespace Shared
 {
     public static class DeviceParser
     {
-        public static Device ParseDevice(this IInput input)
+        public static Device ParseDevice(IInput input)
         {
-            var (instructionPointer, commands) = input.Parse();
+            var (instructionPointer, commands) = Parse(input);
 
             return new Device(instructionPointer, commands);
         }
 
-        public static (int InstructionPointer, ImmutableArray<Command> Commands) Parse(this IInput input)
+        public static (int InstructionPointer, ImmutableArray<Command> Commands) Parse(IInput input)
         {
             var builder = ImmutableArray.CreateBuilder<Command>();
             var lines = input.AsLines().ToArray().AsSpan();
