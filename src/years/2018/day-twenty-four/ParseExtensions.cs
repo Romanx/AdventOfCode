@@ -57,12 +57,13 @@ namespace DayTwentyFour2018
                 if (statusEffects.Length == 0)
                     return (ImmutableArray<DamageType>.Empty, ImmutableArray<DamageType>.Empty);
 
-                var match = statusEffectsRegex.Match(statusEffects);
-                var immunities = match.Groups.TryGetValue("Immunities", out var igroup) && igroup.Length > 0
+                var immunitiesMatch = immunitiesRegex.Match(statusEffects);
+                var immunities = immunitiesMatch.Groups.TryGetValue("Immunities", out var igroup) && igroup.Length > 0
                     ? igroup.Value.Split(',').Select(i => Enum.Parse<DamageType>(i, true)).ToImmutableArray()
                     : ImmutableArray<DamageType>.Empty;
 
-                var weaknesses = match.Groups.TryGetValue("Weaknesses", out var wgroup) && wgroup.Length > 0
+                var weaknessesMatch = weaknessesRegex.Match(statusEffects);
+                var weaknesses = weaknessesMatch.Groups.TryGetValue("Weaknesses", out var wgroup) && wgroup.Length > 0
                     ? wgroup.Value.Split(',').Select(i => Enum.Parse<DamageType>(i, true)).ToImmutableArray()
                     : ImmutableArray<DamageType>.Empty;
 
@@ -70,7 +71,8 @@ namespace DayTwentyFour2018
             }
         }
 
-        private static readonly Regex statusEffectsRegex = new("(?:immune to (?<Immunities>[a-zA-Z, ]*))?(?:; )?(?:weak to (?<Weaknesses>[a-zA-Z, ]*))?");
+        private static readonly Regex immunitiesRegex = new("(?:immune to (?<Immunities>[a-zA-Z, ]*))");
+        private static readonly Regex weaknessesRegex = new("(?:weak to (?<Weaknesses>[a-zA-Z, ]*))");
         private static readonly Regex groupRegex = new("(?<UnitCount>[0-9]*) .* (?<HP>[0-9]*) hit points(?: \\((?<StatusEffects>.*)\\))? with an attack that does (?<Damage>[0-9]*) (?<DamageType>.*) damage at initiative (?<Initiative>[0-9]*)");
     }
 }
