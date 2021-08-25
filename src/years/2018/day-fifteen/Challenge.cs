@@ -36,16 +36,6 @@ namespace DayFifteen2018
 
             var (_, game) = RunSimulation(input, (uint)attackPower);
 
-            //while (true)
-            //{
-            //    (var elvesLive, game) = RunSimulation(input, attackPower);
-            //    if (elvesLive)
-            //    {
-            //        break;
-            //    }
-            //    attackPower++;
-            //}
-
             output.WriteProperty("Attack Power Found", attackPower);
             output.WriteOutcome(game!, initalState);
 

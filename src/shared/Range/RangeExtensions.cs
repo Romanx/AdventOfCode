@@ -17,6 +17,9 @@ namespace Shared
         public static bool Contains(this Range range, int value) => value >= range.Start.Value && value <= range.End.Value;
 
         public static int BinarySearch(this Range range, Func<int, BinarySearchResult> func)
+            => BinarySearch(range, func, null);
+
+        public static int BinarySearch(this Range range, Func<int, BinarySearchResult> func, Action<int, BinarySearchResult>? stepLog)
         {
             Debug.Assert(range.Start.IsFromEnd is false, "Cannot binary search if start is from end");
             Debug.Assert(range.End.IsFromEnd is false, "Cannot binary search if end is from end");
@@ -25,6 +28,8 @@ namespace Shared
             {
                 var midpoint = range.MidPoint();
                 var result = func(midpoint);
+
+                stepLog?.Invoke(midpoint, result);
 
                 if (result == BinarySearchResult.Lower)
                 {
