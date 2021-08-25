@@ -21,18 +21,30 @@ namespace DayFifteen2018
         public override void PartTwo(IInput input, IOutput output)
         {
             var initalState = input.Parse().Print();
-            uint attackPower = 4;
-            Game? game = null;
+            var range = 4..256;
 
-            while (true)
+            var attackPower = range.BinarySearch(midpoint =>
             {
-                (var elvesLive, game) = RunSimulation(input, attackPower);
+                (var elvesLive, _) = RunSimulation(input, (uint)midpoint);
                 if (elvesLive)
                 {
-                    break;
+                    return BinarySearchResult.Lower;
                 }
-                attackPower++;
-            }
+
+                return BinarySearchResult.Upper;
+            });
+
+            var (_, game) = RunSimulation(input, (uint)attackPower);
+
+            //while (true)
+            //{
+            //    (var elvesLive, game) = RunSimulation(input, attackPower);
+            //    if (elvesLive)
+            //    {
+            //        break;
+            //    }
+            //    attackPower++;
+            //}
 
             output.WriteProperty("Attack Power Found", attackPower);
             output.WriteOutcome(game!, initalState);
