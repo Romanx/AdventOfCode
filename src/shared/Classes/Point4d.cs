@@ -56,5 +56,7 @@ namespace Shared
         public virtual bool Equals(Point3d? other) => base.Equals(other);
 
         public static explicit operator Point4d(Point3d p) => new(ConvertToPoint(p.Dimensions, NumberOfDimensions));
+
+        public override string ToString() => $"[{X}, {Y}, {Z}, {W}]";
     }
 }
