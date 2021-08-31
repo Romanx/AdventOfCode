@@ -1,7 +1,5 @@
 ﻿namespace Shared.Grid
 {
-    public record DimensionRange(int Min, int Max);
-
     public class Area3d
     {
         private readonly DimensionRange _xRange;
