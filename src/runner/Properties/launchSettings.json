@@ -2,7 +2,7 @@
   "profiles": {
     "Runner": {
       "commandName": "Project",
-      "commandLineArgs": ""
+      "commandLineArgs": "2015-12-10"
     }
   }
 }
