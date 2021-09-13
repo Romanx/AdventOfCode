@@ -26,6 +26,11 @@ namespace Shared.Grid
 
         public IEnumerable<Point2d> Items => GetItems();
 
+        public Point2d TopLeft => new(_xRange.Min, _yRange.Min);
+        public Point2d TopRight => new(_xRange.Max, _yRange.Min);
+        public Point2d BottomLeft => new(_xRange.Min, _yRange.Max);
+        public Point2d BottomRight => new(_xRange.Max, _yRange.Max);
+
         public override string ToString()
         {
             return $"[{_xRange.Min},{_yRange.Min}] -> [{_xRange.Max},{_yRange.Max}]";
@@ -56,6 +61,16 @@ namespace Shared.Grid
                 Math.Max(start.Y, end.Y));
 
             return new Area2d(xRange, yRange);
+        }
+
+        public static Area2d Create(IEnumerable<Point2d> points)
+        {
+            var (x, y) = Point2d.FindSpaceOfPoints(points);
+
+            return new Area2d(
+                new DimensionRange(x.Min, x.Max),
+                new DimensionRange(y.Min, y.Max)
+            );
         }
     }
 }

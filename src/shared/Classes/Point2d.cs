@@ -61,13 +61,15 @@ namespace Shared
         public IEnumerable<Point2d> GetAllNeighbours()
             => Direction.All.Select(dir => this + dir);
 
-        public Point3d Z(int depth) => new Point3d(Row, Column, depth);
+        public Point3d Z(int depth) => new(Row, Column, depth);
 
         public void Deconstruct(out int x, out int y)
         {
             x = X;
             y = Y;
         }
+
+        public override string ToString() => $"({X}, {Y})";
 
         public static (GridRange Row, GridRange Column) FindSpaceOfPoints(IEnumerable<Point2d> points)
         {
