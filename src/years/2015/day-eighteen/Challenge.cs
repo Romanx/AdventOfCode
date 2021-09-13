@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 using System.ComponentModel.DataAnnotations;
-using System.IO;
 using System.Linq;
 using NodaTime;
 using Shared;
 using Shared.Grid;
+using Spectre.Console;
 
 namespace DayEighteen2015
 {

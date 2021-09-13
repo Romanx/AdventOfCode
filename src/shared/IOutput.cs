@@ -2,7 +2,7 @@
 using System.IO;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
-using Spectre.Console;
+using Spectre.Console.Rendering;
 
 namespace Shared
 {
@@ -14,7 +14,7 @@ namespace Shared
 
         void AddImage(string imageName, Image image);
 
-        void WriteBlock(Action<IAnsiConsole> blockAction);
+        void WriteBlock(Func<IRenderable> blockAction);
 
         void WriteProperty(string name, object? value, IFormatProvider? formatProvider = null);
     }

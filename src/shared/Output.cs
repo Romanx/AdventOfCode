@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using Spectre.Console;
+using Spectre.Console.Rendering;
 using Zio;
 
 namespace Shared
@@ -17,9 +18,9 @@ namespace Shared
         private readonly UPath _outputDirectory;
         private readonly IFileSystem _fileSystem;
         private readonly List<(string Key, string Value)> _values = new();
-        private readonly Dictionary<string, Image> _images = new Dictionary<string, Image>();
-        private readonly Dictionary<string, MemoryStream> _files = new Dictionary<string, MemoryStream>();
-        private readonly List<Action<IAnsiConsole>> blocks = new();
+        private readonly Dictionary<string, Image> _images = new();
+        private readonly Dictionary<string, MemoryStream> _files = new();
+        private readonly List<Func<IRenderable>> blocks = new();
 
         public Output(UPath outputDirectory, IFileSystem fileSystem)
         {
@@ -64,7 +65,7 @@ namespace Shared
             }
         }
 
-        public void WriteBlock(Action<IAnsiConsole> blockAction) => blocks.Add(blockAction);
+        public void WriteBlock(Func<IRenderable> blockAction) => blocks.Add(blockAction);
 
         public ImmutableArray<(string Name, string Value)> GetProperties() => _values.ToImmutableArray();
 
@@ -104,7 +105,7 @@ namespace Shared
             foreach (var action in blocks)
             {
                 console.WriteLine();
-                action(console);
+                console.Write(action());
             }
         }
 

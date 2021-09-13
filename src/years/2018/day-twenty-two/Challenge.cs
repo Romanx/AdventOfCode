@@ -33,14 +33,12 @@ namespace DayTwentyTwo2018
             });
 
             output.WriteProperty("Risk Level", riskLevel);
-            output.WriteBlock(console =>
+            output.WriteBlock(() =>
             {
-                var table = new Table()
+                return new Table()
                     .HeavyBorder()
                     .AddColumn("Map")
                     .AddRow(Print(start, target, map));
-
-                console.Write(table);
             });
         }
 

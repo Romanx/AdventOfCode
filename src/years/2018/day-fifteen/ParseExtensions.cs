@@ -3,6 +3,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using Shared;
 using Spectre.Console;
+using Spectre.Console.Rendering;
 
 namespace DayFifteen2018
 {
@@ -60,17 +61,25 @@ namespace DayFifteen2018
             output.WriteProperty($"HP Remaining {string.Join("+", healths)}", totalHealth);
             output.WriteProperty("Result", result);
 
-            output.WriteBlock(console =>
+            output.WriteBlock(() =>
             {
-                console.MarkupLine("[bold yellow]Initial Game State[/]");
-                console.WriteLine(initalState);
+                return new Panel(initalState)
+                {
+                    Header = new PanelHeader("[bold yellow]Initial Game State[/]")
+                };
             });
 
-            output.WriteBlock(console =>
+            output.WriteBlock(() =>
             {
-                console.MarkupLine($"[bold yellow]Final State (Round {game.Rounds})[/]");
-                console.WriteLine(game!.Print());
-                console.MarkupLine($"[bold white]{team} win[/]");
+                var rows = new Rows(new IRenderable[] {
+                    new Markup(game!.Print()),
+                    new Markup($"[bold white]{team} win[/]"),
+                });
+
+                return new Panel(rows)
+                {
+                    Header = new PanelHeader("[bold yellow]Final State (Round {game.Rounds})[/]")
+                };
             });
         }
     }
