@@ -4,6 +4,7 @@ using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using MoreLinq;
+using Shared.Grid;
 
 namespace Shared.Helpers
 {
@@ -46,7 +47,7 @@ namespace Shared.Helpers
             }
         }
 
-        public static ImmutableArray<GridRange> FindSpaceOfPoints<T>(IEnumerable<T> points, int dimensions)
+        public static ImmutableArray<DimensionRange> FindSpaceOfPoints<T>(IEnumerable<T> points, int dimensions)
             where T : Point
         {
             var dimensionRanges = Enumerable.Range(0, dimensions)
@@ -73,17 +74,19 @@ namespace Shared.Helpers
             }
 
             return dimensionRanges
-                .Select(r => new GridRange(r.Min!.Value, r.Max!.Value))
+                .Select(r => new DimensionRange(r.Min!.Value, r.Max!.Value))
                 .ToImmutableArray();
         }
 
         public static IEnumerable<Point2d> GetDirectNeighbours(Point2d point)
             => Direction.CardinalDirections.Select(dir => point + dir);
 
-        public static IEnumerable<T> PointsInSpace<T>(IEnumerable<GridRange> ranges, Func<IEnumerable<int>, T> factory)
+        public static IEnumerable<T> PointsInSpace<T>(IEnumerable<DimensionRange> ranges, Func<IEnumerable<int>, T> factory)
             where T : Point
         {
-            var cart = ranges.CartesianProduct();
+            var cart = ranges
+                .Select(range => MoreEnumerable.Sequence(range.Min, range.Max))
+                .CartesianProduct();
 
             return cart.Select(num => factory(num));
         }

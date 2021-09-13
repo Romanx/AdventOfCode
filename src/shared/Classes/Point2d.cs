@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using Shared.Grid;
 using Shared.Helpers;
 
 namespace Shared
@@ -71,11 +72,11 @@ namespace Shared
 
         public override string ToString() => $"({X}, {Y})";
 
-        public static (GridRange Row, GridRange Column) FindSpaceOfPoints(IEnumerable<Point2d> points)
+        public static Area2d FindSpaceOfPoints(IEnumerable<Point2d> points)
         {
             var spaces = PointHelpers.FindSpaceOfPoints(points, NumberOfDimensions);
 
-            return (spaces[0], spaces[1]);
+            return new(spaces[0], spaces[1]);
         }
 
         public static implicit operator Point2d((int X, int Y) i) => new(i.X, i.Y);

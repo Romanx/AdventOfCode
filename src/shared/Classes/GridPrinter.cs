@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.IO;
 using System.Text;
+using Shared.Grid;
 
 namespace Shared
 {
@@ -69,7 +70,7 @@ namespace Shared
         protected readonly IGridWriter _writer;
 
         public GridPrinter(IReadOnlyDictionary<Point2d, T> map, IGridWriter writer)
-            : base(GridDimensions.Create(map.Keys))
+            : base(Area2d.Create(map.Keys))
         {
             _map = map;
             _writer = writer;

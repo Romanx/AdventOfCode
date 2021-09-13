@@ -3,6 +3,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using NodaTime;
 using Shared;
+using Shared.Grid;
 using Shared.Helpers;
 
 namespace DaySeventeen2020
@@ -49,7 +50,7 @@ namespace DaySeventeen2020
             static IEnumerable<Point3d> PointsInSpace(ImmutableHashSet<Point3d> active)
             {
                 var ranges = PointHelpers.FindSpaceOfPoints(active, Point3d.NumberOfDimensions)
-                    .Select(r => new GridRange(r.Min - 1, r.Max + 1))
+                    .Select(r => new DimensionRange(r.Min - 1, r.Max + 1))
                     .ToImmutableArray();
 
                 return PointHelpers.PointsInSpace(ranges, dim => new Point3d(dim.ToImmutableArray()));
@@ -108,7 +109,7 @@ namespace DaySeventeen2020
             static IEnumerable<Point4d> PointsInSpace(ImmutableHashSet<Point4d> active)
             {
                 var ranges = PointHelpers.FindSpaceOfPoints(active, Point4d.NumberOfDimensions)
-                    .Select(r => new GridRange(r.Min - 1, r.Max + 1))
+                    .Select(r => new DimensionRange(r.Min - 1, r.Max + 1))
                     .ToImmutableArray();
 
                 return PointHelpers.PointsInSpace(ranges, dim => new Point4d(dim.ToImmutableArray()));

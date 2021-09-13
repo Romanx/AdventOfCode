@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Shared;
+using Shared.Grid;
 
 namespace DaySeventeen2018
 {
@@ -12,14 +13,16 @@ namespace DaySeventeen2018
     {
         public static Point2d WaterSpring { get; } = new Point2d(500, 0);
         private readonly Dictionary<Point2d, CellType> _map;
-        private readonly GridDimensions gridDimensions;
+        private readonly Area2d _gridDimensions;
 
         public Scan(ImmutableHashSet<Point2d> clay)
         {
-            _map = new Dictionary<Point2d, CellType>(clay.Select(p => KeyValuePair.Create(p, CellType.Clay)));
-            _map.Add(WaterSpring, CellType.Spring);
+            _map = new Dictionary<Point2d, CellType>(clay.Select(p => KeyValuePair.Create(p, CellType.Clay)))
+            {
+                [WaterSpring] = CellType.Spring,
+            };
             var (xRange, yRange) = Point2d.FindSpaceOfPoints(_map.Keys);
-            gridDimensions = new GridDimensions(xRange.Pad(3), yRange);
+            _gridDimensions = new Area2d(xRange.Pad(3), yRange);
         }
 
         public ImmutableDictionary<Point2d, CellType> Map => _map.ToImmutableDictionary();
@@ -104,7 +107,7 @@ namespace DaySeventeen2018
             }
         }
 
-        private bool InGrid(Point2d point2d) => gridDimensions.Contains(point2d);
+        private bool InGrid(Point2d point2d) => _gridDimensions.Contains(point2d);
 
         private CellType GetCellType(Point2d point) => _map.TryGetValue(point, out var ct)
             ? ct

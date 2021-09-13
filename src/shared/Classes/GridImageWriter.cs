@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Shared.Grid;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
@@ -17,8 +18,7 @@ namespace Shared
 
         public Image Generate()
         {
-            var dimensions = GridDimensions.Create(_map.Keys);
-            var (xRange, yRange) = dimensions;
+            var (xRange, yRange) = Area2d.Create(_map.Keys);
             var (xOffset, yOffset) = CalculateOffsets(xRange.Min, yRange.Min);
 
             var imageWidth = xRange.Max - xOffset + 1;

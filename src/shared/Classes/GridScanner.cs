@@ -1,16 +1,23 @@
-﻿namespace Shared
+﻿using Shared.Grid;
+
+namespace Shared
 {
     public abstract class GridScanner
     {
-        private readonly GridDimensions _dimensions;
+        private readonly Area2d _dimensions;
 
-        public GridScanner(GridDimensions dimensions)
+        public GridScanner(Area2d dimensions)
         {
             _dimensions = dimensions;
         }
 
         public void Scan()
         {
+            foreach (var point in _dimensions.Items)
+            {
+
+            }
+
             var (xRange, yRange) = _dimensions;
 
             for (var y = yRange.Min; y <= yRange.Max; y++)

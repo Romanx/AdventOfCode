@@ -1,5 +1,6 @@
 ﻿using System.Collections.Immutable;
 using Shared;
+using Shared.Grid;
 
 namespace DayTwentyTwo2018
 {
@@ -9,16 +10,11 @@ namespace DayTwentyTwo2018
         {
             var map = ImmutableDictionary.CreateBuilder<Point2d, RegionDetails>();
 
-            var xRange = new GridRange(start.X, target.X);
-            var yRange = new GridRange(start.Y, target.Y);
+            var area = Area2d.Create(start, target);
 
-            for (var y = yRange.Min; y <= yRange.Max; y++)
+            foreach (var point in area.Items)
             {
-                for (var x = xRange.Min; x <= xRange.Max; x++)
-                {
-                    var point = new Point2d(x, y);
-                    map[point] = RegionDetails.Calculate(start, target, point, depth, map);
-                }
+                map[point] = RegionDetails.Calculate(start, target, point, depth, map);
             }
 
             return map.ToImmutable();
