@@ -12,6 +12,10 @@ namespace Shared
             .ToCharArray()
             .Select(c => int.Parse(c.ToString()));
 
+        public static IEnumerable<int> AsLinesToInt(this IInput input) => input
+            .AsLines()
+            .Select(l => int.Parse(l.Span));
+
         public static ImmutableArray<(Point2d point, char)> As2DPoints(this IInput input)
         {
             var builder = ImmutableArray.CreateBuilder<(Point2d Point, char C)>();
