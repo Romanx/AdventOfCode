@@ -20,7 +20,7 @@ namespace Shared
         private readonly List<(string Key, string Value)> _values = new();
         private readonly Dictionary<string, Image> _images = new();
         private readonly Dictionary<string, MemoryStream> _files = new();
-        private readonly List<Func<IRenderable>> blocks = new();
+        private readonly List<Func<IRenderable>> _blocks = new();
 
         public Output(UPath outputDirectory, IFileSystem fileSystem)
         {
@@ -65,7 +65,7 @@ namespace Shared
             }
         }
 
-        public void WriteBlock(Func<IRenderable> blockAction) => blocks.Add(blockAction);
+        public void WriteBlock(Func<IRenderable> blockAction) => _blocks.Add(blockAction);
 
         public ImmutableArray<(string Name, string Value)> GetProperties() => _values.ToImmutableArray();
 
@@ -102,7 +102,7 @@ namespace Shared
 
         public void WriteBlocks(IAnsiConsole console)
         {
-            foreach (var action in blocks)
+            foreach (var action in _blocks)
             {
                 console.WriteLine();
                 console.Write(action());
