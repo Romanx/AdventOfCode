@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.IO;
 using System.Text;
 using Shared.Grid;
@@ -20,7 +19,7 @@ namespace Shared
             var writer = new StringGridWriter(builder);
             var printer = printerFactory(map, writer);
             printer.Scan();
-            return builder.ToString();
+            return builder.ToString().Trim();
         }
 
         public static void Write<T>(IReadOnlyDictionary<Point2d, T> map, TextWriter streamWriter)

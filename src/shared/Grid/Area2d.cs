@@ -12,6 +12,8 @@ namespace Shared.Grid
         {
             _xRange = xRange;
             _yRange = yRange;
+            Height = _yRange.Max - yRange.Min;
+            Width = _xRange.Max - xRange.Min;
         }
 
         public bool Contains(Point2d point)
@@ -30,6 +32,10 @@ namespace Shared.Grid
         public Point2d TopRight => new(_xRange.Max, _yRange.Min);
         public Point2d BottomLeft => new(_xRange.Min, _yRange.Max);
         public Point2d BottomRight => new(_xRange.Max, _yRange.Max);
+
+        public int Height { get; }
+
+        public int Width { get; }
 
         public void Deconstruct(out DimensionRange x, out DimensionRange y)
             => (x, y) = (_xRange, _yRange);
