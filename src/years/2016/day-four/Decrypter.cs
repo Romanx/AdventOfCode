@@ -1,9 +1,10 @@
-﻿namespace DayFour2016
+﻿using System;
+using static Shared.AlphabetHelper;
+
+namespace DayFour2016
 {
     static class Decrypter
     {
-        private static readonly string alphabet = "abcdefghijklmnopqrstuvwxyz";
-
         public static string DecryptRoomName(Room room)
         {
             return string.Create(room.Name.Length, room, static (span, state) =>
@@ -17,10 +18,10 @@
                     }
                     else
                     {
-                        var startIndex = alphabet.IndexOf(c);
-                        var targetIndex = (startIndex + state.SectorId) % alphabet.Length;
+                        var startIndex = Lowercase.IndexOf(c);
+                        var targetIndex = (startIndex + state.SectorId) % Lowercase.Length;
 
-                        span[i] = alphabet[targetIndex];
+                        span[i] = Lowercase[targetIndex];
                     }
                 }
             });

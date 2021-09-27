@@ -4,12 +4,12 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Shared;
+using static Shared.AlphabetHelper;
 
 namespace DayEleven2015
 {
     class PasswordGenerator
     {
-        private static readonly char[] alpha = "abcdefghijklmnopqrstuvwxyz".ToCharArray();
         private static readonly char[] invalidCharacters = new[] { 'i', 'o', 'l' };
         private static readonly Regex pairsRegex = new(@"([a-z])\1.*([a-z])\2");
         private static readonly char[][] straights = GenerateStraights().ToArray();
@@ -34,11 +34,11 @@ namespace DayEleven2015
                 }
 
                 var remaining = password[0..^1].ToString();
-                var next = alpha.AsSpan().IndexOf(password[^1]) + 1;
+                var next = Lowercase.IndexOf(password[^1]) + 1;
 
-                return next < alpha.Length
-                    ? remaining + alpha[next]
-                    : NextPossiblePassword(remaining) + alpha[0];
+                return next < Lowercase.Length
+                    ? remaining + Lowercase[next]
+                    : NextPossiblePassword(remaining) + Lowercase[0];
             }
         }
 
@@ -55,15 +55,15 @@ namespace DayEleven2015
 
         private static IEnumerable<char[]> GenerateStraights()
         {
-            for (var i = 0; i < alpha.Length; i++)
+            for (var i = 0; i < Lowercase.Length; i++)
             {
-                if (i + 3 <= alpha.Length)
+                if (i + 3 <= Lowercase.Length)
                 {
                     yield return new[]
                     {
-                        alpha[i],
-                        alpha[i + 1],
-                        alpha[i + 2],
+                        Lowercase[i],
+                        Lowercase[i + 1],
+                        Lowercase[i + 2],
                     };
                 }
             }

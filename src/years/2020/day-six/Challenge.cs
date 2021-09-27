@@ -3,6 +3,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using NodaTime;
 using Shared;
+using static Shared.AlphabetHelper;
 
 namespace DaySix2020
 {
@@ -65,8 +66,8 @@ namespace DaySix2020
 
             static Dictionary<char, int> BuildQuestions()
             {
-                const string Alphabet = "abcdefghijklmnopqrstuvwxyz";
-                return Alphabet.ToDictionary(k => k, v => 0);
+                return new string(Lowercase)
+                    .ToDictionary(k => k, v => 0);
             }
         }
     }

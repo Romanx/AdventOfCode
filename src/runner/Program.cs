@@ -162,7 +162,7 @@ namespace Runner
 
                 foreach (var (name, value) in props)
                 {
-                    table.AddRow(new Markup($"[#00d7ff]{name}[/]"), new Text(value));
+                    table.AddRow(new Markup($"[#00d7ff]{Markup.Escape(name)}[/]"), new Text(value));
                 }
 
                 AnsiConsole.Render(table);
