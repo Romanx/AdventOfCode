@@ -175,7 +175,7 @@ namespace DayEighteen2018
             var points = input.As2DPoints();
             foreach ((var point, var c) in points)
             {
-                builder.Add(point, EnumHelpers.FromDisplayName<CellType>(c));
+                builder.Add(point, EnumHelpers.FromDisplayName<CellType>($"{c}"));
             }
 
             return builder.ToImmutable();

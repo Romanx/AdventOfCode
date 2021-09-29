@@ -9,9 +9,9 @@ namespace Shared
 {
     public static class EnumHelpers
     {
-        private static readonly Dictionary<Type, ImmutableDictionary<char, object>> _cache = new();
+        private static readonly Dictionary<Type, ImmutableDictionary<string, object>> _cache = new();
 
-        public static T FromDisplayName<T>(char c)
+        public static T FromDisplayName<T>(string c)
             where T : struct
         {
             if (!typeof(T).IsEnum) { throw new InvalidOperationException("Type must be an enum"); }
@@ -26,7 +26,7 @@ namespace Shared
                 : throw new InvalidOperationException($"Unable to find entry for {typeof(T).Name} with the display name of '{c}'");
         }
 
-        public static char ToDisplayName<T>(T item)
+        public static string ToDisplayName<T>(T item)
             where T : struct
         {
             if (!typeof(T).IsEnum) { throw new InvalidOperationException("Type must be an enum"); }
@@ -45,16 +45,16 @@ namespace Shared
                 : throw new InvalidOperationException($"Unable to find entry for {typeof(T).Name} with the value of '{item}'");
         }
 
-        private static ImmutableDictionary<char, object> AddNewEntry<T>() where T : struct
+        private static ImmutableDictionary<string, object> AddNewEntry<T>() where T : struct
         {
             var members = typeof(T).GetMembers()
                 .Select(m => (m.Name, Attribute: m.GetCustomAttribute<DisplayAttribute>()))
                 .Where(m => m.Attribute is not null && m.Attribute.Name is not null);
 
-            var builder = ImmutableDictionary.CreateBuilder<char, object>();
+            var builder = ImmutableDictionary.CreateBuilder<string, object>();
             foreach (var (name, attribute) in members)
             {
-                builder.Add(attribute.Name![0], Enum.Parse(typeof(T), name));
+                builder.Add(attribute.Name!, Enum.Parse(typeof(T), name));
             }
 
             var items = builder.ToImmutable();

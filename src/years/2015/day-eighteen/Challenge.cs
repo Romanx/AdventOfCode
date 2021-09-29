@@ -108,7 +108,7 @@ namespace DayEighteen2015
         public static ImmutableDictionary<Point2d, LightState> Parse(this IInput input)
         {
             return input.As2DPoints()
-                .ToImmutableDictionary(k => k.Point, v => EnumHelpers.FromDisplayName<LightState>(v.Character));
+                .ToImmutableDictionary(k => k.Point, v => EnumHelpers.FromDisplayName<LightState>($"{v.Character}"));
         }
     }
 

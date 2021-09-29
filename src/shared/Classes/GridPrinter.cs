@@ -43,7 +43,7 @@ namespace Shared
                 _builder = builder;
             }
 
-            public void Append(char c) => _builder.Append(c);
+            public void Append(string c) => _builder.Append(c);
 
             public void AppendLine() => _builder.AppendLine();
         }
@@ -57,7 +57,7 @@ namespace Shared
                 _textWriter = textWriter;
             }
 
-            public void Append(char c) => _textWriter.Write(c);
+            public void Append(string c) => _textWriter.Write(c);
 
             public void AppendLine() => _textWriter.WriteLine();
         }
@@ -88,6 +88,6 @@ namespace Shared
     {
         public void AppendLine();
 
-        public void Append(char c);
+        public void Append(string c);
     }
 }
