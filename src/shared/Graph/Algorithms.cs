@@ -30,13 +30,15 @@ namespace Shared.Graph
                 {
                     foreach (var next in graph.Neigbours(current))
                     {
-                        nextFrontier.Add(next);
-                        cameFrom[next] = current;
+                        if (cameFrom.ContainsKey(next) is false)
+                        {
+                            nextFrontier.Add(next);
+                            cameFrom[next] = current;
+                        }
                     }
                 }
 
-                currentFrontier = nextFrontier;
-                nextFrontier = currentFrontier;
+                (currentFrontier, nextFrontier) = (nextFrontier, currentFrontier);
                 nextFrontier.Clear();
             }
 
@@ -127,14 +129,54 @@ namespace Shared.Graph
             return ReconstructPath(start, goal, cameFrom);
         }
 
-        private static ImmutableArray<TNode> ReconstructPath<TNode>(TNode start, TNode goal, Dictionary<TNode, TNode>? cameFrom) where TNode : notnull, IEquatable<TNode>
+        public static ImmutableHashSet<TNode> FloodFill<TNode>(
+            this IGraph<TNode> graph,
+            TNode start,
+            uint distance) where TNode : notnull, IEquatable<TNode>
+        {
+            var visited = ImmutableHashSet.CreateBuilder<TNode>();
+
+            var currentFrontier = new List<(TNode, int Steps)>();
+            var nextFrontier = new List<(TNode, int Steps)>();
+            currentFrontier.Add((start, 0));
+
+            while (currentFrontier.Count > 0)
+            {
+                foreach (var (current, steps) in currentFrontier)
+                {
+                    if (steps > distance)
+                        continue;
+
+                    visited.Add(current);
+
+                    foreach (var next in graph.Neigbours(current))
+                    {
+                        if (visited.Contains(next) is false)
+                        {
+                            nextFrontier.Add((next, steps + 1));
+                        }
+                    }
+                }
+
+                (currentFrontier, nextFrontier) = (nextFrontier, currentFrontier);
+                nextFrontier.Clear();
+            }
+
+            return visited.ToImmutable();
+        }
+
+        private static ImmutableArray<TNode> ReconstructPath<TNode>(TNode start, TNode goal, Dictionary<TNode, TNode> cameFrom) where TNode : notnull, IEquatable<TNode>
         {
             var current = goal;
             var path = ImmutableArray.CreateBuilder<TNode>();
             while (!current.Equals(start))
             {
                 path.Add(current);
-                current = cameFrom[current];
+
+                if (cameFrom.TryGetValue(current, out current) is false)
+                {
+                    return ImmutableArray<TNode>.Empty;
+                }
             }
             path.Add(start);
             path.Reverse();
