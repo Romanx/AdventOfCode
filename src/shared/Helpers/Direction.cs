@@ -47,5 +47,29 @@ namespace Shared
         public static Direction Down { get; } = new Direction(DirectionType.South);
         public static Direction Left { get; } = new Direction(DirectionType.West);
         public static Direction Right { get; } = new Direction(DirectionType.East);
+
+        public static Direction FromChar(char identifier)
+        {
+            return identifier switch
+            {
+                'U' => Up,
+                'D' => Down,
+                'L' => Left,
+                'R' => Right,
+                _ => throw new InvalidOperationException(),
+            };
+        }
+
+        public static char ToChar(Direction direction)
+        {
+            return direction switch
+            {
+                { DirectionType: DirectionType.North } => 'U',
+                { DirectionType: DirectionType.South } => 'D',
+                { DirectionType: DirectionType.West } => 'L',
+                { DirectionType: DirectionType.East } => 'R',
+                _ => throw new InvalidOperationException(),
+            };
+        }
     }
 }
