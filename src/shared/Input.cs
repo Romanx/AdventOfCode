@@ -45,7 +45,7 @@ namespace Shared
                 .ToArray();
         }
 
-        public ReadOnlyMemory<char> AsReadOnlyMemory() => AsString().AsMemory();
+        public ReadOnlyMemory<char> AsReadOnlyMemory() => AsString().AsMemory().Trim();
 
         public abstract string AsString();
 
