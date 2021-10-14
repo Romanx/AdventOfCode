@@ -1,6 +1,63 @@
-﻿namespace Shared.Helpers
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Shared
 {
     public static class CollectionHelpers
     {
+        /// <summary>
+        /// Merges any overlapping and contigious ranges
+        /// </summary>
+        public static ICollection<NumberRange> MergeOverlapping(this IList<NumberRange> ranges)
+        {
+            if (ranges.Count == 0)
+            {
+                return ranges;
+            }
+
+            var arr = ranges.ToArray();
+            Array.Sort(arr, Compare);
+
+            var stack = new Stack<NumberRange>();
+            stack.Push(arr[0]);
+
+            for (var i = 0; i < arr.Length; i++)
+            {
+                var top = stack.Peek();
+
+                // If the current intervals end is just after our current. Merge
+                if (top.End + 1 == arr[i].Start)
+                {
+                    var next = new NumberRange(top.Start, arr[i].End);
+                    stack.Pop();
+                    stack.Push(next);
+                }
+                // if current interval is not overlapping with stack top,
+                // Push it to the stack
+                else if (top.End < arr[i].Start)
+                {
+                    stack.Push(arr[i]);
+                }
+                else if (top.End < arr[i].End)
+                {
+                    var next = new NumberRange(top.Start, arr[i].End);
+                    stack.Pop();
+                    stack.Push(next);
+                }
+            }
+
+            return stack.Reverse().ToArray();
+
+            static int Compare(NumberRange left, NumberRange right)
+            {
+                if (left.Start == right.Start)
+                {
+                    return left.End.CompareTo(right.End);
+                }
+
+                return left.Start.CompareTo(right.Start);
+            }
+        }
     }
 }
