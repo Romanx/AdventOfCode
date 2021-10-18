@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31507.150
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31808.319
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{38B97986-BDEA-4FDA-A7C4-E2584D17A573}"
 EndProject
@@ -112,115 +112,119 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayNineteen2018", "src\year
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared2018", "src\years\2018\shared-2018\Shared2018.csproj", "{3652D1C0-9C29-44D0-A193-BEDEBA8A7BCE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayTwenty2018", "src\years\2018\day-twenty\DayTwenty2018.csproj", "{7B3224F9-2436-4377-B547-ABB1FE1548C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayTwenty2018", "src\years\2018\day-twenty\DayTwenty2018.csproj", "{7B3224F9-2436-4377-B547-ABB1FE1548C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayTwentyOne2018", "src\years\2018\day-twenty-one\DayTwentyOne2018.csproj", "{83E0C69B-4C6E-4945-AAD2-5A21DBF561A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayTwentyOne2018", "src\years\2018\day-twenty-one\DayTwentyOne2018.csproj", "{83E0C69B-4C6E-4945-AAD2-5A21DBF561A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayTwentyTwo2018", "src\years\2018\day-twenty-two\DayTwentyTwo2018.csproj", "{D130BF3E-38D3-4A69-A4D2-687569161460}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayTwentyTwo2018", "src\years\2018\day-twenty-two\DayTwentyTwo2018.csproj", "{D130BF3E-38D3-4A69-A4D2-687569161460}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayTwentyThree2018", "src\years\2018\day-twenty-three\DayTwentyThree2018.csproj", "{BAC3A582-7783-4DE2-8A12-C137C0AE7B2F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayTwentyThree2018", "src\years\2018\day-twenty-three\DayTwentyThree2018.csproj", "{BAC3A582-7783-4DE2-8A12-C137C0AE7B2F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayTwentyFour2018", "src\years\2018\day-twenty-four\DayTwentyFour2018.csproj", "{BC5C7D39-ECE3-4B6F-842C-83B1FEEC490A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayTwentyFour2018", "src\years\2018\day-twenty-four\DayTwentyFour2018.csproj", "{BC5C7D39-ECE3-4B6F-842C-83B1FEEC490A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayTwentyFive2018", "src\years\2018\day-twenty-five\DayTwentyFive2018.csproj", "{2B2C05AA-C392-4E6C-8418-80DFFDD6F736}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayTwentyFive2018", "src\years\2018\day-twenty-five\DayTwentyFive2018.csproj", "{2B2C05AA-C392-4E6C-8418-80DFFDD6F736}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2015", "2015", "{395A942B-5726-48D6-BF1E-4AA2E4B66446}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayOne2015", "src\years\2015\day-one\DayOne2015.csproj", "{7CF10721-979B-4799-97DC-850E736B2584}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayOne2015", "src\years\2015\day-one\DayOne2015.csproj", "{7CF10721-979B-4799-97DC-850E736B2584}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayTwo2015", "src\years\2015\day-two\DayTwo2015.csproj", "{8AD07D20-E87D-4F7D-BAF6-700D500F5168}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayTwo2015", "src\years\2015\day-two\DayTwo2015.csproj", "{8AD07D20-E87D-4F7D-BAF6-700D500F5168}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayThree2015", "src\years\2015\day-three\DayThree2015.csproj", "{F96AB8D2-A48F-45E0-B1BB-69A460D57B3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayThree2015", "src\years\2015\day-three\DayThree2015.csproj", "{F96AB8D2-A48F-45E0-B1BB-69A460D57B3D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayFour2015", "src\years\2015\day-four\DayFour2015.csproj", "{F47C2BC6-7D95-45BF-9BA9-C93921CD4EC8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayFour2015", "src\years\2015\day-four\DayFour2015.csproj", "{F47C2BC6-7D95-45BF-9BA9-C93921CD4EC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayFive2015", "src\years\2015\day-five\DayFive2015.csproj", "{BAABB5E6-37AA-4124-A318-2FB4E7A42E53}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayFive2015", "src\years\2015\day-five\DayFive2015.csproj", "{BAABB5E6-37AA-4124-A318-2FB4E7A42E53}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaySix2015", "src\years\2015\day-six\DaySix2015.csproj", "{611188B2-04A4-4A91-B026-DA848A08F0D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DaySix2015", "src\years\2015\day-six\DaySix2015.csproj", "{611188B2-04A4-4A91-B026-DA848A08F0D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaySeven2015", "src\years\2015\day-seven\DaySeven2015.csproj", "{75214772-1EC0-4D79-9AEF-179F8F18D904}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DaySeven2015", "src\years\2015\day-seven\DaySeven2015.csproj", "{75214772-1EC0-4D79-9AEF-179F8F18D904}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayEight2015", "src\years\2015\day-eight\DayEight2015.csproj", "{3990A539-96F5-4F3E-BEE0-6ED50596C77A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayEight2015", "src\years\2015\day-eight\DayEight2015.csproj", "{3990A539-96F5-4F3E-BEE0-6ED50596C77A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayNine2015", "src\years\2015\day-nine\DayNine2015.csproj", "{F3782160-A4EC-4D48-9A3C-E138D8D27D09}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayNine2015", "src\years\2015\day-nine\DayNine2015.csproj", "{F3782160-A4EC-4D48-9A3C-E138D8D27D09}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayTen2015", "src\years\2015\day-ten\DayTen2015.csproj", "{482288CB-9D19-4C5A-B1A8-6A3018D57D26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayTen2015", "src\years\2015\day-ten\DayTen2015.csproj", "{482288CB-9D19-4C5A-B1A8-6A3018D57D26}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayEleven2015", "src\years\2015\day-eleven\DayEleven2015.csproj", "{9982EA57-F88E-4208-B7A2-316C2DE55D4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayEleven2015", "src\years\2015\day-eleven\DayEleven2015.csproj", "{9982EA57-F88E-4208-B7A2-316C2DE55D4F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayTwelve2015", "src\years\2015\day-twelve\DayTwelve2015.csproj", "{DD694F79-03E3-49DD-B66F-F9C02B8C1264}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayTwelve2015", "src\years\2015\day-twelve\DayTwelve2015.csproj", "{DD694F79-03E3-49DD-B66F-F9C02B8C1264}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayThirteen2015", "src\years\2015\day-thirteen\DayThirteen2015.csproj", "{37009D09-3522-4EB1-AEEA-00FA198C749E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayThirteen2015", "src\years\2015\day-thirteen\DayThirteen2015.csproj", "{37009D09-3522-4EB1-AEEA-00FA198C749E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayFourteen2015", "src\years\2015\day-fourteen\DayFourteen2015.csproj", "{5C7BE0FF-465D-4E70-8F15-ADE928CA2FEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayFourteen2015", "src\years\2015\day-fourteen\DayFourteen2015.csproj", "{5C7BE0FF-465D-4E70-8F15-ADE928CA2FEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayFifteen2015", "src\years\2015\day-fifteen\DayFifteen2015.csproj", "{EF859D6C-B610-4DC2-939A-90E19DCCBE33}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayFifteen2015", "src\years\2015\day-fifteen\DayFifteen2015.csproj", "{EF859D6C-B610-4DC2-939A-90E19DCCBE33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaySixteen2015", "src\years\2015\day-sixteen\DaySixteen2015.csproj", "{270E6691-2F04-4FCE-83D0-76530F400F71}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DaySixteen2015", "src\years\2015\day-sixteen\DaySixteen2015.csproj", "{270E6691-2F04-4FCE-83D0-76530F400F71}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaySeventeen2015", "src\years\2015\day-seventeen\DaySeventeen2015.csproj", "{3DD0D904-B07A-44BE-8161-5BE1B7E2E590}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DaySeventeen2015", "src\years\2015\day-seventeen\DaySeventeen2015.csproj", "{3DD0D904-B07A-44BE-8161-5BE1B7E2E590}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayEighteen2015", "src\years\2015\day-eighteen\DayEighteen2015.csproj", "{434555D0-E069-4044-BEF7-141E084A3D88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayEighteen2015", "src\years\2015\day-eighteen\DayEighteen2015.csproj", "{434555D0-E069-4044-BEF7-141E084A3D88}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayNineteen2015", "src\years\2015\day-nineteen\DayNineteen2015.csproj", "{48971254-0F47-42CB-A0D7-C59386D76D33}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayNineteen2015", "src\years\2015\day-nineteen\DayNineteen2015.csproj", "{48971254-0F47-42CB-A0D7-C59386D76D33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayTwenty2015", "src\years\2015\day-twenty\DayTwenty2015.csproj", "{DCB08731-1442-46E3-B98F-901723BA15CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayTwenty2015", "src\years\2015\day-twenty\DayTwenty2015.csproj", "{DCB08731-1442-46E3-B98F-901723BA15CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayTwentyOne2015", "src\years\2015\day-twenty-one\DayTwentyOne2015.csproj", "{05F2B020-EA0A-4E65-A3CD-1AD9FEBB0C98}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayTwentyOne2015", "src\years\2015\day-twenty-one\DayTwentyOne2015.csproj", "{05F2B020-EA0A-4E65-A3CD-1AD9FEBB0C98}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayTwentyTwo2015", "src\years\2015\day-twenty-two\DayTwentyTwo2015.csproj", "{82430983-C122-4DE0-A31F-C02255917A5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayTwentyTwo2015", "src\years\2015\day-twenty-two\DayTwentyTwo2015.csproj", "{82430983-C122-4DE0-A31F-C02255917A5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayTwentyThree2015", "src\years\2015\day-twenty-three\DayTwentyThree2015.csproj", "{27A32FB8-69C7-4A3B-AE4D-0C4460B23773}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayTwentyThree2015", "src\years\2015\day-twenty-three\DayTwentyThree2015.csproj", "{27A32FB8-69C7-4A3B-AE4D-0C4460B23773}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayTwentyFour2015", "src\years\2015\day-twenty-four\DayTwentyFour2015.csproj", "{C6CF6E8B-FDA8-4431-A0F2-FFF9179F782F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayTwentyFour2015", "src\years\2015\day-twenty-four\DayTwentyFour2015.csproj", "{C6CF6E8B-FDA8-4431-A0F2-FFF9179F782F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayTwentyFive2015", "src\years\2015\day-twenty-five\DayTwentyFive2015.csproj", "{3D09CF3A-47CF-4A1C-8261-0C17C9998E2D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayTwentyFive2015", "src\years\2015\day-twenty-five\DayTwentyFive2015.csproj", "{3D09CF3A-47CF-4A1C-8261-0C17C9998E2D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2016", "2016", "{A1E1C808-8172-4870-A688-0EA716D0EC79}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayOne2016", "src\years\2016\day-one\DayOne2016.csproj", "{0803B411-F1C3-4E9F-8785-9D942A4ACD5B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayOne2016", "src\years\2016\day-one\DayOne2016.csproj", "{0803B411-F1C3-4E9F-8785-9D942A4ACD5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayTwo2016", "src\years\2016\day-two\DayTwo2016.csproj", "{7EF457A3-9EA8-4DC6-8E31-916D10D0E034}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayTwo2016", "src\years\2016\day-two\DayTwo2016.csproj", "{7EF457A3-9EA8-4DC6-8E31-916D10D0E034}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayThree2016", "src\years\2016\day-three\DayThree2016.csproj", "{066BCE83-6A3D-4E1B-AFD9-ADBE1852AF42}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayThree2016", "src\years\2016\day-three\DayThree2016.csproj", "{066BCE83-6A3D-4E1B-AFD9-ADBE1852AF42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayFour2016", "src\years\2016\day-four\DayFour2016.csproj", "{9610BA0B-3678-446D-82F8-D1304B910EDE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayFour2016", "src\years\2016\day-four\DayFour2016.csproj", "{9610BA0B-3678-446D-82F8-D1304B910EDE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayFive2016", "src\years\2016\day-five\DayFive2016.csproj", "{CA958B2C-380E-4B1D-A460-ECA58E9AA836}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayFive2016", "src\years\2016\day-five\DayFive2016.csproj", "{CA958B2C-380E-4B1D-A460-ECA58E9AA836}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaySix2016", "src\years\2016\day-six\DaySix2016.csproj", "{D1CBE285-0210-4DD9-A216-6345A8E78CD6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DaySix2016", "src\years\2016\day-six\DaySix2016.csproj", "{D1CBE285-0210-4DD9-A216-6345A8E78CD6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaySeven2016", "src\years\2016\day-seven\DaySeven2016.csproj", "{E46D2670-36CB-40FD-B594-FF36EED1AB6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DaySeven2016", "src\years\2016\day-seven\DaySeven2016.csproj", "{E46D2670-36CB-40FD-B594-FF36EED1AB6F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayEight2016", "src\years\2016\day-eight\DayEight2016.csproj", "{16A3BB89-7A4E-48B0-84C0-6497DF93A85E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayEight2016", "src\years\2016\day-eight\DayEight2016.csproj", "{16A3BB89-7A4E-48B0-84C0-6497DF93A85E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayNine2016", "src\years\2016\day-nine\DayNine2016.csproj", "{BF1580C8-2BE7-42AF-B911-D4701A1907BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayNine2016", "src\years\2016\day-nine\DayNine2016.csproj", "{BF1580C8-2BE7-42AF-B911-D4701A1907BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayTen2016", "src\years\2016\day-ten\DayTen2016.csproj", "{64E6E0B3-7C43-44CC-BD1A-2944C6F09E5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayTen2016", "src\years\2016\day-ten\DayTen2016.csproj", "{64E6E0B3-7C43-44CC-BD1A-2944C6F09E5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayEleven2016", "src\years\2016\day-eleven\DayEleven2016.csproj", "{0A2BA630-D7A6-4DD3-8171-924C8E07B46D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayEleven2016", "src\years\2016\day-eleven\DayEleven2016.csproj", "{0A2BA630-D7A6-4DD3-8171-924C8E07B46D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayTwelve2016", "src\years\2016\day-twelve\DayTwelve2016.csproj", "{21D0C9C2-BD54-4C62-81CF-CC8912FE938B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayTwelve2016", "src\years\2016\day-twelve\DayTwelve2016.csproj", "{21D0C9C2-BD54-4C62-81CF-CC8912FE938B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayThirteen2016", "src\years\2016\day-thirteen\DayThirteen2016.csproj", "{66E95A4D-BDBC-4E49-A12A-01C8DBD6C239}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayThirteen2016", "src\years\2016\day-thirteen\DayThirteen2016.csproj", "{66E95A4D-BDBC-4E49-A12A-01C8DBD6C239}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayFourteen2016", "src\years\2016\day-fourteen\DayFourteen2016.csproj", "{D5A024D6-8671-4A8E-AEAE-0BE52B297029}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayFourteen2016", "src\years\2016\day-fourteen\DayFourteen2016.csproj", "{D5A024D6-8671-4A8E-AEAE-0BE52B297029}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayFifteen2016", "src\years\2016\day-fifteen\DayFifteen2016.csproj", "{0C7FC844-1279-4AE5-BB3F-E2372E30C04B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayFifteen2016", "src\years\2016\day-fifteen\DayFifteen2016.csproj", "{0C7FC844-1279-4AE5-BB3F-E2372E30C04B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaySixteen2016", "src\years\2016\day-sixteen\DaySixteen2016.csproj", "{47613A8A-2C89-417E-B299-E70E437ABE52}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DaySixteen2016", "src\years\2016\day-sixteen\DaySixteen2016.csproj", "{47613A8A-2C89-417E-B299-E70E437ABE52}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaySeventeen2016", "src\years\2016\day-seventeen\DaySeventeen2016.csproj", "{FD573484-0F7D-4B5B-A3FF-A4FBD4908A1A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DaySeventeen2016", "src\years\2016\day-seventeen\DaySeventeen2016.csproj", "{FD573484-0F7D-4B5B-A3FF-A4FBD4908A1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayEighteen2016", "src\years\2016\day-eighteen\DayEighteen2016.csproj", "{BA3D9B4D-8149-40AE-B7B6-501AD40FDDD9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayEighteen2016", "src\years\2016\day-eighteen\DayEighteen2016.csproj", "{BA3D9B4D-8149-40AE-B7B6-501AD40FDDD9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayNineteen2016", "src\years\2016\day-nineteen\DayNineteen2016.csproj", "{32347BEE-501D-40A0-84A9-B844F4F9DF96}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayNineteen2016", "src\years\2016\day-nineteen\DayNineteen2016.csproj", "{32347BEE-501D-40A0-84A9-B844F4F9DF96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayTwenty2016", "src\years\2016\day-twenty\DayTwenty2016.csproj", "{FE5A8537-EB61-4ED0-B994-D4E7C783403B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayTwenty2016", "src\years\2016\day-twenty\DayTwenty2016.csproj", "{FE5A8537-EB61-4ED0-B994-D4E7C783403B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayTwentyOne2016", "src\years\2016\day-twenty-one\DayTwentyOne2016.csproj", "{12CC911F-4B07-4A44-B135-4C59323C673D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayTwentyOne2016", "src\years\2016\day-twenty-one\DayTwentyOne2016.csproj", "{12CC911F-4B07-4A44-B135-4C59323C673D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayTwentyTwo2016", "src\years\2016\day-twenty-two\DayTwentyTwo2016.csproj", "{126E90F2-EF39-46B1-9826-B28095ACC864}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayTwentyTwo2016", "src\years\2016\day-twenty-two\DayTwentyTwo2016.csproj", "{126E90F2-EF39-46B1-9826-B28095ACC864}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DayTwentyThree2016", "src\years\2016\day-twenty-three\DayTwentyThree2016.csproj", "{51D52D61-1D0A-4AC6-83E3-4443E13252BB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared2016", "src\years\2016\shared-2016\Shared2016.csproj", "{69B82209-B966-4929-A350-619572C85376}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1360,6 +1364,30 @@ Global
 		{126E90F2-EF39-46B1-9826-B28095ACC864}.Release|x64.Build.0 = Release|Any CPU
 		{126E90F2-EF39-46B1-9826-B28095ACC864}.Release|x86.ActiveCfg = Release|Any CPU
 		{126E90F2-EF39-46B1-9826-B28095ACC864}.Release|x86.Build.0 = Release|Any CPU
+		{51D52D61-1D0A-4AC6-83E3-4443E13252BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51D52D61-1D0A-4AC6-83E3-4443E13252BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51D52D61-1D0A-4AC6-83E3-4443E13252BB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{51D52D61-1D0A-4AC6-83E3-4443E13252BB}.Debug|x64.Build.0 = Debug|Any CPU
+		{51D52D61-1D0A-4AC6-83E3-4443E13252BB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{51D52D61-1D0A-4AC6-83E3-4443E13252BB}.Debug|x86.Build.0 = Debug|Any CPU
+		{51D52D61-1D0A-4AC6-83E3-4443E13252BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51D52D61-1D0A-4AC6-83E3-4443E13252BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51D52D61-1D0A-4AC6-83E3-4443E13252BB}.Release|x64.ActiveCfg = Release|Any CPU
+		{51D52D61-1D0A-4AC6-83E3-4443E13252BB}.Release|x64.Build.0 = Release|Any CPU
+		{51D52D61-1D0A-4AC6-83E3-4443E13252BB}.Release|x86.ActiveCfg = Release|Any CPU
+		{51D52D61-1D0A-4AC6-83E3-4443E13252BB}.Release|x86.Build.0 = Release|Any CPU
+		{69B82209-B966-4929-A350-619572C85376}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69B82209-B966-4929-A350-619572C85376}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69B82209-B966-4929-A350-619572C85376}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{69B82209-B966-4929-A350-619572C85376}.Debug|x64.Build.0 = Debug|Any CPU
+		{69B82209-B966-4929-A350-619572C85376}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{69B82209-B966-4929-A350-619572C85376}.Debug|x86.Build.0 = Debug|Any CPU
+		{69B82209-B966-4929-A350-619572C85376}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69B82209-B966-4929-A350-619572C85376}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69B82209-B966-4929-A350-619572C85376}.Release|x64.ActiveCfg = Release|Any CPU
+		{69B82209-B966-4929-A350-619572C85376}.Release|x64.Build.0 = Release|Any CPU
+		{69B82209-B966-4929-A350-619572C85376}.Release|x86.ActiveCfg = Release|Any CPU
+		{69B82209-B966-4929-A350-619572C85376}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1465,6 +1493,8 @@ Global
 		{FE5A8537-EB61-4ED0-B994-D4E7C783403B} = {A1E1C808-8172-4870-A688-0EA716D0EC79}
 		{12CC911F-4B07-4A44-B135-4C59323C673D} = {A1E1C808-8172-4870-A688-0EA716D0EC79}
 		{126E90F2-EF39-46B1-9826-B28095ACC864} = {A1E1C808-8172-4870-A688-0EA716D0EC79}
+		{51D52D61-1D0A-4AC6-83E3-4443E13252BB} = {A1E1C808-8172-4870-A688-0EA716D0EC79}
+		{69B82209-B966-4929-A350-619572C85376} = {A1E1C808-8172-4870-A688-0EA716D0EC79}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B10669BA-EA0E-4A1C-8B50-BD906A20D461}

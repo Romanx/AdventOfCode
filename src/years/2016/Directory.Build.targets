@@ -1,0 +1,7 @@
+<Project>
+  <Import Project="../Directory.Build.targets" />
+
+  <ItemGroup Condition="'$(MSBuildProjectName)' != 'Shared2016'">
+    <ProjectReference Include="$(MSBuildThisFileDirectory)\shared-2016\Shared2016.csproj" />
+  </ItemGroup>
+</Project>
