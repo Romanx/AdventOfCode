@@ -6,7 +6,7 @@ namespace Shared
     {
         public abstract void Apply(Program program);
 
-        internal static object[] ParseArguments(in PcreRefMatch.GroupList groups)
+        public static object[] ParseArguments(in PcreRefMatch.GroupList groups)
         {
             var args = new object[groups.Count - 1];
 

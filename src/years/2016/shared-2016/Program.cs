@@ -19,7 +19,7 @@ namespace Shared
 
         public int Pointer { get; set; }
 
-        public static Dictionary<char, int> EmptyRegisters { get; } = new Dictionary<char, int>
+        public static Dictionary<char, int> EmptyRegisters => new Dictionary<char, int>
         {
             ['a'] = 0,
             ['b'] = 0,
