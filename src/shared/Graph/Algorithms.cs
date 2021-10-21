@@ -165,7 +165,11 @@ namespace Shared.Graph
             return visited.ToImmutable();
         }
 
-        private static ImmutableArray<TNode> ReconstructPath<TNode>(TNode start, TNode goal, Dictionary<TNode, TNode> cameFrom) where TNode : notnull, IEquatable<TNode>
+        public static ImmutableArray<TNode> ReconstructPath<TNode>(
+            TNode start,
+            TNode goal,
+            Dictionary<TNode, TNode> cameFrom) 
+            where TNode : notnull, IEquatable<TNode>
         {
             var current = goal;
             var path = ImmutableArray.CreateBuilder<TNode>();
