@@ -59,5 +59,19 @@ namespace Shared
                 return left.Start.CompareTo(right.Start);
             }
         }
+
+        public static LinkedListNode<T> At<T>(this LinkedList<T> list, int index)
+        {
+            if (index < 0 || index >= list.Count)
+                throw new InvalidOperationException("Outside of list!");
+
+            var current = list.First!;
+            for (var i = 0; i < index; i++)
+            {
+                current = current.Next!;
+            }
+
+            return current!;
+        }
     }
 }

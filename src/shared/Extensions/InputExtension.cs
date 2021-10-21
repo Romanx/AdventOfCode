@@ -9,6 +9,7 @@ namespace Shared
     {
         public static IEnumerable<int> FromIntString(this IInput input) => input
             .AsString()
+            .Trim()
             .ToCharArray()
             .Select(c => int.Parse(c.ToString()));
 
