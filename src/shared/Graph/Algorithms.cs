@@ -168,7 +168,7 @@ namespace Shared.Graph
         public static ImmutableArray<TNode> ReconstructPath<TNode>(
             TNode start,
             TNode goal,
-            Dictionary<TNode, TNode> cameFrom) 
+            Dictionary<TNode, TNode> cameFrom)
             where TNode : notnull, IEquatable<TNode>
         {
             var current = goal;

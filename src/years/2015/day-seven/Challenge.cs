@@ -77,7 +77,7 @@ namespace DaySeven2015
         {
             var builder = ImmutableDictionary.CreateBuilder<string, Instruction>();
 
-            foreach (var line in input.AsStringLines())
+            foreach (var line in input.Lines.AsString())
             {
                 var split = line.Split("->", StringSplitOptions.TrimEntries);
 

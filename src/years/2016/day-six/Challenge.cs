@@ -14,7 +14,7 @@ namespace DaySix2016
 
         public override void PartOne(IInput input, IOutput output)
         {
-            var recordedMessages = input.AsStringLines().ToImmutableArray();
+            var recordedMessages = input.Lines.AsString().ToImmutableArray();
             var message = DecodeMessage(recordedMessages, collection =>
             {
                 return collection.OrderByDescending(kvp => kvp.Value).First().Key;
@@ -25,7 +25,7 @@ namespace DaySix2016
 
         public override void PartTwo(IInput input, IOutput output)
         {
-            var recordedMessages = input.AsStringLines().ToImmutableArray();
+            var recordedMessages = input.Lines.AsString().ToImmutableArray();
             var message = DecodeMessage(recordedMessages, collection =>
             {
                 return collection.OrderBy(kvp => kvp.Value).First().Key;

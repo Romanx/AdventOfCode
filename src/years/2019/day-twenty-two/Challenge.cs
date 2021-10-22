@@ -105,7 +105,7 @@ namespace DayTwentyTwo2019
     {
         public static IEnumerable<Technique> Parse(this IInput input)
         {
-            foreach (var line in input.AsLines())
+            foreach (var line in input.Lines.AsMemory())
             {
                 if (line.Span.SequenceEqual("deal into new stack"))
                 {

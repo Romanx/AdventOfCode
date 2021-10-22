@@ -31,7 +31,7 @@ namespace DaySixteen2020
 
         public static Data Parse(this IInput input)
         {
-            var lines = input.AsLines().ToArray().AsSpan();
+            var lines = input.Lines.AsMemory().ToArray().AsSpan();
             var firstChunk = SliceUntilBlankLine(lines, out lines);
             var secondChunk = SliceUntilBlankLine(lines, out lines);
             var thirdChunk = SliceUntilBlankLine(lines, out lines);

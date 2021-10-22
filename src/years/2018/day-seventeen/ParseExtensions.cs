@@ -14,7 +14,7 @@ namespace DaySeventeen2018
         public static ImmutableHashSet<Point2d> ParseClayPoints(this IInput input)
         {
             var builder = ImmutableHashSet.CreateBuilder<Point2d>();
-            foreach (var line in input.AsStringLines())
+            foreach (var line in input.Lines.AsString())
             {
                 builder.UnionWith(ParseLine(line));
             }

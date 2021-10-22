@@ -11,7 +11,7 @@ namespace DayTwelve2016
         public override void PartOne(IInput input, IOutput output)
         {
             var instructions = AssembunnyParser.BuildParser()
-                .ParseCommands(input.AsLines())
+                .ParseCommands(input.Lines.AsMemory())
                 .ToImmutableArray();
 
             var program = Program.New(instructions)
@@ -26,7 +26,7 @@ namespace DayTwelve2016
         public override void PartTwo(IInput input, IOutput output)
         {
             var instructions = AssembunnyParser.BuildParser()
-                .ParseCommands(input.AsLines())
+                .ParseCommands(input.Lines.AsMemory())
                 .ToImmutableArray();
 
             var registers = Program.EmptyRegisters;

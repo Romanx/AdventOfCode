@@ -76,6 +76,7 @@ namespace DayOne2016
         public static IEnumerable<(char Direction, int Distance)> Parse(this IInput input)
         {
             var directions = input
+                .Content
                 .AsString()
                 .Split(",", StringSplitOptions.TrimEntries);
 

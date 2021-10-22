@@ -49,7 +49,7 @@ namespace DayThirteen2020
     {
         public static (int EarliestTimestamp, ImmutableArray<int> BusIds) ParseInput(this IInput input)
         {
-            var lines = input.AsLines().ToArray();
+            var lines = input.Lines.AsMemory().ToArray();
 
             int earliestTimestamp = int.Parse(lines[0].Span);
 
@@ -67,7 +67,7 @@ namespace DayThirteen2020
 
         public static ImmutableArray<(long BusId, long Offset)> ParseBuses(this IInput input)
         {
-            var line = input.AsLines().Skip(1).First().ToString();
+            var line = input.Lines.AsMemory().Skip(1).First().ToString();
 
             return line
                 .Split(",")

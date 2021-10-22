@@ -40,7 +40,7 @@ namespace DaySix2020
             uint people = 0;
             var questions = BuildQuestions();
 
-            foreach (var line in input.AsLines())
+            foreach (var line in input.Lines.AsMemory())
             {
                 if (line.IsEmpty)
                 {

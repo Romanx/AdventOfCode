@@ -42,7 +42,7 @@ namespace DayTwenty2018
             var current = Point2d.Origin;
             var stack = new Stack<Point2d>();
 
-            var span = input.AsString().AsSpan();
+            var span = input.Content.AsString().AsSpan();
 
             foreach (var c in span)
             {

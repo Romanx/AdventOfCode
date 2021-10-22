@@ -11,7 +11,7 @@ namespace DayTwentyTwo2018
     {
         public static (ulong Depth, Point2d Target) Parse(this IInput input)
         {
-            var lines = input.AsLines().ToArray();
+            var lines = input.Lines.AsMemory().ToArray();
             var first = lines[0];
             var second = lines[1];
 

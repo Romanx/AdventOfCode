@@ -10,7 +10,7 @@ namespace DayOne2015
         public override void PartOne(IInput input, IOutput output)
         {
             var floor = 0;
-            foreach (var c in input.AsReadOnlyMemory().Span)
+            foreach (var c in input.Content.AsSpan())
             {
                 if (c == '(')
                 {
@@ -28,7 +28,7 @@ namespace DayOne2015
         public override void PartTwo(IInput input, IOutput output)
         {
             var floor = 0;
-            var span = input.AsReadOnlyMemory().Span;
+            var span = input.Content.AsSpan();
             int i;
             for (i = 0; i < span.Length; i++)
             {

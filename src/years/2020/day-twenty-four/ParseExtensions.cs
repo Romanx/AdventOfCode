@@ -11,7 +11,7 @@ namespace DayTwentyFour2020
         {
             var builder = ImmutableArray.CreateBuilder<ImmutableArray<HexDirection>>();
 
-            foreach (var line in input.AsLines())
+            foreach (var line in input.Lines.AsMemory())
             {
                 builder.Add(ParsePath(line));
             }

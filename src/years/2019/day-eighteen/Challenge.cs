@@ -38,7 +38,7 @@ namespace DayEighteen2019
 
                 var entrances = new HashSet<Point2d>();
 
-                var array = input.As2DArray();
+                var array = input.Lines.As2DArray();
                 var xLength = array.GetLength(0);
                 var yLength = array.GetLength(1);
                 for (var y = 0; y < yLength; y++)

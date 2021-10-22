@@ -35,7 +35,7 @@ namespace DayTwentyFive2015
         public static (int Row, int Column) Parse(this IInput input)
         {
             var regex = new Regex(@"Enter the code at row (?<Row>\d*), column (?<Column>\d*).");
-            var match = regex.Match(input.AsString());
+            var match = regex.Match(input.Content.AsString());
 
             return (
                 int.Parse(match.Groups["Row"].Value),

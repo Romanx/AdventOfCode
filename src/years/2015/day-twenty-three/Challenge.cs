@@ -40,7 +40,7 @@ namespace DayTwentyThree2015
         {
             var builder = ImmutableArray.CreateBuilder<Command>();
 
-            foreach (var line in input.AsLines())
+            foreach (var line in input.Lines.AsMemory())
             {
                 builder.Add(ParseCommand(line.Span));
             }

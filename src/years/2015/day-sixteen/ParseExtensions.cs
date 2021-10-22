@@ -15,7 +15,7 @@ namespace DaySixteen2015
         {
             var builder = ImmutableArray.CreateBuilder<Sue>();
 
-            foreach (var line in input.AsStringLines())
+            foreach (var line in input.Lines.AsString())
             {
                 var match = regex.Match(line);
                 var number = int.Parse(match.Groups["Number"].Value);

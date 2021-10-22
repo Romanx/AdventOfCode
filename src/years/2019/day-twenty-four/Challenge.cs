@@ -67,7 +67,7 @@ namespace DayTwentyFour2019
         {
             var builder = ImmutableHashSet.CreateBuilder<Point2d>();
 
-            var arr = input.As2DArray().AsSpan2D();
+            var arr = input.Lines.As2DArray().AsSpan2D();
             for (var column = 0; column < arr.Height; column++)
             {
                 for (var row = 0; row < arr.Width; row++)
@@ -86,7 +86,7 @@ namespace DayTwentyFour2019
         {
             var builder = ImmutableHashSet.CreateBuilder<Point3d>();
 
-            var arr = input.As2DArray().AsSpan2D();
+            var arr = input.Lines.As2DArray().AsSpan2D();
             for (var column = 0; column < arr.Height; column++)
             {
                 for (var row = 0; row < arr.Width; row++)

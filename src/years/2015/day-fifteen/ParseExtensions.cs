@@ -11,7 +11,7 @@ namespace DayFifteen2015
         public static ImmutableArray<Ingredient> Parse(this IInput input)
         {
             var builder = ImmutableArray.CreateBuilder<Ingredient>();
-            foreach (var line in input.AsStringLines())
+            foreach (var line in input.Lines.AsString())
             {
                 builder.Add(ParseLine(line));
             }

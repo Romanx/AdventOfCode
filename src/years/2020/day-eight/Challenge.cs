@@ -65,7 +65,7 @@ namespace DayEight2020
         public static ImmutableArray<Instruction> ParseInstructions(this IInput input)
         {
             var builder = ImmutableArray.CreateBuilder<Instruction>();
-            foreach (var line in input.AsLines())
+            foreach (var line in input.Lines.AsMemory())
             {
                 var match = instructionRegex.Match(line.ToString());
 

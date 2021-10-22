@@ -66,7 +66,7 @@ namespace DayNine2015
         {
             var builder = new Dictionary<string, Dictionary<string, int>>();
 
-            foreach (var line in input.AsStringLines())
+            foreach (var line in input.Lines.AsString())
             {
                 var match = regex.Match(line);
 

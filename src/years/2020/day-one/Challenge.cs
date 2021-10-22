@@ -41,6 +41,6 @@ namespace DayOne2020
 
     internal static class ParsingExtensions
     {
-        public static int[] AsInts(this IInput input) => input.AsLines().Select(l => int.Parse(l.Span)).ToArray();
+        public static int[] AsInts(this IInput input) => input.Lines.AsMemory().Select(l => int.Parse(l.Span)).ToArray();
     }
 }

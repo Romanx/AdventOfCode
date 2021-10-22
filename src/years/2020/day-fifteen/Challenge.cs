@@ -59,6 +59,6 @@ namespace DayFifteen2020
 
     internal static class ParseExtensions
     {
-        public static ImmutableArray<long> ParseInts(this IInput input) => input.AsString().Split(",").Select(long.Parse).ToImmutableArray();
+        public static ImmutableArray<long> ParseInts(this IInput input) => input.Content.AsString().Split(",").Select(long.Parse).ToImmutableArray();
     }
 }

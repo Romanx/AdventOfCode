@@ -9,7 +9,7 @@ namespace DayFour2016
         public static ImmutableArray<Room> Parse(this IInput input)
         {
             var builder = ImmutableArray.CreateBuilder<Room>();
-            foreach (var line in input.AsLines())
+            foreach (var line in input.Lines.AsMemory())
             {
                 builder.Add(ParseRoom(line.Span));
             }

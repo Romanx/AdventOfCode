@@ -11,16 +11,16 @@ namespace DayEighteen2016
 
         public override void PartOne(IInput input, IOutput output)
         {
-            var row = input.AsReadOnlyMemory();
-            var safeTiles = RoomTrapCalculator.CalculateSafeTiles(row.Span, 40);
+            var row = input.Content.AsSpan();
+            var safeTiles = RoomTrapCalculator.CalculateSafeTiles(row, 40);
 
             output.WriteProperty("Safe Tiles", safeTiles);
         }
 
         public override void PartTwo(IInput input, IOutput output)
         {
-            var row = input.AsReadOnlyMemory();
-            var safeTiles = RoomTrapCalculator.CalculateSafeTiles(row.Span, 400_000);
+            var row = input.Content.AsSpan();
+            var safeTiles = RoomTrapCalculator.CalculateSafeTiles(row, 400_000);
 
             output.WriteProperty("Safe Tiles", safeTiles);
         }

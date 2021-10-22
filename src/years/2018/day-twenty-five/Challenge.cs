@@ -82,7 +82,7 @@ namespace DayTwentyFive2018
         public static ImmutableHashSet<Point4d> Parse(this IInput input)
         {
             var builder = ImmutableHashSet.CreateBuilder<Point4d>();
-            foreach (var line in input.AsStringLines())
+            foreach (var line in input.Lines.AsString())
             {
                 builder.Add(new Point4d(line.Split(",").Select(int.Parse).ToImmutableArray()));
             }

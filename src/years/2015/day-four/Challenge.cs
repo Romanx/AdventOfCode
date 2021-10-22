@@ -12,7 +12,7 @@ namespace DayFour2015
 
         public override void PartOne(IInput input, IOutput output)
         {
-            var key = input.AsString();
+            var key = input.Content.AsString();
 
             var (adventCoin, inputHash, outputHash) = CalculateAdventCoin(key, "00000");
 
@@ -23,7 +23,7 @@ namespace DayFour2015
 
         public override void PartTwo(IInput input, IOutput output)
         {
-            var key = input.AsString();
+            var key = input.Content.AsString();
 
             var (adventCoin, inputHash, outputHash) = CalculateAdventCoin(key, "000000");
 

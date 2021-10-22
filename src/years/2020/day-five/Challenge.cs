@@ -14,7 +14,7 @@ namespace DayFive2020
 
         public override void PartOne(IInput input, IOutput output)
         {
-            var maxSeatId = input.AsLines().Select(line => FindSeatId(line.Span)).Max();
+            var maxSeatId = input.Lines.AsMemory().Select(line => FindSeatId(line.Span)).Max();
 
             output.WriteProperty("Seat Id", maxSeatId);
         }
@@ -22,7 +22,7 @@ namespace DayFive2020
         public override void PartTwo(IInput input, IOutput output)
         {
             var allSeats = BuildSeatList();
-            var occupiedSeats = input.AsLines().Select(line => FindSeatId(line.Span)).ToImmutableHashSet();
+            var occupiedSeats = input.Lines.AsMemory().Select(line => FindSeatId(line.Span)).ToImmutableHashSet();
 
             var emptySeats = allSeats.Except(occupiedSeats);
 

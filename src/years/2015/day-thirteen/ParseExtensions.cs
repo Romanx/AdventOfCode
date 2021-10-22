@@ -14,7 +14,7 @@ namespace DayThirteen2015
         {
             var builder = new Dictionary<string, Dictionary<string, int>>();
             var people = ImmutableHashSet.CreateBuilder<string>();
-            foreach (var line in input.AsStringLines())
+            foreach (var line in input.Lines.AsString())
             {
                 var match = regex.Match(line);
 

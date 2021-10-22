@@ -12,7 +12,7 @@ namespace DayThirteen2016
     {
         public static OfficeSpace Parse(this IInput input)
         {
-            var favouriteNumber = int.Parse(input.AsString());
+            var favouriteNumber = int.Parse(input.Content.AsString());
             var builder = ImmutableDictionary.CreateBuilder<Point2d, CellType>();
 
             var area2d = Area2d.Create(Point2d.Origin, new Point2d(51, 51));

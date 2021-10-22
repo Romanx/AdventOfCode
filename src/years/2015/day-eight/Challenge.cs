@@ -17,7 +17,7 @@ namespace DayEight2015
             var converted = 0;
             var decoder = new Decoder();
 
-            foreach (var line in input.AsStringLines())
+            foreach (var line in input.Lines.AsString())
             {
                 total += line.Length;
                 var decoded = decoder.Decode(line);
@@ -35,7 +35,7 @@ namespace DayEight2015
             var encodedTotal = 0;
             var encoder = new Encoder();
 
-            foreach (var line in input.AsStringLines())
+            foreach (var line in input.Lines.AsString())
             {
                 total += line.Length;
 

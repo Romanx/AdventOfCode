@@ -1,59 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Text;
-using NodaTime;
-using NodaTime.Text;
-using Shared.Helpers;
-using Zio;
 
 namespace Shared
 {
-    public abstract class BaseInput : IInput
+    public sealed class Input : IInput
     {
-        public char[,] As2DArray()
+        public Input(string content)
         {
-            var lines = AsLines().ToArray();
-            var array = new char[lines[0].Length, lines.Length];
-
-            for (var y = 0; y < lines.Length; y++)
-            {
-                var line = lines[y].Span;
-                for (var x = 0; x < line.Length; x++)
-                {
-                    array[x, y] = line[x];
-                }
-            }
-
-            return array;
+            Content = new InputContent(content);
+            Lines = new InputLines(content);
         }
 
-        public IEnumerable<ReadOnlyMemory<char>> AsLines()
+        public IInputContent Content { get; }
+
+        public IInputLines Lines { get; }
+    }
+
+    public sealed class InputContent : IInputContent
+    {
+        private readonly string _content;
+
+        public InputContent(string content)
         {
-            foreach (var line in AsStringLines())
-                yield return line.AsMemory();
+            _content = content;
         }
 
-        public ReadOnlyMemory<ReadOnlyMemory<char>>[] AsParagraphs()
-        {
-            var lines = AsLines().ToArray().AsMemory();
+        public ReadOnlyMemory<char> AsMemory() => _content.AsMemory();
 
-            return SpanHelpers.SplitByBlankLines(lines)
-                .ToArray();
+        public string AsString() => _content;
+
+        public TOut Transform<TOut>(Func<string, TOut> transformer)
+            => transformer(_content);
+    }
+
+    public sealed class InputLines : IInputLines
+    {
+        private readonly string _content;
+
+        public InputLines(string content)
+        {
+            _content = content;
         }
 
-        public ReadOnlyMemory<char> AsReadOnlyMemory() => AsString().AsMemory().Trim();
+        public IEnumerable<ReadOnlyMemory<char>> AsMemory()
+            => Transform(static str => str.AsMemory());
 
-        public abstract string AsString();
-
-        public IEnumerable<string> AsStringLines()
+        public IEnumerable<string> AsString()
         {
-            var @in = AsString();
-
-            using var reader = new StringReader(@in);
+            using var reader = new StringReader(_content);
 
             string? line;
             while ((line = reader.ReadLine()) != null)
@@ -61,59 +56,13 @@ namespace Shared
                 yield return line;
             }
         }
-    }
 
-    public class Input : BaseInput
-    {
-        private readonly FileEntry _inputFile;
-        private string? _input = null;
-
-        public Input(DirectoryEntry inputDirectory, LocalDate date)
+        public IEnumerable<TOut> Transform<TOut>(Func<string, TOut> transformer)
         {
-            foreach (var file in inputDirectory.EnumerateFiles(searchOption: SearchOption.AllDirectories))
+            foreach (var line in AsString())
             {
-                if (IsCorrectInputFile(file, date))
-                {
-                    _inputFile = file;
-                    return;
-                }
-            }
-
-            throw new InvalidOperationException($"Unable to find input file for date {LocalDatePattern.Iso.Format(date)}");
-
-            static bool IsCorrectInputFile(FileEntry file, LocalDate date)
-            {
-                var isoParsed = LocalDatePattern.Iso.Parse(file.NameWithoutExtension);
-                var yearDayParsed = LocalDatePattern.Create("uuuu-dd", CultureInfo.InvariantCulture, date).Parse(file.NameWithoutExtension);
-
-                return file.NameWithoutExtension.Equals($"day-{date.Day}", StringComparison.OrdinalIgnoreCase) ||
-                       file.NameWithoutExtension.Equals($"day-{date.Year}-{date.Day}") ||
-                       isoParsed.Success && isoParsed.Value == date ||
-                       yearDayParsed.Success && yearDayParsed.Value == date;
+                yield return transformer(line);
             }
         }
-
-        public override string AsString()
-        {
-            if (_input is null)
-            {
-                _input = _inputFile.ReadAllText(Encoding.UTF8);
-                return _input;
-            }
-
-            return _input;
-        }
-    }
-
-    public class StringInput : BaseInput
-    {
-        private readonly string _input;
-
-        public StringInput(string input)
-        {
-            _input = input;
-        }
-
-        public override string AsString() => _input;
     }
 }

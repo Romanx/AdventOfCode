@@ -97,6 +97,6 @@ namespace DayTwelve2015
     internal static class ParseExtensions
     {
         public static JsonDocument Parse(this IInput input)
-            => JsonDocument.Parse(input.AsReadOnlyMemory());
+            => JsonDocument.Parse(input.Content.AsMemory());
     }
 }

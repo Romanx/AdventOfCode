@@ -20,7 +20,7 @@ namespace DayTwentyFive2016
         {
             var commands = AssembunnyParser.BuildParser()
                 .AddType<Out>()
-                .ParseCommands(input.AsLines())
+                .ParseCommands(input.Lines.AsMemory())
                 .ToImmutableArray();
 
             TextWriter display = new StringWriter();

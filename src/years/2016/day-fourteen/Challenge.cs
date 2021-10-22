@@ -15,7 +15,7 @@ namespace DayFourteen2016
 
         public override void PartOne(IInput input, IOutput output)
         {
-            var data = MD5Stream.CreateIncrementingStream(input.AsString())
+            var data = MD5Stream.CreateIncrementingStream(input.Content.AsString())
                 .Take(100_000)
                 .ToArray();
 
@@ -29,7 +29,7 @@ namespace DayFourteen2016
 
         public override void PartTwo(IInput input, IOutput output)
         {
-            var data = MD5Stream.CreateStretchedStream(input.AsString())
+            var data = MD5Stream.CreateStretchedStream(input.Content.AsString())
                 .Take(50_000)
                 .ToArray();
 

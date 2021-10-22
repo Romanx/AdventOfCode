@@ -12,7 +12,7 @@ namespace DaySeventeen2015
         public override void PartOne(IInput input, IOutput output)
         {
             var total = 150;
-            var containers = input.AsLinesToInt();
+            var containers = input.Lines.Ints();
 
             var combinations = containers
                 .Subsets()
@@ -25,7 +25,7 @@ namespace DaySeventeen2015
         public override void PartTwo(IInput input, IOutput output)
         {
             var total = 150;
-            var containers = input.AsLinesToInt();
+            var containers = input.Lines.Ints();
 
             var minimumContainers = containers
                 .Subsets()

@@ -97,7 +97,7 @@ namespace DayEight2016
 
             var builder = ImmutableArray.CreateBuilder<Instruction>();
 
-            foreach (var line in input.AsLines())
+            foreach (var line in input.Lines.AsMemory())
             {
                 if (line.Span.StartsWith("rect"))
                 {

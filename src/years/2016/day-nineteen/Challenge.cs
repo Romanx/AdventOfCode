@@ -12,7 +12,7 @@ namespace DayNineteen2016
 
         public override void PartOne(IInput input, IOutput output)
         {
-            var elves = int.Parse(input.AsReadOnlyMemory().Span);
+            var elves = int.Parse(input.Content.AsSpan());
             var elf = PlayGame(elves);
 
             output.WriteProperty("Elf", elf);
@@ -43,7 +43,7 @@ namespace DayNineteen2016
 
         public override void PartTwo(IInput input, IOutput output)
         {
-            var elves = int.Parse(input.AsReadOnlyMemory().Span);
+            var elves = int.Parse(input.Content.AsSpan());
             var elf = PlayGame(elves);
 
             output.WriteProperty("Elf", elf);

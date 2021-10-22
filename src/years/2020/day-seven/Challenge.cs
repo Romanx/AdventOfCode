@@ -70,7 +70,7 @@ namespace DaySeven2020
         public static ImmutableDictionary<string, ImmutableArray<BagCountAndColour>> ParseRules(this IInput input)
         {
             var builder = ImmutableDictionary.CreateBuilder<string, ImmutableArray<BagCountAndColour>>();
-            foreach (var line in input.AsLines())
+            foreach (var line in input.Lines.AsMemory())
             {
                 var match = ruleRegex.Match(line.ToString());
 

@@ -5,16 +5,26 @@ namespace Shared
 {
     public interface IInput
     {
-        char[,] As2DArray();
+        IInputLines Lines { get; }
 
-        ReadOnlyMemory<char> AsReadOnlyMemory();
+        IInputContent Content { get; }
+    }
 
+    public interface IInputLines
+    {
+        IEnumerable<ReadOnlyMemory<char>> AsMemory();
+
+        IEnumerable<string> AsString();
+
+        IEnumerable<TOut> Transform<TOut>(Func<string, TOut> transformer);
+    }
+
+    public interface IInputContent
+    {
         string AsString();
 
-        IEnumerable<ReadOnlyMemory<char>> AsLines();
+        ReadOnlyMemory<char> AsMemory();
 
-        IEnumerable<string> AsStringLines();
-
-        ReadOnlyMemory<ReadOnlyMemory<char>>[] AsParagraphs();
+        TOut Transform<TOut>(Func<string, TOut> transformer);
     }
 }

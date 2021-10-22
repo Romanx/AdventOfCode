@@ -11,7 +11,7 @@ namespace DayTwentyFour2018
     {
         public static ImmutableDictionary<ArmyType, ImmutableList<Group>> Parse(this IInput input)
         {
-            var paras = input.AsParagraphs();
+            var paras = input.Lines.AsParagraphs();
 
             var dictionary = ImmutableDictionary.CreateBuilder<ArmyType, ImmutableList<Group>>();
 

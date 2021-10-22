@@ -6,7 +6,7 @@ namespace DayEighteen2019
 {
     internal static class ParsingExtensions
     {
-        internal static Map Parse(this IInput input) => Parse(input.As2DArray());
+        internal static Map Parse(this IInput input) => Parse(input.Lines.As2DArray());
 
         internal static Map Parse(this char[,] array)
         {

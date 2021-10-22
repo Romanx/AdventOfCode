@@ -15,7 +15,7 @@ namespace DayEleven2016
             var index = 0;
             var builder = ImmutableSortedDictionary.CreateBuilder<int, ImmutableHashSet<Item>>();
 
-            foreach (var line in input.AsLines())
+            foreach (var line in input.Lines.AsMemory())
             {
                 builder.Add(index, ParseItems(line.Span));
                 index++;

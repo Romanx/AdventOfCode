@@ -104,7 +104,7 @@ namespace DaySixteen2016
     {
         public static ReadOnlyMemory<bool> Parse(this IInput input)
         {
-            var str = input.AsReadOnlyMemory().Span;
+            var str = input.Content.AsSpan();
 
             var array = new bool[str.Length];
             for (var i = 0; i < str.Length; i++)

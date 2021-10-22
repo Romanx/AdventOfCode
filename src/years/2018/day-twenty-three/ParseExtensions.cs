@@ -11,7 +11,7 @@ namespace DayTwentyThree2018
         {
             var regex = new Regex("^pos=<(?<Position>.*)>, r=(?<Radius>.*)$");
             var builder = ImmutableArray.CreateBuilder<Nanobot>();
-            foreach (var line in input.AsStringLines())
+            foreach (var line in input.Lines.AsString())
             {
                 var result = regex.Match(line);
 

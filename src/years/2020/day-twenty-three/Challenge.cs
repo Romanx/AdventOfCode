@@ -15,7 +15,7 @@ namespace DayTwentyThree2020
         public override void PartOne(IInput input, IOutput output)
         {
             const int Moves = 100;
-            var cups = new LinkedList<int>(input.FromIntString());
+            var cups = new LinkedList<int>(input.Content.CharactersToInt());
 
             var final = PerformMoves(cups, Moves);
 
@@ -35,7 +35,7 @@ namespace DayTwentyThree2020
         public override void PartTwo(IInput input, IOutput output)
         {
             const int Moves = 10_000_000;
-            var cups = new LinkedList<int>(input.FromIntString().Concat(MoreEnumerable.Sequence(10, 1_000_000)));
+            var cups = new LinkedList<int>(input.Content.CharactersToInt().Concat(MoreEnumerable.Sequence(10, 1_000_000)));
 
             var final = PerformMoves(cups, Moves);
             var cupOne = final.Find(1)!;

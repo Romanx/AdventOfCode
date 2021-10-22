@@ -123,7 +123,7 @@ namespace DayFourteen2020
         {
             var builder = ImmutableArray.CreateBuilder<Command>();
 
-            foreach (var line in input.AsLines())
+            foreach (var line in input.Lines.AsMemory())
             {
                 if (line.Span.Contains("mask = ", StringComparison.OrdinalIgnoreCase))
                 {

@@ -86,7 +86,8 @@ namespace DayTen2020
     internal static class ParsingExtensions
     {
         public static IEnumerable<Adapter> ParseAdapters(this IInput input) => input
-            .AsLines()
+            .Lines
+            .AsMemory()
             .Select(l => new Adapter(int.Parse(l.Span)));
     }
 

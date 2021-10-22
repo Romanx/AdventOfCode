@@ -12,7 +12,7 @@ namespace DayTwenty2020
         {
             var builder = ImmutableArray.CreateBuilder<Tile>();
 
-            foreach (var paragraph in input.AsParagraphs())
+            foreach (var paragraph in input.Lines.AsParagraphs())
             {
                 builder.Add(ParseBlock(paragraph));
             }

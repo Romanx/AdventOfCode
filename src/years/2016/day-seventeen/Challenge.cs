@@ -11,7 +11,7 @@ namespace DaySeventeen2016
 
         public override void PartOne(IInput input, IOutput output)
         {
-            var passcode = input.AsString();
+            var passcode = input.Content.AsString();
             var vault = new Vault(passcode);
             var path = vault.Search(string.Empty).FirstOrDefault();
 
@@ -26,7 +26,7 @@ namespace DaySeventeen2016
 
         public override void PartTwo(IInput input, IOutput output)
         {
-            var passcode = input.AsString();
+            var passcode = input.Content.AsString();
             var vault = new Vault(passcode);
             var path = vault
                 .Search(string.Empty)

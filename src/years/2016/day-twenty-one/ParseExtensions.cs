@@ -19,7 +19,7 @@ namespace DayTwentyOne2016
         {
             var builder = ImmutableArray.CreateBuilder<ScrambleFunction>();
 
-            foreach (var line in input.AsLines())
+            foreach (var line in input.Lines.AsMemory())
             {
                 builder.Add(BuildFunction(line.Span));
             }

@@ -55,7 +55,7 @@ namespace DayTwenty2016
         public static ImmutableArray<NumberRange> Parse(this IInput input)
         {
             var builder = ImmutableArray.CreateBuilder<NumberRange>();
-            foreach (var line in input.AsLines())
+            foreach (var line in input.Lines.AsMemory())
             {
                 builder.Add(ParseRange(line.Span));
             }

@@ -14,7 +14,7 @@ namespace DayTen2016
         {
             var builder = ImmutableList.CreateBuilder<Action>();
 
-            foreach (var line in input.AsLines())
+            foreach (var line in input.Lines.AsMemory())
             {
                 var span = line.Span;
 

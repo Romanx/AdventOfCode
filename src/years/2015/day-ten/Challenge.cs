@@ -13,7 +13,7 @@ namespace DayTen2015
 
         public override void PartOne(IInput input, IOutput output)
         {
-            var x = input.AsString().Select(c => c - '0').ToArray();
+            var x = input.Content.AsString().Select(c => c - '0').ToArray();
             var result = RunProcess(x)
                 .Skip(39)
                 .First();
@@ -23,7 +23,7 @@ namespace DayTen2015
 
         public override void PartTwo(IInput input, IOutput output)
         {
-            var x = input.AsString().Select(c => c - '0').ToArray();
+            var x = input.Content.AsString().Select(c => c - '0').ToArray();
             var result = RunProcess(x)
                 .Skip(49)
                 .First();

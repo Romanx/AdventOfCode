@@ -16,7 +16,7 @@ namespace Shared
         public static (int InstructionPointer, ImmutableArray<Command> Commands) Parse(IInput input)
         {
             var builder = ImmutableArray.CreateBuilder<Command>();
-            var lines = input.AsLines().ToArray().AsSpan();
+            var lines = input.Lines.AsMemory().ToArray().AsSpan();
             var instructionPointer = int.Parse(lines[0].Span[3..]);
 
             foreach (var line in lines[1..])

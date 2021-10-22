@@ -71,7 +71,7 @@ namespace DayTwo2020
         {
             var builder = ImmutableArray.CreateBuilder<PasswordRecord>();
 
-            foreach (var line in input.AsLines())
+            foreach (var line in input.Lines.AsMemory())
             {
                 var matches = PasswordRegex.Match(line.ToString());
 

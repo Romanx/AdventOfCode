@@ -12,7 +12,7 @@ namespace DayFive2016
 
         public override void PartOne(IInput input, IOutput output)
         {
-            var password = GeneratePassword(input.AsString());
+            var password = GeneratePassword(input.Content.AsString());
 
             output.WriteProperty("Password", password);
 
@@ -41,7 +41,7 @@ namespace DayFive2016
 
         public override void PartTwo(IInput input, IOutput output)
         {
-            var password = GeneratePassword(input.AsString());
+            var password = GeneratePassword(input.Content.AsString());
 
             output.WriteProperty("Password", password);
 

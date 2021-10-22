@@ -102,6 +102,6 @@ namespace DayNine2020
 
     public static class ParsingExtensions
     {
-        public static long[] AsLongs(this IInput input) => input.AsLines().Select(l => long.Parse(l.Span)).ToArray();
+        public static long[] AsLongs(this IInput input) => input.Lines.AsMemory().Select(l => long.Parse(l.Span)).ToArray();
     }
 }

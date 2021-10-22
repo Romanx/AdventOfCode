@@ -13,7 +13,7 @@ namespace DayThree2015
         {
             var position = Point2d.Origin;
             var visisted = new HashSet<Point2d> { position };
-            foreach (var command in input.AsReadOnlyMemory().Span)
+            foreach (var command in input.Content.AsSpan())
             {
                 var direction = GetDirection(command);
                 position += direction;
@@ -27,7 +27,7 @@ namespace DayThree2015
         {
             var visisted = new HashSet<Point2d> { Point2d.Origin };
             var pawns = new[] { Point2d.Origin, Point2d.Origin };
-            var span = input.AsReadOnlyMemory().Span;
+            var span = input.Content.AsSpan();
             for (var i = 0; i < span.Length; i++)
             {
                 var command = span[i];

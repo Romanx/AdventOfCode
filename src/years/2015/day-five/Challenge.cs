@@ -13,7 +13,7 @@ namespace DayFive2015
         public override void PartOne(IInput input, IOutput output)
         {
             var niceCount = 0;
-            foreach (var line in input.AsLines())
+            foreach (var line in input.Lines.AsMemory())
             {
                 if (IsNice(line.Span))
                 {
@@ -79,7 +79,7 @@ namespace DayFive2015
         public override void PartTwo(IInput input, IOutput output)
         {
             var niceCount = 0;
-            foreach (var line in input.AsStringLines())
+            foreach (var line in input.Lines.AsString())
             {
                 if (IsNice(line))
                 {

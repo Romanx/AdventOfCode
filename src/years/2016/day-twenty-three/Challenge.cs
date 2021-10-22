@@ -15,7 +15,7 @@ namespace DayTwentyThree2016
         public override void PartOne(IInput input, IOutput output)
         {
             var commands = AssembunnyParser.BuildParser()
-                .ParseCommands(ApplyOptimizations(input.AsString()))
+                .ParseCommands(ApplyOptimizations(input.Content.AsString()))
                 .ToImmutableArray();
 
             var registers = Program.EmptyRegisters;
@@ -33,7 +33,7 @@ namespace DayTwentyThree2016
         public override void PartTwo(IInput input, IOutput output)
         {
             var commands = AssembunnyParser.BuildParser()
-                .ParseCommands(ApplyOptimizations(input.AsString()))
+                .ParseCommands(ApplyOptimizations(input.Content.AsString()))
                 .ToImmutableArray();
 
             var registers = Program.EmptyRegisters;

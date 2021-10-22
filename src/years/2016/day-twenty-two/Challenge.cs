@@ -82,7 +82,7 @@ namespace DayTwentyTwo2016
         {
             var builder = ImmutableArray.CreateBuilder<Node>();
 
-            foreach (var line in input.AsLines().Skip(2))
+            foreach (var line in input.Lines.AsMemory().Skip(2))
             {
                 builder.Add(ParseLine(line.Span));
             }

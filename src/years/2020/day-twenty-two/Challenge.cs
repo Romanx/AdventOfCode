@@ -173,7 +173,7 @@ namespace DayTwentyTwo2020
     {
         public static (Queue<int> PlayerOne, Queue<int> PlayerTwo) ParseGameState(this IInput input)
         {
-            var paragraphs = input.AsParagraphs();
+            var paragraphs = input.Lines.AsParagraphs();
 
             return (ParseDeck(paragraphs[0]), ParseDeck(paragraphs[1]));
 

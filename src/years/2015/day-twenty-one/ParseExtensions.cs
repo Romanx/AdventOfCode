@@ -8,7 +8,7 @@ namespace DayTwentyOne2015
     {
         public static Unit Parse(this IInput input)
         {
-            var lines = input.AsStringLines().ToArray();
+            var lines = input.Lines.AsString().ToArray();
 
             return new Unit(
                 UnitType.Boss,

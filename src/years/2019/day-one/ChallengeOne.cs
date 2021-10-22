@@ -43,6 +43,6 @@ namespace DayOne2019
 
     internal static class InputExtensions
     {
-        public static IEnumerable<int> AsInts(this IInput input) => input.AsLines().Select(mem => int.Parse(mem.Span));
+        public static IEnumerable<int> AsInts(this IInput input) => input.Lines.AsMemory().Select(mem => int.Parse(mem.Span));
     }
 }

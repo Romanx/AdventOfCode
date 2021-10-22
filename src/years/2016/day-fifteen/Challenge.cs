@@ -52,7 +52,7 @@ namespace DayFifteen2016
         {
             var builder = ImmutableArray.CreateBuilder<Disc>();
 
-            foreach (var line in input.AsLines())
+            foreach (var line in input.Lines.AsMemory())
             {
                 builder.Add(ParseDisc(line.Span));
             }

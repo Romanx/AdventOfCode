@@ -61,6 +61,6 @@ namespace DayTwentyFour2015
     internal static class ParseExtensions
     {
         public static ImmutableArray<int> Parse(this IInput input)
-            => input.AsLinesToInt().ToImmutableArray();
+            => input.Lines.Ints().ToImmutableArray();
     }
 }

@@ -244,6 +244,6 @@ namespace DayTwentyFive2019
 
     internal static class ParseExtensions
     {
-        public static ImmutableArray<long> Parse(this IInput input) => IntcodeParser.Parse(input.AsReadOnlyMemory().Span);
+        public static ImmutableArray<long> Parse(this IInput input) => IntcodeParser.Parse(input.Content.AsSpan());
     }
 }

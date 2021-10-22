@@ -87,7 +87,7 @@ namespace DayFourteen2015
         {
             var builder = ImmutableArray.CreateBuilder<Reindeer>();
 
-            foreach (var line in input.AsStringLines())
+            foreach (var line in input.Lines.AsString())
             {
                 var match = regex.Match(line);
 

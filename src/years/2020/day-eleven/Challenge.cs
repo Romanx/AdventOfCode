@@ -75,7 +75,7 @@ namespace DayEleven2020
         {
             var seats = ImmutableDictionary.CreateBuilder<Point2d, bool>();
 
-            var arr = input.As2DArray();
+            var arr = input.Lines.As2DArray();
             var rows = arr.GetLength(0);
             var columns = arr.GetLength(1);
 

@@ -15,7 +15,7 @@ namespace DayNineteen2020
 
         public static (ImmutableDictionary<int, Rule> Rules, ImmutableArray<string> Messages) Parse(this IInput input)
         {
-            ReadOnlyMemory<ReadOnlyMemory<char>> lines = input.AsLines().ToArray();
+            ReadOnlyMemory<ReadOnlyMemory<char>> lines = input.Lines.AsMemory().ToArray();
 
             var ruleSpan = SpanHelpers.SliceUntilBlankLine(lines, out lines);
 

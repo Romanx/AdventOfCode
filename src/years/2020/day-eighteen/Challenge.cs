@@ -17,7 +17,7 @@ namespace DayEighteen2020
 
         public override void PartOne(IInput input, IOutput output)
         {
-            var lines = input.AsLines();
+            var lines = input.Lines.AsMemory();
 
             var sum = 0L;
             foreach (var line in lines)
@@ -38,7 +38,7 @@ namespace DayEighteen2020
 
         public override void PartTwo(IInput input, IOutput output)
         {
-            var lines = input.AsLines();
+            var lines = input.Lines.AsMemory();
 
             var sum = 0L;
             foreach (var line in lines)

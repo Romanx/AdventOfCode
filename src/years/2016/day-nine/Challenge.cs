@@ -11,14 +11,14 @@ namespace DayNine2016
 
         public override void PartOne(IInput input, IOutput output)
         {
-            var decompressed = Decompressor.DecompressedLength(input.AsReadOnlyMemory().Span);
+            var decompressed = Decompressor.DecompressedLength(input.Content.AsSpan());
 
             output.WriteProperty("Decompressed Length", decompressed);
         }
 
         public override void PartTwo(IInput input, IOutput output)
         {
-            var decompressed = Decompressor.DecompressedLengthV2(input.AsReadOnlyMemory().Span);
+            var decompressed = Decompressor.DecompressedLengthV2(input.Content.AsSpan());
 
             output.WriteProperty("Decompressed Length", decompressed);
         }

@@ -11,7 +11,7 @@ namespace DayOne2017
 
         public override void PartOne(IInput input, IOutput output)
         {
-            var list = input.Parse();
+            var list = input.Content.AsLinkedList();
 
             output.WriteProperty("Produce Sum", Sum(list));
 
@@ -35,7 +35,7 @@ namespace DayOne2017
 
         public override void PartTwo(IInput input, IOutput output)
         {
-            var list = input.Parse();
+            var list = input.Content.AsLinkedList();
 
             output.WriteProperty("Produce Sum", Sum(list));
 
@@ -63,7 +63,7 @@ namespace DayOne2017
 
     internal static class ParseExtensions
     {
-        public static LinkedList<int> Parse(this IInput input)
-            => new(input.FromIntString());
+        public static LinkedList<int> AsLinkedList(this IInputContent content)
+            => new(content.CharactersToInt());
     }
 }

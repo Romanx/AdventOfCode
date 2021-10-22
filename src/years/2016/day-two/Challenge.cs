@@ -20,7 +20,7 @@ namespace DayTwo2016
             });
             var position = keypad.FiveKey;
 
-            foreach (var line in input.AsLines())
+            foreach (var line in input.Lines.AsMemory())
             {
                 (var key, position) = FindKey(keypad, line.Span, position);
 
@@ -43,7 +43,7 @@ namespace DayTwo2016
             });
             var position = keypad.FiveKey;
 
-            foreach (var line in input.AsLines())
+            foreach (var line in input.Lines.AsMemory())
             {
                 (var key, position) = FindKey(keypad, line.Span, position);
 

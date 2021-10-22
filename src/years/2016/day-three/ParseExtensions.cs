@@ -8,7 +8,7 @@ namespace DayThree2016
     {
         public static int[,] Parse(this IInput input)
         {
-            var lines = input.AsStringLines().ToArray();
+            var lines = input.Lines.AsArray();
 
             var grid = new int[lines.Length, 3];
 

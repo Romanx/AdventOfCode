@@ -86,7 +86,7 @@ namespace Runner
             var outputPath = root / "outputs";
 
             var dayOutputDirectory = DayOutputDirectory(challenge.Info.Date, outputPath, fs);
-            var input = new Input(new DirectoryEntry(fs, inputPath), challenge.Info.Date);
+            var input = FileInput.Build(new DirectoryEntry(fs, inputPath), challenge.Info.Date);
 
             var partOneOutput = new Output(dayOutputDirectory, fs);
             challenge.PartOne(input, partOneOutput);

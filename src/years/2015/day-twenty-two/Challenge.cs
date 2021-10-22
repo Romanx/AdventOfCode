@@ -52,7 +52,7 @@ namespace DayTwentyTwo2015
     {
         public static Boss Parse(this IInput input)
         {
-            var lines = input.AsStringLines().ToArray();
+            var lines = input.Lines.AsArray();
 
             return new Boss(
                 int.Parse(lines[0].Split(':')[1]),

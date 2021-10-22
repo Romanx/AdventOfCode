@@ -11,7 +11,7 @@ namespace DaySixteen2018
         public static (ImmutableArray<TestCase> Inputs, ImmutableArray<Command> Program) Parse(this IInput input)
         {
             var builder = ImmutableArray.CreateBuilder<TestCase>();
-            var paragraphs = input.AsParagraphs();
+            var paragraphs = input.Lines.AsParagraphs();
 
             var programIndex = Array.FindIndex(paragraphs, paragraph => paragraph.Span[0].Span.StartsWith("Before:") is false);
             var cases = paragraphs.AsSpan()[..programIndex];

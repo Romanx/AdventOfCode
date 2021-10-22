@@ -10,7 +10,7 @@ namespace DaySeventeen2020
         {
             var set = ImmutableHashSet.CreateBuilder<Point3d>();
 
-            var arr = input.As2DArray();
+            var arr = input.Lines.As2DArray();
             for (var row = 0; row < arr.GetLength(0); row++)
             {
                 for (var column = 0; column < arr.GetLength(1); column++)

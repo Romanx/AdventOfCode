@@ -56,7 +56,7 @@ namespace DayTwentyFive2020
     {
         public static (long CardPublicKey, long DevicePublicKey) Parse(this IInput input)
         {
-            var lines = input.AsLines().ToArray();
+            var lines = input.Lines.AsMemory().ToArray();
 
             return (long.Parse(lines[0].Span), long.Parse(lines[1].Span));
         }

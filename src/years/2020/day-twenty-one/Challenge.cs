@@ -109,7 +109,7 @@ namespace DayTwentyOne2020
         public static ImmutableArray<Food> ParseFoodList(this IInput input)
         {
             var builder = ImmutableArray.CreateBuilder<Food>();
-            foreach (var line in input.AsStringLines())
+            foreach (var line in input.Lines.AsString())
             {
                 var match = regex.Match(line);
                 if (match.Success is false)

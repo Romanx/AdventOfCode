@@ -16,7 +16,7 @@ namespace DaySeven2016
 
         public override void PartOne(IInput input, IOutput output)
         {
-            var validAddresses = input.AsStringLines()
+            var validAddresses = input.Lines.AsString()
                 .Count(static ip => ValidateIp(ip).Tls);
 
             output.WriteProperty("Number of valid addresses", validAddresses);
@@ -24,7 +24,7 @@ namespace DaySeven2016
 
         public override void PartTwo(IInput input, IOutput output)
         {
-            var validAddresses = input.AsStringLines()
+            var validAddresses = input.Lines.AsString()
                 .Count(static ip => ValidateIp(ip).Ssl);
 
             output.WriteProperty("Number of valid addresses", validAddresses);

@@ -9,7 +9,7 @@ namespace DayNineteen2015
     {
         public static (ImmutableArray<(string Target, string Replacement)> Replacements, string Molecule) Parse(this IInput input)
         {
-            var paragraphs = input.AsParagraphs();
+            var paragraphs = input.Lines.AsParagraphs();
 
             var replacements = ParseReplacements(paragraphs[0]);
 

@@ -13,7 +13,7 @@ namespace DayTwelve2020
         {
             var ship = new Ship(Direction.East, Point2d.Origin);
 
-            foreach (var line in input.AsLines())
+            foreach (var line in input.Lines.AsMemory())
             {
                 var span = line.Span;
                 var command = span[0];
@@ -62,7 +62,7 @@ namespace DayTwelve2020
             var waypoint = new Point2d(10, -1);
             var ship = new Ship(Direction.East, Point2d.Origin);
 
-            foreach (var line in input.AsLines())
+            foreach (var line in input.Lines.AsMemory())
             {
                 var span = line.Span;
                 var command = span[0];

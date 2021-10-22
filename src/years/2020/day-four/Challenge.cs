@@ -114,7 +114,7 @@ namespace DayFour2020
             var builder = ImmutableArray.CreateBuilder<Passport>();
             var fieldBuilder = ImmutableDictionary.CreateBuilder<string, string>();
 
-            foreach (var line in input.AsLines())
+            foreach (var line in input.Lines.AsMemory())
             {
                 if (line.IsEmpty)
                 {

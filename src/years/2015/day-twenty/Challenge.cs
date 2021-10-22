@@ -13,7 +13,7 @@ namespace DayTwenty2015
 
         public override void PartOne(IInput input, IOutput output)
         {
-            var target = uint.Parse(input.AsString());
+            var target = uint.Parse(input.Content.AsString());
             var houses = _houses.AsSpan();
             houses.Clear();
 
@@ -40,7 +40,7 @@ namespace DayTwenty2015
 
         public override void PartTwo(IInput input, IOutput output)
         {
-            var target = uint.Parse(input.AsString());
+            var target = uint.Parse(input.Content.AsString());
 
             var houses = _houses.AsSpan();
             houses.Clear();
