@@ -15,6 +15,9 @@ namespace Shared
         public static ReadOnlySpan<char> AsSpan(this IInputContent content)
             => content.AsString().AsSpan();
 
+        public static int AsInt(this IInputContent content)
+            => int.Parse(content.AsString());
+
         public static char[,] As2DArray(this IInputLines inputLines)
         {
             var lines = inputLines.AsArray();

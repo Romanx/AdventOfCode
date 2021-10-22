@@ -32,13 +32,24 @@ namespace Shared
         public static ImmutableArray<Direction> CardinalDirections { get; } = ImmutableArray.Create(
             North, East, South, West);
 
-        public Direction Right() => CardinalDirections[(CardinalDirections.IndexOf(this) + 1) % 4];
+        public Direction Right() => DirectionActions.TurnRight(this);
 
-        public Direction Left() => CardinalDirections[(CardinalDirections.IndexOf(this) + 3) % 4];
+        public Direction Left() => DirectionActions.TurnLeft(this);
 
-        public Direction Reverse() => All[(All.IndexOf(this) + 4) % All.Length];
+        public Direction Reverse() => DirectionActions.Reverse(this);
 
         public int CompareTo(Direction? other) => DirectionType.CompareTo(other?.DirectionType);
+    }
+
+    public static class DirectionActions
+    {
+        public static Direction TurnLeft(Direction direction)
+            => Direction.CardinalDirections[(Direction.CardinalDirections.IndexOf(direction) + 1) % 4];
+
+        public static Direction TurnRight(Direction direction)
+            => Direction.CardinalDirections[(Direction.CardinalDirections.IndexOf(direction) + 3) % 4];
+
+        public static Direction Reverse(Direction direction) => Direction.All[(Direction.All.IndexOf(direction) + 4) % Direction.All.Length];
     }
 
     public static class GridDirection

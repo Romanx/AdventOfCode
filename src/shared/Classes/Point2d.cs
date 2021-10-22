@@ -87,6 +87,9 @@ namespace Shared
         public static Point2d operator -(Point2d left, Point2d right)
             => new(left.Row - right.Row, left.Column - right.Column);
 
+        public static Point2d operator *(Point2d left, int multiplier)
+            => new(left.Row * multiplier, left.Column * multiplier);
+
         public static Point2d operator +(Point2d point, Direction direction) => direction.DirectionType switch
         {
             DirectionType.North => point + (0, -1),
