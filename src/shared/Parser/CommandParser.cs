@@ -27,6 +27,9 @@ namespace Shared.Parser
 
         private delegate TBase Build(in PcreRefMatch.GroupList groups);
 
+        public IEnumerable<TBase> ParseCommands(IInputLines lines)
+            => ParseCommands(lines.AsMemory());
+
         public IEnumerable<TBase> ParseCommands(IEnumerable<ReadOnlyMemory<char>> lines)
         {
             var results = new List<TBase>();
