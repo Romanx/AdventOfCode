@@ -2,4 +2,4 @@ param (
     [string]$date = $(Get-Date -Format "yyyy-MM-dd")
 )
 
-dotnet run -p .\src\Template\Template.csproj --ignore-failed-sources -- --date $date
+dotnet run --project .\src\Template\Template.csproj -- --date $date
