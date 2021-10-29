@@ -165,6 +165,35 @@ namespace Shared.Graph
             return visited.ToImmutable();
         }
 
+        public static ImmutableHashSet<TNode> FindConnected<TNode>(
+            this IGraph<TNode> graph,
+            TNode source) where TNode : notnull, IEquatable<TNode>
+        {
+            var currentFrontier = new List<TNode>();
+            var nextFrontier = new List<TNode>();
+            currentFrontier.Add(source);
+            var visited = ImmutableHashSet.CreateBuilder<TNode>();
+
+            while (currentFrontier.Count > 0)
+            {
+                foreach (var current in currentFrontier)
+                {
+                    foreach (var next in graph.Neigbours(current))
+                    {
+                        if (visited.Add(next) is true)
+                        {
+                            nextFrontier.Add(next);
+                        }
+                    }
+                }
+
+                (currentFrontier, nextFrontier) = (nextFrontier, currentFrontier);
+                nextFrontier.Clear();
+            }
+
+            return visited.ToImmutable();
+        }
+
         public static ImmutableArray<TNode> ReconstructPath<TNode>(
             TNode start,
             TNode goal,
