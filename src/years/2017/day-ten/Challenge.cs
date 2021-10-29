@@ -31,9 +31,7 @@ namespace DayTen2017
 
         public override void PartTwo(IInput input, IOutput output)
         {
-            var ascii = input.Content.ParseAscii()
-                .Concat(new byte[] { 17, 31, 73, 47, 23 })
-                .ToArray();
+            var ascii = input.Content.ParseAscii();
 
             var hash = KnotHasher.Hash(ascii);
 

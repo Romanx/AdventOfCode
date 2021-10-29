@@ -7,13 +7,17 @@ namespace Shared
     {
         public static byte[] Hash(byte[] lengths)
         {
+            var withPostfix = lengths
+                .Concat(new byte[] { 17, 31, 73, 47, 23 })
+                .ToArray();
+
             Span<byte> array = GenerateArray();
             var pointer = 0;
             var skipSize = 0;
 
             for (var i = 0; i < 64; i++)
             {
-                ApplyRound(array, lengths, ref pointer, ref skipSize);
+                ApplyRound(array, withPostfix, ref pointer, ref skipSize);
             }
 
             var dense = ToDenseHash(array);

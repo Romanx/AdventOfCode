@@ -173,6 +173,7 @@ namespace Shared.Graph
             var nextFrontier = new List<TNode>();
             currentFrontier.Add(source);
             var visited = ImmutableHashSet.CreateBuilder<TNode>();
+            visited.Add(source);
 
             while (currentFrontier.Count > 0)
             {
