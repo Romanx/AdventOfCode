@@ -30,6 +30,11 @@ namespace Shared.Helpers
             return Math.Abs(a.X - b.X) + Math.Abs(a.Y - b.Y);
         }
 
+        public static int ManhattanDistance(Point3d a, Point3d b)
+        {
+            return Math.Abs(a.X - b.X) + Math.Abs(a.Y - b.Y) + Math.Abs(a.Z - b.Z);
+        }
+
         public static IEnumerable<T> GetNeighboursInDistance<T>(this T point, int distance, Func<IEnumerable<int>, T> factory)
             where T : Point
         {
