@@ -7,7 +7,7 @@ using Shared;
 
 namespace DayTwentyThree2015
 {
-    public class Challenge : Shared.Challenge
+    public class Challenge : ChallengeSync
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2015, 12, 23), "Opening the Turing Lock");
 

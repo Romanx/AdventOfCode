@@ -10,7 +10,7 @@ using Shared.Helpers;
 
 namespace DayTwentyFour2016
 {
-    public class Challenge : Shared.Challenge
+    public class Challenge : ChallengeSync
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2016, 12, 24), "Air Duct Spelunking");
 

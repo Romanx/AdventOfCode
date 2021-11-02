@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using PCRE;
 
@@ -26,6 +27,19 @@ namespace Shared.Parser
         }
 
         private delegate TBase Build(in PcreRefMatch.GroupList groups);
+
+        public CommandParser<TBase> AddDerivedTypes<T>()
+        {
+            var types = typeof(T).Assembly.GetTypes()
+                .Where(t => t.BaseType == typeof(T));
+
+            foreach (var type in types)
+            {
+                AddType(type);
+            }
+
+            return this;
+        }
 
         public IEnumerable<TBase> ParseCommands(IInputLines lines)
             => ParseCommands(lines.AsMemory());

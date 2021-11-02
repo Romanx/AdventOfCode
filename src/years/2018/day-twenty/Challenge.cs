@@ -8,7 +8,7 @@ using Shared;
 
 namespace DayTwenty2018
 {
-    public class Challenge : Shared.Challenge
+    public class Challenge : ChallengeSync
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2018, 12, 20), "A Regular Map");
 

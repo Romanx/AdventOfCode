@@ -21,7 +21,7 @@ namespace DayFifteen2018
                 {
                     '#' => CellType.Wall,
                     '.' or 'G' or 'E' => CellType.OpenSpace,
-                    _ => throw new System.NotImplementedException(),
+                    _ => throw new NotImplementedException(),
                 };
 
                 var entity = c switch

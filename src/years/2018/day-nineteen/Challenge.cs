@@ -6,7 +6,7 @@ using static Shared.DeviceParser;
 
 namespace DayNineteen2018
 {
-    public class Challenge : Shared.Challenge
+    public class Challenge : ChallengeSync
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2018, 12, 19), "Go With The Flow");
 

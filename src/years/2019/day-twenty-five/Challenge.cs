@@ -11,7 +11,7 @@ using Shared2019.Computer;
 
 namespace DayTwentyFive2019
 {
-    public class Challenge : Shared.Challenge
+    public class Challenge : ChallengeSync
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2019, 12, 25), "Cryostasis");
 

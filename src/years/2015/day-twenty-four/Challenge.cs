@@ -8,7 +8,7 @@ using Spectre.Console;
 
 namespace DayTwentyFour2015
 {
-    public class Challenge : Shared.Challenge
+    public class Challenge : ChallengeSync
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2015, 12, 24), "It Hangs in the Balance");
 

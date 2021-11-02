@@ -7,7 +7,7 @@ using Shared;
 
 namespace DayTwentyFour2019
 {
-    public class Challenge : Shared.Challenge
+    public class Challenge : ChallengeSync
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2019, 12, 24), "Planet of Discord");
 

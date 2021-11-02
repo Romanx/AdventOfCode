@@ -5,7 +5,7 @@
 namespace System
 {
     /// <summary>
-    /// <see cref="System.SpanSplitEnumerator{T}"/> allows for enumeration of each element within a <see cref="System.ReadOnlySpan{T}"/>
+    /// <see cref="SpanSplitEnumerator{T}"/> allows for enumeration of each element within a <see cref="ReadOnlySpan{T}"/>
     /// that has been split using a provided separator.
     /// </summary>
     public ref struct SpanSplitEnumerator<T> where T : IEquatable<T>
@@ -27,13 +27,13 @@ namespace System
         /// <summary>
         /// Returns an enumerator that allows for iteration over the split span.
         /// </summary>
-        /// <returns>Returns a <see cref="System.SpanSplitEnumerator{T}"/> that can be used to iterate over the split span.</returns>
+        /// <returns>Returns a <see cref="SpanSplitEnumerator{T}"/> that can be used to iterate over the split span.</returns>
         public SpanSplitEnumerator<T> GetEnumerator() => this;
 
         /// <summary>
         /// Returns the current element of the enumeration.
         /// </summary>
-        /// <returns>Returns a <see cref="System.Range"/> instance that indicates the bounds of the current element withing the source span.</returns>
+        /// <returns>Returns a <see cref="Range"/> instance that indicates the bounds of the current element withing the source span.</returns>
         public Range Current => new Range(_startCurrent, _endCurrent);
 
         internal SpanSplitEnumerator(ReadOnlySpan<T> span, ReadOnlySpan<T> separators)

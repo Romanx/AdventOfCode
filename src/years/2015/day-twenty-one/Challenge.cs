@@ -10,7 +10,7 @@ using Spectre.Console.Rendering;
 
 namespace DayTwentyOne2015
 {
-    public class Challenge : Shared.Challenge
+    public class Challenge : ChallengeSync
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2015, 12, 21), "RPG Simulator 20XX");
 

@@ -7,7 +7,7 @@
         /// using a single space as a separator character.
         /// </summary>
         /// <param name="span">The source span to be enumerated.</param>
-        /// <returns>Returns a <see cref="System.SpanSplitEnumerator{T}"/>.</returns>
+        /// <returns>Returns a <see cref="SpanSplitEnumerator{T}"/>.</returns>
         public static SpanSplitEnumerator<char> Split(this ReadOnlySpan<char> span)
             => new SpanSplitEnumerator<char>(span, ' ');
 
@@ -17,7 +17,7 @@
         /// </summary>
         /// <param name="span">The source span to be enumerated.</param>
         /// <param name="separator">The separator character to be used to split the provided span.</param>
-        /// <returns>Returns a <see cref="System.SpanSplitEnumerator{T}"/>.</returns>
+        /// <returns>Returns a <see cref="SpanSplitEnumerator{T}"/>.</returns>
         public static SpanSplitEnumerator<char> Split(this ReadOnlySpan<char> span, char separator)
             => new SpanSplitEnumerator<char>(span, separator);
 
@@ -27,7 +27,7 @@
         /// </summary>
         /// <param name="span">The source span to be enumerated.</param>
         /// <param name="separator">The separator string to be used to split the provided span.</param>
-        /// <returns>Returns a <see cref="System.SpanSplitEnumerator{T}"/>.</returns>
+        /// <returns>Returns a <see cref="SpanSplitEnumerator{T}"/>.</returns>
         public static SpanSplitEnumerator<char> Split(this ReadOnlySpan<char> span, string separator)
             => new SpanSplitEnumerator<char>(span, separator ?? string.Empty);
     }

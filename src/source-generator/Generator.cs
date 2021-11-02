@@ -58,11 +58,12 @@ namespace Runner
 
         public static IEnumerable<INamedTypeSymbol> GetAllChallenges(Compilation compilation)
         {
-            var challengeBase = compilation.GetTypeByMetadataName("Shared.Challenge")!;
+            var challengeSync = compilation.GetTypeByMetadataName("Shared.ChallengeSync")!;
+            var challengeAsync = compilation.GetTypeByMetadataName("Shared.ChallengeAsync")!;
 
             return GetAllTypes(compilation)
                 .OfType<INamedTypeSymbol>()
-                .Where(a => SymbolEqualityComparer.Default.Equals(a.BaseType, challengeBase))
+                .Where(a => SymbolEqualityComparer.Default.Equals(a.BaseType, challengeSync) || SymbolEqualityComparer.Default.Equals(a.BaseType, challengeAsync))
                 .Where(a => a.DeclaredAccessibility == Accessibility.Public)
                 .ToArray();
         }

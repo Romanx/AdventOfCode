@@ -89,11 +89,25 @@ namespace Runner
             var input = FileInput.Build(new DirectoryEntry(fs, inputPath), challenge.Info.Date);
 
             var partOneOutput = new Output(dayOutputDirectory, fs);
-            challenge.PartOne(input, partOneOutput);
+            if (challenge is ChallengeSync cs1)
+            {
+                cs1.PartOne(input, partOneOutput);
+            }
+            else if (challenge is ChallengeAsync ca1)
+            {
+                await ca1.PartOne(input, partOneOutput);
+            }
             await WriteOutputs("Part 1", partOneOutput, fs);
 
             var partTwoOutput = new Output(dayOutputDirectory, fs);
-            challenge.PartTwo(input, partTwoOutput);
+            if (challenge is ChallengeSync cs2)
+            {
+                cs2.PartTwo(input, partTwoOutput);
+            }
+            else if (challenge is ChallengeAsync ca2)
+            {
+                await ca2.PartTwo(input, partTwoOutput);
+            }
             await WriteOutputs("Part 2", partTwoOutput, fs);
 
             static UPath DayOutputDirectory(LocalDate date, UPath outputPath, FileSystem fs)

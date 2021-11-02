@@ -8,7 +8,7 @@ using Shared;
 
 namespace DayTwelve2015
 {
-    public class Challenge : Shared.Challenge
+    public class Challenge : ChallengeSync
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2015, 12, 12), "JSAbacusFramework.io");
 

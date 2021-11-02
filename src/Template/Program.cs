@@ -136,7 +136,7 @@ using Shared;
 
 namespace {{challenge_namespace}}
 {
-    public class Challenge : Shared.Challenge
+    public class Challenge : ChallengeSync
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate({{year}}, 12, {{day}}), ""{{challenge_title}}"");
 

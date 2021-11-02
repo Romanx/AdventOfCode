@@ -9,7 +9,7 @@ using static Shared.InstructionHelper;
 
 namespace DayTwentyOne2018
 {
-    public class Challenge : Shared.Challenge
+    public class Challenge : ChallengeSync
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2018, 12, 21), "Chronal Conversion");
 

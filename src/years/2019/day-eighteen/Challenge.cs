@@ -8,7 +8,7 @@ using Shared;
 
 namespace DayEighteen2019
 {
-    public class Challenge : Shared.Challenge
+    public class Challenge : ChallengeSync
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2019, 12, 18), "Many-Worlds Interpretation");
 

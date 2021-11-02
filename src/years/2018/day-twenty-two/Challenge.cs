@@ -10,7 +10,7 @@ using Spectre.Console;
 
 namespace DayTwentyTwo2018
 {
-    public class Challenge : Shared.Challenge
+    public class Challenge : ChallengeSync
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2018, 12, 22), "Mode Maze");
 

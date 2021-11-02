@@ -9,7 +9,7 @@ using Shared.Graph;
 
 namespace DayTwentyThree2018
 {
-    public class Challenge : Shared.Challenge
+    public class Challenge : ChallengeSync
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2018, 12, 23), "Experimental Emergency Teleportation");
 

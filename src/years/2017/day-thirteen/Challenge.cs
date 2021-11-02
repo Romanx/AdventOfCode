@@ -7,7 +7,7 @@ using Shared;
 
 namespace DayThirteen2017
 {
-    public class Challenge : Shared.Challenge
+    public class Challenge : ChallengeSync
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2017, 12, 13), "Packet Scanners");
 

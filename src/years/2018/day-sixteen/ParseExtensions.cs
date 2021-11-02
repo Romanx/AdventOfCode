@@ -25,7 +25,7 @@ namespace DaySixteen2018
             return (builder.ToImmutable(), ParseProgram(program));
         }
 
-        private static TestCase ParseTestCase(ReadOnlyMemory<System.ReadOnlyMemory<char>> paragraph)
+        private static TestCase ParseTestCase(ReadOnlyMemory<ReadOnlyMemory<char>> paragraph)
         {
             var before = ParseList(paragraph.Span[0].Span);
             var command = ToCommand(paragraph.Span[1].Span);
