@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Linq;
+using Microsoft.Toolkit.HighPerformance;
 
 namespace Shared.Helpers
 {
@@ -107,6 +108,27 @@ namespace Shared.Helpers
 
             span0.CopyTo(span);
             span1.CopyTo(span[span0.Length..]);
+        }
+
+        public static bool SequenceEqual<T>(this Span2D<T> a, Span2D<T> b) where T : IEquatable<T>
+        {
+            if (a.Length != b.Length)
+            {
+                return false;
+            }
+
+            for (var x = 0; x < a.Width; x++)
+            {
+                var aRow = a.GetRowSpan(x);
+                var bRow = b.GetRowSpan(x);
+
+                if (aRow.SequenceEqual(bRow) is false)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

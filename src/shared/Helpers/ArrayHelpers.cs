@@ -47,17 +47,20 @@ namespace Shared.Helpers
 
         public static T[,] FlipHorizontal<T>(T[,] array)
         {
-            var columns = array.GetLength(0);
-            var flipped = new List<T[]>(columns);
+            var size = array.GetLength(0);
+            var flipped = new T[size, size];
+            var span = array.AsSpan2D();
 
-            for (var col = 0; col < columns; col++)
+            for (var col = 0; col < span.Height; col++)
             {
-                var row = array.GetRow(col);
+                var source = array.GetRowSpan(col);
+                var target = flipped.GetRowSpan(col);
 
-                flipped.Add(row.ToArray().Reverse().ToArray());
+                source.CopyTo(target);
+                target.Reverse();
             }
 
-            return CreateRectangularArray(flipped);
+            return flipped;
         }
     }
 }
