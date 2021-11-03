@@ -3,6 +3,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using PCRE;
 using Shared;
+using Shared.Helpers;
 using Shared.Parser;
 
 namespace DaySixteen2017
@@ -31,10 +32,7 @@ namespace DaySixteen2017
             public override void Apply(Span<char> span)
             {
                 Span<char> scratch = stackalloc char[span.Length];
-                var end = span[^X..];
-                end.CopyTo(scratch);
-                span[..^X].CopyTo(scratch[X..]);
-
+                scratch.ConcatInto(span[^X..], span[..^X]);
                 scratch.CopyTo(span);
             }
 

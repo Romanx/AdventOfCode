@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Shared.Helpers
@@ -95,6 +96,17 @@ namespace Shared.Helpers
             }
 
             return array;
+        }
+
+        public static void ConcatInto(
+            this Span<char> span,
+            ReadOnlySpan<char> span0,
+            ReadOnlySpan<char> span1)
+        {
+            Debug.Assert(span.Length == span0.Length + span1.Length);
+
+            span0.CopyTo(span);
+            span1.CopyTo(span[span0.Length..]);
         }
     }
 }
