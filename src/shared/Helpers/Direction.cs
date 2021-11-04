@@ -43,10 +43,12 @@ namespace Shared
 
     public static class DirectionActions
     {
-        public static Direction TurnLeft(Direction direction)
-            => Direction.CardinalDirections[(Direction.CardinalDirections.IndexOf(direction) + 1) % 4];
+        public static Direction None(Direction direction) => direction;
 
         public static Direction TurnRight(Direction direction)
+            => Direction.CardinalDirections[(Direction.CardinalDirections.IndexOf(direction) + 1) % 4];
+
+        public static Direction TurnLeft(Direction direction)
             => Direction.CardinalDirections[(Direction.CardinalDirections.IndexOf(direction) + 3) % 4];
 
         public static Direction Reverse(Direction direction) => Direction.All[(Direction.All.IndexOf(direction) + 4) % Direction.All.Length];

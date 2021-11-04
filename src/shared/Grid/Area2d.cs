@@ -14,6 +14,15 @@ namespace Shared.Grid
             _yRange = yRange;
             Height = _yRange.Max - yRange.Min;
             Width = _xRange.Max - xRange.Min;
+
+            Middle = new Point2d(
+                (_xRange.Min + _xRange.Max) / 2,
+                (_yRange.Min + _yRange.Max) / 2);
+            TopLeft = new(_xRange.Min, _yRange.Min);
+            TopRight = new(_xRange.Max, _yRange.Min);
+            BottomLeft = new(_xRange.Min, _yRange.Max);
+            BottomRight = new(_xRange.Max, _yRange.Max);
+            Count = _xRange.Count * _yRange.Count;
         }
 
         public bool Contains(Point2d point)
@@ -24,14 +33,14 @@ namespace Shared.Grid
                    point.Y <= _yRange.Max;
         }
 
-        public int Count => _xRange.Count * _yRange.Count;
-
         public IEnumerable<Point2d> Items => GetItems();
 
-        public Point2d TopLeft => new(_xRange.Min, _yRange.Min);
-        public Point2d TopRight => new(_xRange.Max, _yRange.Min);
-        public Point2d BottomLeft => new(_xRange.Min, _yRange.Max);
-        public Point2d BottomRight => new(_xRange.Max, _yRange.Max);
+        public int Count { get; }
+        public Point2d TopLeft { get; }
+        public Point2d TopRight { get; }
+        public Point2d BottomLeft { get; }
+        public Point2d BottomRight { get; }
+        public Point2d Middle { get; }
 
         public int Height { get; }
 
@@ -80,6 +89,17 @@ namespace Shared.Grid
                 new DimensionRange(x.Min, x.Max),
                 new DimensionRange(y.Min, y.Max)
             );
+        }
+
+        public static Area2d Create<T>(T[,] array)
+        {
+            var xMax = array.GetLength(0) - 1;
+            var yMax = array.GetLength(1) - 1;
+
+            var xRange = new DimensionRange(0, xMax);
+            var yRange = new DimensionRange(0, yMax);
+
+            return new Area2d(xRange, yRange);
         }
     }
 }
