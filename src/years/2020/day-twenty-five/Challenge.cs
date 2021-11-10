@@ -1,8 +1,4 @@
-﻿using System.Linq;
-using NodaTime;
-using Shared;
-
-namespace DayTwentyFive2020
+﻿namespace DayTwentyFive2020
 {
     public class Challenge : ChallengeSync
     {

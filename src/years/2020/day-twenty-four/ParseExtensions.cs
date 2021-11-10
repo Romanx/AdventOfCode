@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Immutable;
-using System.Linq;
-using Shared;
-
-namespace DayTwentyFour2020
+﻿namespace DayTwentyFour2020
 {
     internal static class ParseExtensions
     {

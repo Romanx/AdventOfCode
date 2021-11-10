@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Shared
+﻿namespace Shared
 {
     public delegate void InstructionAction(Span<int> registers, int a, int b, int output);
 

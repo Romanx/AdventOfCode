@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DayTwentyTwo2015
+﻿namespace DayTwentyTwo2015
 {
     abstract record SpellBase(Guid Id, string Name, int ManaCost)
     {

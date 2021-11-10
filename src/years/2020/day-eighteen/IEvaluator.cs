@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DayEighteen2020
+﻿namespace DayEighteen2020
 {
     public interface IEvaluator
     {

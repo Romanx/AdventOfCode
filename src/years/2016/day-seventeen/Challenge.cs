@@ -1,9 +1,4 @@
-﻿using System.Linq;
-using MoreLinq;
-using NodaTime;
-using Shared;
-
-namespace DaySeventeen2016
+﻿namespace DaySeventeen2016
 {
     public class Challenge : ChallengeSync
     {
@@ -30,8 +25,7 @@ namespace DaySeventeen2016
             var vault = new Vault(passcode);
             var path = vault
                 .Search(string.Empty)
-                .MaxBy(path => path.Length)
-                .First();
+                .MaxBy(path => path.Length);
 
             output.WriteProperty("Passcode", passcode);
 

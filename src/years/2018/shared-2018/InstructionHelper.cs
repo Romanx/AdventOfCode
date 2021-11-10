@@ -1,6 +1,4 @@
-﻿using System.Collections.Immutable;
-
-namespace Shared
+﻿namespace Shared
 {
     public static partial class InstructionHelper
     {

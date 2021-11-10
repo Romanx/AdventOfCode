@@ -1,10 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using System.Text;
-using MoreLinq;
-using NodaTime;
-using Shared;
+﻿using System.Text;
 
 namespace DaySixteen2015
 {
@@ -31,8 +25,7 @@ namespace DaySixteen2015
             var sues = input.Parse();
 
             var best = sues
-                .MaxBy(sue => Score(sue))
-                .First();
+                .MaxBy(sue => Score(sue));
 
             output.WriteProperty("Sue", best);
 
@@ -56,8 +49,7 @@ namespace DaySixteen2015
             var sues = input.Parse();
 
             var best = sues
-                .MaxBy(sue => Score(sue))
-                .First();
+                .MaxBy(sue => Score(sue));
 
             output.WriteProperty("Sue", best);
 

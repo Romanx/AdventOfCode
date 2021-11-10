@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using System.Text;
-using MoreLinq;
-using Shared;
-using Shared.Helpers;
+﻿using MoreLinq;
 
 namespace DayFifteen2018
 {

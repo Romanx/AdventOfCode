@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace DayEighteen2017
+﻿namespace DayEighteen2017
 {
     internal readonly struct Argument
     {

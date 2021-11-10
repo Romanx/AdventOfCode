@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using MoreLinq;
-using NodaTime;
-using Shared;
-
-namespace DayTwentyFour2017
+﻿namespace DayTwentyFour2017
 {
     public class Challenge : ChallengeSync
     {
@@ -21,7 +13,7 @@ namespace DayTwentyFour2017
                 ImmutableArray<Component>.Empty,
                 0);
 
-            var best = bridges.MaxBy(bridge => CalculateStrength(bridge)).First();
+            var best = bridges.MaxBy(bridge => CalculateStrength(bridge));
 
             output.WriteProperty("Strongest Bridge", string.Join("--", best));
             output.WriteProperty("Strength", CalculateStrength(best));
@@ -37,9 +29,8 @@ namespace DayTwentyFour2017
                 0);
 
             var best = bridges
-                .MaxBy(bridge => bridge.Length)
-                .MaxBy(bridge => CalculateStrength(bridge))
-                .First();
+                .MaxBySet(bridge => bridge.Length)
+                .MaxBy(bridge => CalculateStrength(bridge));
 
             output.WriteProperty("Strongest Bridge", string.Join("--", best));
             output.WriteProperty("Strength", CalculateStrength(best));

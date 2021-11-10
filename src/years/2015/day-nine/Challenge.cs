@@ -1,10 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using System.Text.RegularExpressions;
-using MoreLinq;
-using NodaTime;
-using Shared;
+﻿using System.Text.RegularExpressions;
+using static MoreLinq.Extensions.PermutationsExtension;
 
 namespace DayNine2015
 {
@@ -21,8 +16,7 @@ namespace DayNine2015
             var (path, weight) = destinations
                 .Permutations()
                 .Select(perm => CalculateWeight(perm, map))
-                .MinBy(x => x.TotalWeight)
-                .First();
+                .MinBy(x => x.TotalWeight);
 
             output.WriteProperty("Path", string.Join(" -> ", path));
             output.WriteProperty("Weight", weight);
@@ -37,8 +31,7 @@ namespace DayNine2015
             var (path, weight) = destinations
                 .Permutations()
                 .Select(perm => CalculateWeight(perm, map))
-                .MaxBy(x => x.TotalWeight)
-                .First();
+                .MaxBy(x => x.TotalWeight);
 
             output.WriteProperty("Path", string.Join(" -> ", path));
             output.WriteProperty("Weight", weight);

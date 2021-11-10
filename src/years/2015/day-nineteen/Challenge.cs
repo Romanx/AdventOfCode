@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using System.Text.RegularExpressions;
-using NodaTime;
-using Shared;
-using Spectre.Console;
+﻿using System.Text.RegularExpressions;
 
 namespace DayNineteen2015
 {

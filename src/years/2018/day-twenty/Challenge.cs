@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using MoreLinq;
-using NodaTime;
-using Shared;
-
-namespace DayTwenty2018
+﻿namespace DayTwenty2018
 {
     public class Challenge : ChallengeSync
     {
@@ -17,8 +9,7 @@ namespace DayTwenty2018
             var map = input.Parse();
 
             var (point, distance) = map
-                .MaxBy(x => x.Value)
-                .First();
+                .MaxBy(x => x.Value);
 
             output.WriteProperty("What is the largest number of doors you would be required to pass through to reach a room?", distance);
         }

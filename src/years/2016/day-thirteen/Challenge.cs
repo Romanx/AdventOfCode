@@ -1,8 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using NodaTime;
-using Shared;
 using Shared.Graph;
-using Shared.Helpers;
 using Spectre.Console;
 
 namespace DayThirteen2016

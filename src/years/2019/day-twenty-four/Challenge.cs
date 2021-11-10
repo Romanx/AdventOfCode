@@ -1,9 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Text;
+﻿using System.Text;
 using Microsoft.Toolkit.HighPerformance;
-using NodaTime;
-using Shared;
 
 namespace DayTwentyFour2019
 {

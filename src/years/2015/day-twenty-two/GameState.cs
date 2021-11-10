@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Immutable;
-using System.Linq;
-
-namespace DayTwentyTwo2015
+﻿namespace DayTwentyTwo2015
 {
     record GameState(
         Wizard Wizard,

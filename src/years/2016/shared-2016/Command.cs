@@ -1,6 +1,4 @@
-﻿using PCRE;
-
-namespace Shared
+﻿namespace Shared
 {
     public abstract record Command(string Name, object[] Arguments)
     {

@@ -1,10 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using Shared;
-using Shared.Helpers;
-
-namespace DayEighteen2019
+﻿namespace DayEighteen2019
 {
     internal class Map
     {

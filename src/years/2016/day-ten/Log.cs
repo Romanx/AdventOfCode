@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DayTen2016
+﻿namespace DayTen2016
 {
     internal class Logger
     {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using MoreLinq;
 
 namespace Shared
 {
@@ -78,5 +79,8 @@ namespace Shared
         {
             return !source.Any(predicate);
         }
+
+        public static IExtremaEnumerable<TSource> MaxBySet<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> selector)
+            => MoreLinq.Extensions.MaxByExtension.MaxBy(source, selector);
     }
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using NodaTime;
-using Shared;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace DayEighteen2016
 {

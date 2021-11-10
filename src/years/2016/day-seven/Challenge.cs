@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-using NodaTime;
-using Shared;
+﻿using System.Text.RegularExpressions;
 
 namespace DaySeven2016
 {

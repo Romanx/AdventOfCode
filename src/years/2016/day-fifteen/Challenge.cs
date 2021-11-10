@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Immutable;
-using System.Linq;
-using MoreLinq.Extensions;
-using NodaTime;
-using PCRE;
-using Shared;
-
-namespace DayFifteen2016
+﻿namespace DayFifteen2016
 {
     public class Challenge : ChallengeSync
     {
@@ -23,7 +15,7 @@ namespace DayFifteen2016
         public override void PartTwo(IInput input, IOutput output)
         {
             var discs = input.Parse();
-            var lastDisc = discs.MaxBy(d => d.Number).First();
+            var lastDisc = discs.MaxBy(d => d.Number)!;
             discs = discs.Add(new Disc(lastDisc.Number + 1, 11, 0, 0));
 
             var perfectMachine = RunMachineUntilPerfect(new Machine(0, discs));

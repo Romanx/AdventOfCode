@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using Shared;
-
-namespace DayThree2016
+﻿namespace DayThree2016
 {
     internal static class ParseExtensions
     {

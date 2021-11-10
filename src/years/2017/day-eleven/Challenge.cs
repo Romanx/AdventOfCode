@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using NodaTime;
-using Shared;
-using Shared.HexGrid;
+﻿using Shared.HexGrid;
 
 namespace DayEleven2017
 {

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using Microsoft.Toolkit.HighPerformance;
-using NodaTime;
-using Shared;
-using Shared.Helpers;
+﻿using Microsoft.Toolkit.HighPerformance;
 
 namespace DayTwentyOne2017
 {

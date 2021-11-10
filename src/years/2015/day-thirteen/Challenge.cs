@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.Immutable;
-using MoreLinq;
-using NodaTime;
-using Shared;
+﻿using static MoreLinq.Extensions.PermutationsExtension;
 
 namespace DayThirteen2015
 {
@@ -15,8 +11,7 @@ namespace DayThirteen2015
             var map = input.Parse();
 
             var bestHappiness = map.Keys.Permutations()
-                .MaxBy(possible => CalculateTableHappiness(possible, map))
-                .First();
+                .MaxBy(possible => CalculateTableHappiness(possible, map))!;
 
             output.WriteProperty("Table", string.Join(", ", bestHappiness));
             output.WriteProperty("Table Happiness", CalculateTableHappiness(bestHappiness, map));
@@ -28,8 +23,7 @@ namespace DayThirteen2015
             map = AddMe(map);
 
             var bestHappiness = map.Keys.Permutations()
-                .MaxBy(possible => CalculateTableHappiness(possible, map))
-                .First();
+                .MaxBy(possible => CalculateTableHappiness(possible, map))!;
 
             output.WriteProperty("Table", string.Join(", ", bestHappiness));
             output.WriteProperty("Table Happiness", CalculateTableHappiness(bestHappiness, map));

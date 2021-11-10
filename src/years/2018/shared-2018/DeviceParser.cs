@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Immutable;
-using System.Linq;
-
-namespace Shared
+﻿namespace Shared
 {
     public static class DeviceParser
     {

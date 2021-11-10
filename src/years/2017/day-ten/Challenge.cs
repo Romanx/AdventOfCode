@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Text;
-using NodaTime;
-using Shared;
+﻿using System.Text;
 
 namespace DayTen2017
 {

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.ObjectPool;
-using NodaTime;
-using Shared;
 
 namespace DayEight2015
 {

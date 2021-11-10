@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.Immutable;
-
-namespace DayTwentyThree2015
+﻿namespace DayTwentyThree2015
 {
     class Program
     {

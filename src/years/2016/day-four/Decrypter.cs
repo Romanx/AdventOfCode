@@ -1,5 +1,4 @@
-﻿using System;
-using static Shared.AlphabetHelper;
+﻿using static Shared.AlphabetHelper;
 
 namespace DayFour2016
 {

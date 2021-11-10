@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Immutable;
-using Shared;
-
-namespace DayFour2016
+﻿namespace DayFour2016
 {
     internal static class ParseExtensions
     {

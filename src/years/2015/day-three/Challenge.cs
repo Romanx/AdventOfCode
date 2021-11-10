@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using NodaTime;
-using Shared;
-
-namespace DayThree2015
+﻿namespace DayThree2015
 {
     public class Challenge : ChallengeSync
     {

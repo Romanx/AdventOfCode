@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using Shared;
-using Shared.Helpers;
-
-namespace DayTwentyOne2017
+﻿namespace DayTwentyOne2017
 {
     internal static class ParseExtensions
     {

@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using Microsoft.Collections.Extensions;
+﻿using Microsoft.Collections.Extensions;
 
 namespace DayTen2016
 {

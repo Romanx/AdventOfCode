@@ -1,7 +1,4 @@
-﻿using NodaTime;
-using Shared;
-
-namespace DayOne2015
+﻿namespace DayOne2015
 {
     public class Challenge : ChallengeSync
     {

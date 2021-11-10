@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using Shared;
-
-namespace DayEight2016
+﻿namespace DayEight2016
 {
     record RotateRowInstruction(int Row, int ShiftBy) : Instruction(CommandType.RotateRow)
     {

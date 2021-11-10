@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-
-namespace DayEight2020
+﻿namespace DayEight2020
 {
     public record Instruction(string Type, int Argument);
 

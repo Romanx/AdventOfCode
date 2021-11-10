@@ -1,10 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using MoreLinq;
-using NodaTime;
-using Shared;
-using Spectre.Console;
+﻿using static MoreLinq.Extensions.SubsetsExtension;
 
 namespace DayTwentyFour2015
 {
@@ -49,8 +43,7 @@ namespace DayTwentyFour2015
             }
 
             return group
-                .MinBy(s => Product(s))
-                .First();
+                .MinBy(s => Product(s))!;
         }
 
         static long Product(IEnumerable<int> iter) => iter

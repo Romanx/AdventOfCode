@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-
-namespace Shared
+﻿namespace Shared
 {
     public static class KnotHasher
     {

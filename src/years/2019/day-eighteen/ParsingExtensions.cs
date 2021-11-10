@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Immutable;
-using Shared;
-
-namespace DayEighteen2019
+﻿namespace DayEighteen2019
 {
     internal static class ParsingExtensions
     {

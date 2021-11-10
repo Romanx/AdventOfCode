@@ -1,10 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using NodaTime;
-using Shared;
-using Shared.Grid;
-using Shared.Helpers;
+﻿using Shared.Grid;
 
 namespace DaySeventeen2020
 {

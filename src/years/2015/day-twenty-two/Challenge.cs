@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using NodaTime;
-using Shared;
-using Spectre.Console;
+﻿using Spectre.Console;
 
 namespace DayTwentyTwo2015
 {

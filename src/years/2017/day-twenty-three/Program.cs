@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace DayTwentyThree2017
+﻿namespace DayTwentyThree2017
 {
     public class Program
     {

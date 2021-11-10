@@ -1,11 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using MoreLinq;
-using NodaTime;
-using Shared;
-
-namespace DayFifteen2015
+﻿namespace DayFifteen2015
 {
     public class Challenge : ChallengeSync
     {
@@ -17,8 +10,7 @@ namespace DayFifteen2015
 
             var cookie = Distribute(new int[ingredients.Length], 100, 0)
                 .Select(subset => new Cookie(ingredients, subset.ToImmutableArray()))
-                .MaxBy(profile => profile.Score)
-                .First();
+                .MaxBy(profile => profile.Score);
 
             output.WriteProperty($"Cookie", cookie);
         }
@@ -30,8 +22,7 @@ namespace DayFifteen2015
             var cookie = Distribute(new int[ingredients.Length], 100, 0)
                 .Select(subset => new Cookie(ingredients, subset.ToImmutableArray()))
                 .Where(cookie => cookie.Calories == 500)
-                .MaxBy(profile => profile.Score)
-                .First();
+                .MaxBy(profile => profile.Score);
 
             output.WriteProperty($"Cookie", cookie);
         }

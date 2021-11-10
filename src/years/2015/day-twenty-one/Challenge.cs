@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using MoreLinq;
-using NodaTime;
-using Shared;
-using Spectre.Console;
-using Spectre.Console.Rendering;
+﻿using Spectre.Console;
 
 namespace DayTwentyOne2015
 {
@@ -22,8 +14,7 @@ namespace DayTwentyOne2015
             var (winner, loser) = GetPlayerVariations(player)
                 .Select(variation => CalculateWinner(variation, boss))
                 .Where(result => result.Winner.UnitType == UnitType.Player)
-                .MinBy(result => result.Winner.TotalCost)
-                .First();
+                .MinBy(result => result.Winner.TotalCost);
 
             output.WriteProperty("Best Candidate", winner);
         }
@@ -36,8 +27,7 @@ namespace DayTwentyOne2015
             var (winner, loser) = GetPlayerVariations(player)
                 .Select(variation => CalculateWinner(variation, boss))
                 .Where(result => result.Winner.UnitType == UnitType.Boss)
-                .MaxBy(result => result.Loser.TotalCost)
-                .First();
+                .MaxBy(result => result.Loser.TotalCost);
 
             output.WriteProperty("Best Candidate", loser);
         }

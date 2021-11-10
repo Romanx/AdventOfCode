@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.IO;
-using System.Linq;
-using System.Text;
 using MoreLinq;
-using NodaTime;
-using Shared;
-using Spectre.Console;
 
 namespace DayEighteen2018
 {

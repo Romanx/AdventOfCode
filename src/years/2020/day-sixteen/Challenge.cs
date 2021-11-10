@@ -1,11 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using Microsoft.Toolkit.HighPerformance;
+﻿using Microsoft.Toolkit.HighPerformance;
 using Microsoft.Toolkit.HighPerformance.Enumerables;
-using NodaTime;
-using Shared;
-using Shared.Helpers;
 
 namespace DaySixteen2020
 {

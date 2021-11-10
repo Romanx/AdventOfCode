@@ -1,8 +1,5 @@
-﻿using System;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
-using NodaTime;
-using Shared;
 
 namespace DayFour2015
 {

@@ -1,5 +1,4 @@
 ﻿using Helpers.Instructions;
-using System;
 
 namespace Helpers.Computer.Instructions
 {

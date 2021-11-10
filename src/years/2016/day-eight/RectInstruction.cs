@@ -1,5 +1,4 @@
-﻿using Shared;
-using Shared.Grid;
+﻿using Shared.Grid;
 
 namespace DayEight2016
 {

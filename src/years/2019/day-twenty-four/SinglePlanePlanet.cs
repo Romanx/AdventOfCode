@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using Shared;
-
-namespace DayTwentyFour2019
+﻿namespace DayTwentyFour2019
 {
     public static class SinglePlanePlanet
     {

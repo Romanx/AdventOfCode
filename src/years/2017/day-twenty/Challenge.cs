@@ -1,11 +1,4 @@
-﻿using System.Collections.Immutable;
-using System.Linq;
-using MoreLinq;
-using NodaTime;
-using Shared;
-using Shared.Helpers;
-
-namespace DayTwenty2017
+﻿namespace DayTwenty2017
 {
     public class Challenge : ChallengeSync
     {
@@ -21,8 +14,7 @@ namespace DayTwenty2017
             }
 
             var closest = particles
-                .MinBy(particle => PointHelpers.ManhattanDistance(particle.Position, Point3d.Origin))
-                .First();
+                .MinBy(particle => PointHelpers.ManhattanDistance(particle.Position, Point3d.Origin))!;
 
             output.WriteProperty("Closest", closest.Id);
 

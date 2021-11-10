@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using NodaTime;
-using Shared;
+﻿using System.ComponentModel.DataAnnotations;
 using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.PixelFormats;
-using SixLabors.ImageSharp.Processing;
 
 namespace DaySeventeen2018
 {

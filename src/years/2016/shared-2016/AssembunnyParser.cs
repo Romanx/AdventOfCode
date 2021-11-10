@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Shared.Parser;
+﻿using Shared.Parser;
 
 namespace Shared
 {

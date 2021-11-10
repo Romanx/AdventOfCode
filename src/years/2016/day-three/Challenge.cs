@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Toolkit.HighPerformance;
-using NodaTime;
-using Shared;
+﻿using Microsoft.Toolkit.HighPerformance;
 
 namespace DayThree2016
 {

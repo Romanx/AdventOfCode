@@ -162,7 +162,7 @@ namespace Runner
 
         private static async Task WriteOutputs(string header, Output output, PhysicalFileSystem fs)
         {
-            AnsiConsole.Render(new Rule(header) { Style = new Style(foreground: Color.Gold1) }.LeftAligned());
+            AnsiConsole.Write(new Rule(header) { Style = new Style(foreground: Color.Gold1) }.LeftAligned());
 
             var props = output.GetProperties();
 
@@ -179,7 +179,7 @@ namespace Runner
                     table.AddRow(new Markup($"[#00d7ff]{Markup.Escape(name)}[/]"), new Text(value));
                 }
 
-                AnsiConsole.Render(table);
+                AnsiConsole.Write(table);
             }
 
             output.WriteBlocks(AnsiConsole.Console);
@@ -199,7 +199,7 @@ namespace Runner
                     table.AddRow(new Markup(converted));
                 }
 
-                AnsiConsole.Render(table);
+                AnsiConsole.Write(table);
             }
         }
 

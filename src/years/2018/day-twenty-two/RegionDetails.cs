@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Shared;
-
-namespace DayTwentyTwo2018
+﻿namespace DayTwentyTwo2018
 {
     record RegionDetails(CellType CellType, ulong GeologicIndex, ulong ErosionLevel)
     {

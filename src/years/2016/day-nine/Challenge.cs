@@ -1,9 +1,4 @@
-﻿using System;
-using NodaTime;
-using PCRE;
-using Shared;
-
-namespace DayNine2016
+﻿namespace DayNine2016
 {
     public class Challenge : ChallengeSync
     {

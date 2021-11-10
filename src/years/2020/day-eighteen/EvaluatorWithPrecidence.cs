@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Superpower.Model;
+﻿using Superpower.Model;
 
 namespace DayEighteen2020
 {

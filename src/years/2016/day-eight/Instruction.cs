@@ -1,6 +1,4 @@
-﻿using System.Collections.Immutable;
-using System.ComponentModel.DataAnnotations;
-using Shared;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace DayEight2016
 {

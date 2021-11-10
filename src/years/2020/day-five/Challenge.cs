@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Immutable;
-using System.Globalization;
-using System.Linq;
-using NodaTime;
-using Shared;
-using Shared.Helpers;
-
-namespace DayFive2020
+﻿namespace DayFive2020
 {
     public class Challenge : ChallengeSync
     {

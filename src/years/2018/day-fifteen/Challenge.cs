@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using NodaTime;
-using Shared;
+﻿using System.Diagnostics;
 
 namespace DayFifteen2018
 {

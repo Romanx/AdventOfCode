@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Helpers.Instructions
+﻿namespace Helpers.Instructions
 {
     internal class MultiplyInstruction : Instruction
     {

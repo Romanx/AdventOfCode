@@ -1,9 +1,4 @@
-﻿using System;
-using NodaTime;
-using Shared;
-using Shared.Helpers;
-
-namespace DayTwelve2020
+﻿namespace DayTwelve2020
 {
     public class Challenge : ChallengeSync
     {

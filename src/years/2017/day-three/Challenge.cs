@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using NodaTime;
-using Shared;
-using Shared.Grid;
-using Shared.Helpers;
+﻿using Shared.Grid;
 
 namespace DayThree2017
 {

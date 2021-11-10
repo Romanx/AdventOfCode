@@ -1,10 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using System.Text.RegularExpressions;
-using MoreLinq.Extensions;
-using NodaTime;
-using Shared;
+﻿using System.Text.RegularExpressions;
 
 namespace DayFourteen2015
 {
@@ -18,8 +12,7 @@ namespace DayFourteen2015
             const int Timestamp = 2503;
 
             var fastestReindeer = reindeers
-                .MaxBy(r => DistanceAfterTime(r, Timestamp))
-                .First();
+                .MaxBy(r => DistanceAfterTime(r, Timestamp))!;
 
             output.WriteProperty("Fastest Reindeer", fastestReindeer.Name);
             output.WriteProperty("Distance after time", DistanceAfterTime(fastestReindeer, Timestamp));
@@ -63,7 +56,7 @@ namespace DayFourteen2015
                     }
                 }
 
-                var furthest = distance.MaxBy(v => v.Value);
+                var furthest = distance.MaxBySet(v => v.Value);
                 foreach (var (reindeer, _) in furthest)
                 {
                     points[reindeer]++;
@@ -71,8 +64,7 @@ namespace DayFourteen2015
             }
 
             var (fastestReindeer, highestPoints) = points
-                .MaxBy(r => r.Value)
-                .First();
+                .MaxBy(r => r.Value);
 
             output.WriteProperty("Fastest Reindeer", fastestReindeer.Name);
             output.WriteProperty("Points after time", highestPoints);

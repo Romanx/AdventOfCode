@@ -1,7 +1,4 @@
-﻿using System;
-using System.Text;
-using NodaTime;
-using Shared;
+﻿using System.Text;
 
 namespace DayTwo2016
 {

@@ -91,9 +91,13 @@ namespace Template
                 fs.CreateDirectory(dayPath);
 
                 var ns = $"Day{dayWords.Titleize().Replace(" ", "")}{challengeDate.Year}";
+                var proj = $"{challengeDate.Day:00}_{ns}.csproj";
 
-                fs.WriteAllText(dayPath / $"{ns}.csproj", ProjectTemplate.Render());
-                Commands.Stage(repo, $"{fs.ConvertPathToInternal(dayPath / $"{ns}.csproj")}");
+                fs.WriteAllText(dayPath / proj, ProjectTemplate.Render(new
+                {
+                    ChallengeNamespace = ns,
+                }));
+                Commands.Stage(repo, $"{fs.ConvertPathToInternal(dayPath / proj)}");
 
                 fs.WriteAllText(dayPath / $"Challenge.cs", ChallengeTemplate.Render(new
                 {
@@ -104,7 +108,7 @@ namespace Template
                 }));
                 Commands.Stage(repo, $"{fs.ConvertPathToInternal(dayPath / $"Challenge.cs")}");
 
-                return fs.ConvertPathToInternal(dayPath / $"{ns}.csproj");
+                return fs.ConvertPathToInternal(dayPath / proj);
             }
 
             async Task AddProjectToSolution(string projectPath)
@@ -122,37 +126,30 @@ namespace Template
             private static Scriban.Template ProjectTemplate { get; } = Scriban.Template.Parse(@"
 <Project Sdk=""Microsoft.NET.Sdk"">
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>{{challenge_namespace}}</RootNamespace>
   </PropertyGroup>
 </Project>".Trim());
 
             private static Scriban.Template ChallengeTemplate { get; } = Scriban.Template.Parse(@"
-using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using NodaTime;
-using Shared;
+namespace {{challenge_namespace}};
 
-namespace {{challenge_namespace}}
+public class Challenge : ChallengeSync
 {
-    public class Challenge : ChallengeSync
-    {
-        public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate({{year}}, 12, {{day}}), ""{{challenge_title}}"");
+    public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate({{year}}, 12, {{day}}), ""{{challenge_title}}"");
 
-        public override void PartOne(IInput input, IOutput output)
-        {
-        }
-
-        public override void PartTwo(IInput input, IOutput output)
-        {
-        }
-    }
-
-    internal static class ParseExtensions
+    public override void PartOne(IInput input, IOutput output)
     {
     }
-}".Trim());
+
+    public override void PartTwo(IInput input, IOutput output)
+    {
+    }
+}
+
+internal static class ParseExtensions
+{
+}
+".Trim());
         }
     }
 }

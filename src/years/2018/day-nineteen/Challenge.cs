@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using NodaTime;
-using Shared;
-using static Shared.DeviceParser;
+﻿using static Shared.DeviceParser;
 
 namespace DayNineteen2018
 {

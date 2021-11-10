@@ -1,10 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using NodaTime;
-using Shared;
-using Shared.Helpers;
+﻿using System.ComponentModel.DataAnnotations;
 using Shared.Graph;
 using Spectre.Console;
 
@@ -61,6 +55,7 @@ namespace DayTwentyTwo2018
                 {
                     Action.Move => 1,
                     Action.ChangeTool => 7,
+                    _ => throw new NotImplementedException(),
                 });
 
             var timeMoving = actionTotals[Action.Move];

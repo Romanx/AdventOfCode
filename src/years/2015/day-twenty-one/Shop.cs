@@ -1,6 +1,4 @@
-﻿using System.Collections.Immutable;
-
-namespace DayTwentyOne2015
+﻿namespace DayTwentyOne2015
 {
     static class Shop
     {

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-
-namespace DayTwentyTwo2015
+﻿namespace DayTwentyTwo2015
 {
     delegate (GameState NextState, Result? Result) StateTransition(GameState state);
 

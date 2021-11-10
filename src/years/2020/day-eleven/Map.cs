@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using Shared;
-
-namespace DayEleven2020
+﻿namespace DayEleven2020
 {
     internal class Map : IEquatable<Map?>
     {

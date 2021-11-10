@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using Microsoft.Collections.Extensions;
-using MoreLinq;
-using NodaTime;
-using PCRE;
-using Shared;
+﻿using Microsoft.Collections.Extensions;
 
 namespace DaySeven2017
 {
@@ -33,7 +25,6 @@ namespace DaySeven2017
 
             var targetWeight = dict
                 .MaxBy(v => v.Value.Length)
-                .First()
                 .Key;
 
             var incorrect = dict

@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using MoreLinq;
-using NodaTime;
-using Shared;
+﻿using MoreLinq;
 
 namespace DaySeventeen2015
 {

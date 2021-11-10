@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using NodaTime;
-using Shared;
-
-namespace DayFour2017
+﻿namespace DayFour2017
 {
     public class Challenge : ChallengeSync
     {

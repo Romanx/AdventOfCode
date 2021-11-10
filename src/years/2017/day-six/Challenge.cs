@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using MoreLinq;
-using NodaTime;
-using PCRE;
-using Shared;
-
-namespace DaySix2017
+﻿namespace DaySix2017
 {
     public class Challenge : ChallengeSync
     {
@@ -69,7 +60,7 @@ namespace DaySix2017
         static ImmutableArray<Bank> Redistribute(ImmutableArray<Bank> banks)
         {
             var bank = banks
-                .MaxBy(b => b.Blocks)
+                .MaxBySet(b => b.Blocks)
                 .OrderByDescending(b => banks.IndexOf(b))
                 .First();
 
