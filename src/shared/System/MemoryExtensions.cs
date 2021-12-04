@@ -1,6 +1,6 @@
 ﻿namespace System
 {
-    public static partial class MemoryExtensions
+    public static partial class MemoryExtensions2
     {
         /// <summary>
         /// Returns a type that allows for enumeration of each element within a split span
