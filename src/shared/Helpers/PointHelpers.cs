@@ -35,6 +35,11 @@ namespace Shared.Helpers
             return Math.Abs(a.X - b.X) + Math.Abs(a.Y - b.Y) + Math.Abs(a.Z - b.Z);
         }
 
+        public static int SlopeBetweenTwoPoints(Point2d a, Point2d b)
+        {
+            return (b.Y - a.Y) / (b.X - a.X);
+        }
+
         public static IEnumerable<T> GetNeighboursInDistance<T>(this T point, int distance, Func<IEnumerable<int>, T> factory)
             where T : Point
         {
