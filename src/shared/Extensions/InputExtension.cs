@@ -55,6 +55,11 @@ namespace Shared
         public static IEnumerable<int> Ints(this IInputLines lines)
             => lines.Transform(static l => int.Parse(l));
 
+        public static IEnumerable<int> AsInts(this IInputContent content, char separator = ',')
+            => content.AsString()
+                .Split(separator)
+                .Select(i => int.Parse(i));
+
         public static ReadOnlyMemory<ReadOnlyMemory<char>>[] AsParagraphs(this IInputLines lines)
         {
             var body = lines.AsMemory().ToArray().AsMemory();
