@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using Priority_Queue;
 
 namespace Shared.Graph
 {
@@ -50,7 +49,7 @@ namespace Shared.Graph
             TNode start,
             TNode goal) where TNode : notnull, IEquatable<TNode>
         {
-            var frontier = new SimplePriorityQueue<TNode>();
+            var frontier = new PriorityQueue<TNode, float>();
             frontier.Enqueue(start, 0);
 
             var cameFrom = new Dictionary<TNode, TNode>()
@@ -63,7 +62,7 @@ namespace Shared.Graph
                 [start] = 0
             };
 
-            while (frontier.TryDequeue(out var current))
+            while (frontier.TryDequeue(out var current, out _))
             {
                 if (current.Equals(goal))
                 {
@@ -93,7 +92,7 @@ namespace Shared.Graph
             Func<TNode, TNode, float> heuristicFunction)
             where TNode : notnull, IEquatable<TNode>
         {
-            var frontier = new SimplePriorityQueue<TNode>();
+            var frontier = new PriorityQueue<TNode, float>();
             frontier.Enqueue(start, 0);
 
             var cameFrom = new Dictionary<TNode, TNode>()
@@ -106,7 +105,7 @@ namespace Shared.Graph
                 [start] = 0
             };
 
-            while (frontier.TryDequeue(out var current))
+            while (frontier.TryDequeue(out var current, out _))
             {
                 if (current.Equals(goal))
                 {

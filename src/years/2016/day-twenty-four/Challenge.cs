@@ -1,5 +1,4 @@
-﻿using Priority_Queue;
-using Shared.Graph;
+﻿using Shared.Graph;
 
 namespace DayTwentyFour2016
 {
@@ -48,7 +47,7 @@ namespace DayTwentyFour2016
             Point2d start)
         {
             var startState = new State(start, ImmutableSortedSet.Create(0));
-            var frontier = new SimplePriorityQueue<State>();
+            var frontier = new PriorityQueue<State, float>();
             frontier.Enqueue(startState, 0);
 
             var cameFrom = new Dictionary<State, State>()
@@ -62,7 +61,7 @@ namespace DayTwentyFour2016
             };
 
             State? finishedState = null;
-            while (frontier.TryDequeue(out var current))
+            while (frontier.TryDequeue(out var current, out _))
             {
                 if (goalReached(current))
                 {
