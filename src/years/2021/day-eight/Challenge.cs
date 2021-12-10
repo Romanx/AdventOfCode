@@ -6,20 +6,22 @@ public class Challenge : ChallengeSync
 
     public override void PartOne(IInput input, IOutput output)
     {
-        var easyNumberLengths = new Dictionary<int, int>()
-        {
-            [2] = 1,
-            [4] = 4,
-            [3] = 7,
-            [7] = 8,
-        }.ToImmutableDictionary();
-
         var entries = input.Lines.Parse();
         var count = 0;
         foreach (var entry in entries)
         {
             count += entry.OutputValues
-                .Count(value => easyNumberLengths.ContainsKey(value.Length));
+                .Count(static value =>
+                {
+                    return value.Length switch
+                    {
+                        2 => true, // Number 1
+                        3 => true, // Number 7
+                        4 => true, // Number 4
+                        7 => true, // Number 8
+                        _ => false
+                    };
+                });
         }
 
         output.WriteProperty("Digit Count", count);
