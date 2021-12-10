@@ -166,7 +166,7 @@ namespace DayTwentyFive2019
             {
                 var list = ParseDelimitedList("Doors here lead:", lines);
                 return list
-                    .Select(i => new Direction(Enum.Parse<DirectionType>(i, true)))
+                    .Select(i => Direction.Parse(i))
                     .OrderBy(dir =>
                     {
                         return dir.DirectionType switch

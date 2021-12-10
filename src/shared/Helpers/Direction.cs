@@ -15,8 +15,16 @@ namespace Shared
         NorthWest,
     }
 
-    public record Direction(DirectionType DirectionType) : IComparable<Direction>
+    public readonly record struct Direction : IComparable<Direction?>
     {
+        private Direction(DirectionType directionType)
+        {
+            DirectionType = directionType;
+        }
+
+        public DirectionType DirectionType { get; }
+
+
         public static Direction North { get; } = new Direction(DirectionType.North);
         public static Direction NorthEast { get; } = new Direction(DirectionType.NorthEast);
         public static Direction NorthWest { get; } = new Direction(DirectionType.NorthWest);
@@ -31,6 +39,8 @@ namespace Shared
 
         public static ImmutableArray<Direction> CardinalDirections { get; } = ImmutableArray.Create(
             North, East, South, West);
+
+        public static Direction Parse(string value) => new(Enum.Parse<DirectionType>(value, true));
 
         public Direction Right() => DirectionActions.TurnRight(this);
 
@@ -56,10 +66,10 @@ namespace Shared
 
     public static class GridDirection
     {
-        public static Direction Up { get; } = new Direction(DirectionType.North);
-        public static Direction Down { get; } = new Direction(DirectionType.South);
-        public static Direction Left { get; } = new Direction(DirectionType.West);
-        public static Direction Right { get; } = new Direction(DirectionType.East);
+        public static Direction Up { get; } = Direction.North;
+        public static Direction Down { get; } = Direction.South;
+        public static Direction Left { get; } = Direction.West;
+        public static Direction Right { get; } = Direction.East;
 
         public static Direction FromChar(char identifier)
         {
