@@ -15,7 +15,7 @@ namespace Shared
         NorthWest,
     }
 
-    public readonly record struct Direction : IComparable<Direction?>
+    public record class Direction : IComparable<Direction?>, IEquatable<Direction>
     {
         private Direction(DirectionType directionType)
         {
@@ -23,7 +23,6 @@ namespace Shared
         }
 
         public DirectionType DirectionType { get; }
-
 
         public static Direction North { get; } = new Direction(DirectionType.North);
         public static Direction NorthEast { get; } = new Direction(DirectionType.NorthEast);
@@ -49,6 +48,11 @@ namespace Shared
         public Direction Reverse() => DirectionActions.Reverse(this);
 
         public int CompareTo(Direction? other) => DirectionType.CompareTo(other?.DirectionType);
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(DirectionType);
+        }
     }
 
     public static class DirectionActions
