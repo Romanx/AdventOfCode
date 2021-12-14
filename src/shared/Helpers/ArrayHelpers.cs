@@ -44,19 +44,35 @@ namespace Shared.Helpers
             return rotated;
         }
 
-        public static T[,] FlipHorizontal<T>(T[,] array)
+        public static T[,] FlipHorizontal<T>(T[,] span)
+            => FlipHorizontal(span.AsSpan2D());
+
+        public static T[,] FlipHorizontal<T>(Span2D<T> span)
         {
-            var size = array.GetLength(0);
-            var flipped = new T[size, size];
-            var span = array.AsSpan2D();
+            var flipped = new T[span.Height, span.Width];
 
             for (var col = 0; col < span.Height; col++)
             {
-                var source = array.GetRowSpan(col);
+                var source = span.GetRowSpan(col);
                 var target = flipped.GetRowSpan(col);
 
                 source.CopyTo(target);
                 target.Reverse();
+            }
+
+            return flipped;
+        }
+
+        public static Span2D<T> FlipVertical<T>(Span2D<T> span)
+        {
+            var flipped = new T[span.Height, span.Width];
+
+            for (var col = span.Height - 1; col >= 0; col--)
+            {
+                var source = span.GetRowSpan(col);
+                var target = flipped.GetRowSpan((span.Height - 1) - col);
+
+                source.CopyTo(target);
             }
 
             return flipped;
