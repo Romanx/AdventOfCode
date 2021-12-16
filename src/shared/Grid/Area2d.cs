@@ -12,8 +12,8 @@ namespace Shared.Grid
         {
             _xRange = xRange;
             _yRange = yRange;
-            Height = _yRange.Max - yRange.Min;
-            Width = _xRange.Max - xRange.Min;
+            Height = (_yRange.Max - yRange.Min) + 1;
+            Width = (_xRange.Max - xRange.Min) + 1;
 
             Middle = new Point2d(
                 (_xRange.Min + _xRange.Max) / 2,
