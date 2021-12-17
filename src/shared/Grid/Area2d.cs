@@ -12,17 +12,18 @@ namespace Shared.Grid
         {
             _xRange = xRange;
             _yRange = yRange;
-            Height = (_yRange.Max - yRange.Min) + 1;
-            Width = (_xRange.Max - xRange.Min) + 1;
+            Height = _yRange.Max - yRange.Min + 1;
+            Width = _xRange.Max - xRange.Min + 1;
 
             Middle = new Point2d(
                 (_xRange.Min + _xRange.Max) / 2,
                 (_yRange.Min + _yRange.Max) / 2);
 
-            TopLeft = new(_xRange.Min, _yRange.Min);
-            TopRight = new(_xRange.Max, _yRange.Min);
-            BottomLeft = new(_xRange.Min, _yRange.Max);
-            BottomRight = new(_xRange.Max, _yRange.Max);
+            TopLeft = new Point2d(_xRange.Min, _yRange.Max);
+            TopRight = new Point2d(_xRange.Max, _yRange.Max);
+            BottomLeft = new Point2d(_xRange.Min, _yRange.Min);
+            BottomRight = new Point2d(_xRange.Max, _yRange.Min);
+
             Count = _xRange.Count * _yRange.Count;
         }
 
@@ -34,11 +35,6 @@ namespace Shared.Grid
             }
 
             return true;
-
-            //return point.X >= _xRange.Min &&
-            //       point.X <= _xRange.Max &&
-            //       point.Y >= _yRange.Min &&
-            //       point.Y <= _yRange.Max;
         }
 
         public IEnumerable<Point2d> Items => GetItems();
