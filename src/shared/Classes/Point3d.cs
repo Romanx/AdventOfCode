@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using PCRE;
 using Shared.Helpers;
 
 namespace Shared
@@ -8,6 +9,7 @@ namespace Shared
     public record Point3d : Point, IComparable<Point3d?>
     {
         public const int NumberOfDimensions = 3;
+        private static readonly PcreRegex regex = new(@"([-+]?[0-9]+),\s*([-+]?[0-9]+),\s*([-+]?[0-9]+)", PcreOptions.Compiled);
 
         public Point3d(ImmutableArray<int> dimensions) : base(dimensions)
         {
@@ -37,6 +39,21 @@ namespace Shared
 
         public static Point3d operator +(Point3d left, Point3d right)
             => new(left.Row + right.Row, left.Column + right.Column, left.Level + right.Level);
+
+        public static Point3d Parse(ReadOnlySpan<char> span)
+        {
+            var match = regex.Match(span);
+            if (match.Success)
+            {
+                var x = int.Parse(match.Groups[1].Value);
+                var y = int.Parse(match.Groups[2].Value);
+                var z = int.Parse(match.Groups[3].Value);
+
+                return new Point3d(x, y, z);
+            }
+
+            throw new InvalidOperationException($"Unable to parse Point3d from '{span}'");
+        }
 
         public static Point3d operator +(Point3d point, Direction direction)
             => AddInDirection(point, direction, 1);
