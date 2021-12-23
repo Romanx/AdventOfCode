@@ -13,11 +13,6 @@ namespace Shared
 
         public void Scan()
         {
-            foreach (var point in _dimensions.Items)
-            {
-
-            }
-
             var (xRange, yRange) = _dimensions;
 
             for (var y = yRange.Min; y <= yRange.Max; y++)

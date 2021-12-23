@@ -91,6 +91,9 @@ namespace Shared.Helpers
         public static IEnumerable<Point2d> GetDirectNeighbours(Point2d point)
             => Direction.CardinalDirections.Select(dir => point + dir);
 
+        public static IEnumerable<Point2d> GetNeighbours(Point2d point)
+            => Direction.All.Select(dir => point + dir);
+
         public static IEnumerable<T> PointsInSpace<T>(IEnumerable<DimensionRange> ranges, Func<IEnumerable<int>, T> factory)
             where T : Point
         {

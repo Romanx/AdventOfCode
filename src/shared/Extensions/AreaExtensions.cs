@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Shared.Grid;
+﻿using Shared.Grid;
 
 namespace Shared
 {
@@ -12,6 +7,15 @@ namespace Shared
         public static T[,] As2dArray<T>(this Area2d area)
         {
             return new T[area.BottomRight.Y + 1, area.BottomRight.X + 1];
+        }
+
+        public static Area2d Pad(this Area2d area, int value)
+        {
+            var (xRange, yRange) = area;
+
+            return new Area2d(
+                xRange.Pad(value),
+                yRange.Pad(value));
         }
     }
 }

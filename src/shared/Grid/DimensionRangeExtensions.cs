@@ -6,9 +6,7 @@
         {
             return range with
             {
-                Min = range.Min - value < 0
-                    ? range.Min
-                    : range.Min - value,
+                Min = range.Min - value,
                 Max = range.Max + value,
             };
         }
