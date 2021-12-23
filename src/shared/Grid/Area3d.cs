@@ -1,31 +1,33 @@
 ﻿namespace Shared.Grid
 {
-    public class Area3d
+    public readonly record struct Area3d(DimensionRange XRange, DimensionRange YRange, DimensionRange ZRange)
     {
-        private readonly DimensionRange _xRange;
-        private readonly DimensionRange _yRange;
-        private readonly DimensionRange _zRange;
+        public long NumberOfPoints => 1L * XRange.Size * YRange.Size * ZRange.Size;
 
-        public Area3d(DimensionRange xRange, DimensionRange yRange, DimensionRange zRange)
+        public bool Intersects(Area3d other)
+            => XRange.Intersects(other.XRange) && YRange.Intersects(other.YRange) && ZRange.Intersects(other.ZRange);
+
+        public Area3d? Intersect(Area3d other)
         {
-            _xRange = xRange;
-            _yRange = yRange;
-            _zRange = zRange;
+            if (Intersects(other) is false)
+            {
+                return null;
+            }
+
+            return new Area3d(
+                XRange.Intersect(other.XRange),
+                YRange.Intersect(other.YRange),
+                ZRange.Intersect(other.ZRange));
         }
 
-        public bool Contains(Point3d point)
-        {
-            return point.X >= _xRange.Min &&
-                   point.X <= _xRange.Max &&
-                   point.Y >= _yRange.Min &&
-                   point.Y <= _yRange.Max &&
-                   point.Z >= _zRange.Min &&
-                   point.Z <= _zRange.Max;
-        }
+        public bool Contains(Point3d point) =>
+            point.X < XRange.Min || point.X > XRange.Max ||
+            point.Y < YRange.Min || point.Y > YRange.Max ||
+            point.Z < ZRange.Min || point.Z > ZRange.Max;
 
         public override string ToString()
         {
-            return $"[{_xRange.Min},{_yRange.Min},{_zRange.Min}] -> [{_xRange.Max},{_yRange.Max},{_zRange.Max}]";
+            return $"[{XRange.Min},{YRange.Min},{ZRange.Min}] -> [{XRange.Max},{YRange.Max},{ZRange.Max}]";
         }
     }
 }

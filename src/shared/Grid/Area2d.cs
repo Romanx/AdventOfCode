@@ -24,7 +24,7 @@ namespace Shared.Grid
             BottomLeft = new Point2d(_xRange.Min, _yRange.Min);
             BottomRight = new Point2d(_xRange.Max, _yRange.Min);
 
-            Count = _xRange.Count * _yRange.Count;
+            Count = _xRange.Size * _yRange.Size;
         }
 
         public bool Contains(Point2d point)
