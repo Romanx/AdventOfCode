@@ -4,7 +4,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)\..\..\GlobalUsings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)\..\..\GlobalUsings.cs" Visible="False" />
   </ItemGroup>
   
 </Project>

@@ -21,14 +21,14 @@ namespace Shared
         public static char[,] As2DArray(this IInputLines inputLines)
         {
             var lines = inputLines.AsArray();
-            var array = new char[lines[0].Length, lines.Length];
+            var array = new char[lines.Length, lines[0].Length];
 
             for (var y = 0; y < lines.Length; y++)
             {
                 var line = lines[y].AsSpan();
                 for (var x = 0; x < line.Length; x++)
                 {
-                    array[x, y] = line[x];
+                    array[y, x] = line[x];
                 }
             }
 
