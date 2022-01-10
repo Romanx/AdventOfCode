@@ -5,31 +5,28 @@ namespace Shared.Grid
 {
     public class Area2d
     {
-        private readonly DimensionRange _xRange;
-        private readonly DimensionRange _yRange;
-
         public Area2d(DimensionRange xRange, DimensionRange yRange)
         {
-            _xRange = xRange;
-            _yRange = yRange;
-            Height = _yRange.Max - yRange.Min + 1;
-            Width = _xRange.Max - xRange.Min + 1;
+            XRange = xRange;
+            YRange = yRange;
+            Height = YRange.Max - yRange.Min + 1;
+            Width = XRange.Max - xRange.Min + 1;
 
             Middle = new Point2d(
-                (_xRange.Min + _xRange.Max) / 2,
-                (_yRange.Min + _yRange.Max) / 2);
+                (XRange.Min + XRange.Max) / 2,
+                (YRange.Min + YRange.Max) / 2);
 
-            TopLeft = new Point2d(_xRange.Min, _yRange.Max);
-            TopRight = new Point2d(_xRange.Max, _yRange.Max);
-            BottomLeft = new Point2d(_xRange.Min, _yRange.Min);
-            BottomRight = new Point2d(_xRange.Max, _yRange.Min);
+            TopLeft = new Point2d(XRange.Min, YRange.Max);
+            TopRight = new Point2d(XRange.Max, YRange.Max);
+            BottomLeft = new Point2d(XRange.Min, YRange.Min);
+            BottomRight = new Point2d(XRange.Max, YRange.Min);
 
-            Count = _xRange.Size * _yRange.Size;
+            Count = XRange.Size * YRange.Size;
         }
 
         public bool Contains(Point2d point)
         {
-            if (point.X < _xRange.Min || point.X > _xRange.Max || point.Y < _yRange.Min || point.Y > _yRange.Max)
+            if (point.X < XRange.Min || point.X > XRange.Max || point.Y < YRange.Min || point.Y > YRange.Max)
             {
                 return false;
             }
@@ -38,7 +35,8 @@ namespace Shared.Grid
         }
 
         public IEnumerable<Point2d> Items => GetItems();
-
+        public DimensionRange XRange { get; }
+        public DimensionRange YRange { get; }
         public int Count { get; }
         public Point2d TopLeft { get; }
         public Point2d TopRight { get; }
@@ -51,18 +49,18 @@ namespace Shared.Grid
         public int Width { get; }
 
         public void Deconstruct(out DimensionRange x, out DimensionRange y)
-            => (x, y) = (_xRange, _yRange);
+            => (x, y) = (XRange, YRange);
 
         public override string ToString()
         {
-            return $"[{_xRange.Min},{_yRange.Min}] -> [{_xRange.Max},{_yRange.Max}]";
+            return $"[{XRange.Min},{YRange.Min}] -> [{XRange.Max},{YRange.Max}]";
         }
 
         private IEnumerable<Point2d> GetItems()
         {
-            for (var y = _yRange.Min; y <= _yRange.Max; y++)
+            for (var y = YRange.Min; y <= YRange.Max; y++)
             {
-                for (var x = _xRange.Min; x <= _xRange.Max; x++)
+                for (var x = XRange.Min; x <= XRange.Max; x++)
                 {
                     yield return new Point2d(x, y);
                 }
@@ -97,8 +95,8 @@ namespace Shared.Grid
 
         public static Area2d Create<T>(T[,] array)
         {
-            var xMax = array.GetLength(0) - 1;
-            var yMax = array.GetLength(1) - 1;
+            var yMax = array.GetLength(0) - 1;
+            var xMax = array.GetLength(1) - 1;
 
             var xRange = new DimensionRange(0, xMax);
             var yRange = new DimensionRange(0, yMax);
