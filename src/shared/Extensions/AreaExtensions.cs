@@ -6,7 +6,7 @@ namespace Shared
     {
         public static T[,] As2dArray<T>(this Area2d area)
         {
-            return new T[area.BottomRight.Y + 1, area.BottomRight.X + 1];
+            return new T[area.Height, area.Width];
         }
 
         public static Area2d Pad(this Area2d area, int value)
