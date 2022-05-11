@@ -1,4 +1,6 @@
-﻿namespace DayThree2021;
+﻿using System.Collections.Specialized;
+
+namespace DayThree2021;
 
 public class Challenge : ChallengeSync
 {
@@ -11,10 +13,10 @@ public class Challenge : ChallengeSync
         var bitInformation = ParseBitIndexCounts(numbers);
 
         var gammaRateBits = CalculateGammaRate(bitInformation);
-        var gammaRateValue = Convert.ToInt32(gammaRateBits, 2);
+        var gammaRateValue = BitVector32Extensions.FromBinaryString(gammaRateBits).Data;
 
-        var epsilonRateBits = CalculateEpsilonRate(gammaRateValue, bitInformation.Count);
-        var epsilonRateValue = Convert.ToInt32(epsilonRateBits, 2);
+        var epsilonRateBits = CalculateEpsilonRate(bitInformation);
+        var epsilonRateValue = BitVector32Extensions.FromBinaryString(epsilonRateBits).Data;
 
         output.WriteProperty("Gamma Rate Bits", gammaRateBits);
         output.WriteProperty("Epsilon Rate Bits", epsilonRateBits);
@@ -25,23 +27,28 @@ public class Challenge : ChallengeSync
 
         static string CalculateGammaRate(Dictionary<int, PositionInfo> bitIndexCounts)
         {
-            Span<char> gammaRate = new char[bitIndexCounts.Count];
-
-            foreach (var (index, info) in bitIndexCounts)
+            return string.Create(bitIndexCounts.Count, bitIndexCounts, (span, state) =>
             {
-                gammaRate[index] = info.NumberOfOnes > info.NumberOfZeros
-                    ? '1'
-                    : '0';
-            }
-
-            return new string(gammaRate);
+                foreach (var (index, info) in bitIndexCounts)
+                {
+                    span[index] = info.NumberOfOnes > info.NumberOfZeros
+                        ? '1'
+                        : '0';
+                }
+            });
         }
 
-        static string CalculateEpsilonRate(int gammaRate, int length)
+        static string CalculateEpsilonRate(Dictionary<int, PositionInfo> bitIndexCounts)
         {
-            var str = Convert.ToString(~gammaRate, 2);
-
-            return str[^length..];
+            return string.Create(bitIndexCounts.Count, bitIndexCounts, (span, state) =>
+            {
+                foreach (var (index, info) in bitIndexCounts)
+                {
+                    span[index] = info.NumberOfOnes > info.NumberOfZeros
+                        ? '0'
+                        : '1';
+                }
+            });
         }
     }
 
@@ -61,14 +68,14 @@ public class Challenge : ChallengeSync
             Func<int, string, PositionInfo, bool> criteriaFunction)
         {
             var index = 0;
-            var workingSet = new List<string>(numbers);
+            var current = new List<string>(numbers);
 
-            while (workingSet.Count > 1)
+            while (current.Count > 1)
             {
-                var scratch = new List<string>(workingSet);
+                var scratch = new List<string>(current);
                 var info = CalculatePositionInfo(index, scratch);
 
-                foreach (var number in workingSet)
+                foreach (var number in current)
                 {
                     if (criteriaFunction(index, number, info) is false)
                     {
@@ -76,11 +83,11 @@ public class Challenge : ChallengeSync
                     }
                 }
 
-                workingSet = scratch;
+                current = scratch;
                 index++;
             }
 
-            return Convert.ToInt32(workingSet[0], 2);
+            return Convert.ToInt32(current[0], 2);
         }
 
         static bool OxygenCriteria(int index, string number, PositionInfo info)
