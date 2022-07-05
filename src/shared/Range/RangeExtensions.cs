@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace Shared
@@ -42,6 +44,65 @@ namespace Shared
             }
 
             return range.Start.Value;
+        }
+
+        public static RangeEnumerator GetEnumerator(this Range range)
+        {
+            if (range.Start.IsFromEnd || range.End.IsFromEnd)
+            {
+                throw new ArgumentException("Range cannot be from end on either axis", nameof(range));
+            }
+
+            return new RangeEnumerator(range.Start.Value, range.End.Value);
+        }
+
+        public static EnumerableRange ToEnumerable(this Range range)
+        {
+            return new EnumerableRange(range);
+        }
+
+        public struct EnumerableRange : IEnumerable<int>
+        {
+            public Range Range { get; private set; }
+
+            public EnumerableRange(Range range)
+            {
+                Range = range;
+            }
+
+            public IEnumerator<int> GetEnumerator()
+            {
+                var enumerator = Range.GetEnumerator();
+                while (enumerator.MoveNext())
+                    yield return enumerator.Current;
+            }
+
+            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        }
+
+        public struct RangeEnumerator : IEnumerator<int>
+        {
+            private readonly int _end;
+            private int _current;
+
+            public RangeEnumerator(int start, int end)
+            {
+                _current = start - 1; // - 1 fixes a bug in the original code
+                _end = end;
+            }
+
+            public int Current => _current;
+
+            object System.Collections.IEnumerator.Current => Current;
+
+            public bool MoveNext() => ++_current < _end;
+
+            public void Dispose() { }
+
+            public void Reset()
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 

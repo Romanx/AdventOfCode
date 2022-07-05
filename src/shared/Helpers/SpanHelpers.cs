@@ -26,19 +26,30 @@ namespace Shared.Helpers
             return lines;
         }
 
-        public static ReadOnlyMemory<ReadOnlyMemory<char>> SliceUntilBlankLine(ReadOnlyMemory<ReadOnlyMemory<char>> lines, out ReadOnlyMemory<ReadOnlyMemory<char>> rest)
+        public static ReadOnlyMemory<ReadOnlyMemory<char>> SliceUntilCondition(
+            ReadOnlyMemory<ReadOnlyMemory<char>> lines,
+            Func<ReadOnlyMemory<char>, bool> condition,
+            bool includeLine,
+            out ReadOnlyMemory<ReadOnlyMemory<char>> rest)
         {
             for (var index = 0; index < lines.Length; index++)
             {
+                if (index is 0 && condition(lines.Span[0]))
+                {
+                    index++;
+                }
+
                 var line = lines.Span[index];
-                if (line.IsEmpty)
+                if (condition(line))
                 {
                     var content = lines[..index];
-                    while (lines.Span[index + 1].IsEmpty)
+                    while (condition(lines.Span[index + 1]))
                     {
                         index++;
                     }
-                    rest = lines[(index + 1)..];
+                    rest = includeLine
+                        ? lines[index..]
+                        : lines[(index + 1)..];
 
                     return content;
                 }
@@ -48,11 +59,26 @@ namespace Shared.Helpers
             return lines;
         }
 
+        public static ReadOnlyMemory<ReadOnlyMemory<char>> SliceUntilBlankLine(ReadOnlyMemory<ReadOnlyMemory<char>> lines, out ReadOnlyMemory<ReadOnlyMemory<char>> rest)
+            => SliceUntilCondition(lines, static span => span.IsEmpty, false, out rest);
+
         public static IEnumerable<ReadOnlyMemory<ReadOnlyMemory<char>>> SplitByBlankLines(ReadOnlyMemory<ReadOnlyMemory<char>> lines)
         {
             while (lines.IsEmpty is false)
             {
                 var slice = SliceUntilBlankLine(lines, out lines);
+                yield return slice;
+            }
+        }
+
+        public static IEnumerable<ReadOnlyMemory<ReadOnlyMemory<char>>> SplitByCondition(
+            ReadOnlyMemory<ReadOnlyMemory<char>> lines,
+            Func<ReadOnlyMemory<char>, bool> condition,
+            bool includeLine)
+        {
+            while (lines.IsEmpty is false)
+            {
+                var slice = SliceUntilCondition(lines, condition, includeLine, out lines);
                 yield return slice;
             }
         }
@@ -72,7 +98,7 @@ namespace Shared.Helpers
                 }
                 else
                 {
-                    var number = span.Slice(0, index);
+                    var number = span[..index];
                     span = span[(index + 1)..];
                     builder.Add(int.Parse(number));
                 }
