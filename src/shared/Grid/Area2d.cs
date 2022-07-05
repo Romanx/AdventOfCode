@@ -67,6 +67,21 @@ namespace Shared.Grid
             }
         }
 
+        public bool Intersects(Area2d other)
+            => XRange.Intersects(other.XRange) && YRange.Intersects(other.YRange);
+
+        public Area2d? Intersect(Area2d other)
+        {
+            if (Intersects(other) is false)
+            {
+                return null;
+            }
+
+            return new Area2d(
+                XRange.Intersect(other.XRange),
+                YRange.Intersect(other.YRange));
+        }
+
         public static Area2d Create(string start, string end)
             => Create(Point2d.Parse(start), Point2d.Parse(end));
 

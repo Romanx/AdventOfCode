@@ -59,6 +59,15 @@ namespace Shared
             return new Point2d(value.Split(",").Select(i => int.Parse(i)).ToImmutableArray());
         }
 
+        public static Point2d Parse(ReadOnlySpan<char> str)
+        {
+            var index = str.IndexOf(',');
+            var x = str[..index];
+            var y = str[(index + 1)..];
+
+            return new Point2d(int.Parse(x), int.Parse(y));
+        }
+
         public IEnumerable<Point2d> GetAllNeighbours()
             => Direction.All.Select(dir => this + dir);
 
