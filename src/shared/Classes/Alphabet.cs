@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Shared
 {
@@ -10,8 +11,14 @@ namespace Shared
 
         public static ReadOnlySpan<char> Lowercase => LowercaseString.AsSpan();
 
+        public static IEnumerable<char> LowercaseEnumerable => LowercaseString;
+
         public static ReadOnlySpan<char> Uppercase => UppercaseString.AsSpan();
 
+        public static IEnumerable<char> UppercaseEnumerable => UppercaseString;
+
         public static ReadOnlySpan<char> Alphabet => AlphabetString.AsSpan();
+
+        public static IEnumerable<char> AlphabetEnumerable => AlphabetString;
     }
 }

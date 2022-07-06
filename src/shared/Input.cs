@@ -23,7 +23,7 @@ namespace Shared
 
         public InputContent(string content)
         {
-            _content = content;
+            _content = content.Trim();
         }
 
         public ReadOnlyMemory<char> AsMemory() => _content.AsMemory();
