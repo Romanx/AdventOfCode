@@ -54,7 +54,7 @@ namespace Shared
             var builder = ImmutableDictionary.CreateBuilder<string, object>();
             foreach (var (name, attribute) in members)
             {
-                builder.Add(attribute.Name!, Enum.Parse(typeof(T), name));
+                builder.Add(attribute!.Name!, Enum.Parse(typeof(T), name));
             }
 
             var items = builder.ToImmutable();

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 
 namespace Shared.Graph
 {
     public interface IVertexGraph<T> : IGraph<T>
         where T : IEquatable<T>
     {
-        IEnumerable<T> Vertexes { get; }
+        ImmutableArray<T> Vertexes { get; }
     }
 }

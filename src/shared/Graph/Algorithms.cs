@@ -215,5 +215,60 @@ namespace Shared.Graph
             path.Reverse();
             return path.ToImmutable();
         }
+
+        public static ImmutableArray<T> TopologicalSort<T>(
+            IVertexGraph<T> graph,
+            Func<T, int>? costFunction = null)
+            where T : IEquatable<T>
+        {
+            var indegree = new Dictionary<T, int>(graph.Vertexes.Length);
+            foreach (var node in graph.Vertexes)
+            {
+                indegree.TryAdd(node, 0);
+
+                foreach (var neighbour in graph.Neigbours(node))
+                {
+                    indegree.AddOrUpdate(
+                        neighbour,
+                        1,
+                        (key, value) => value + 1);
+                }
+            }
+
+            var noIncomingEdges = new PriorityQueue<T, int>();
+            foreach (var node in graph.Vertexes)
+            {
+                if (indegree[node] == 0)
+                {
+                    var cost = costFunction?.Invoke(node) ?? 0;
+                    noIncomingEdges.Enqueue(node, cost);
+                }
+            }
+
+            var ordered = ImmutableArray.CreateBuilder<T>(graph.Vertexes.Length);
+
+            while (noIncomingEdges.TryDequeue(out var node, out _))
+            {
+                ordered.Add(node);
+
+                foreach (var neighbour in graph.Neigbours(node))
+                {
+                    indegree[neighbour]--;
+
+                    if (indegree[neighbour] == 0)
+                    {
+                        var cost = costFunction?.Invoke(neighbour) ?? 0;
+                        noIncomingEdges.Enqueue(neighbour, cost);
+                    }
+                }
+            }
+
+            if (ordered.Count == graph.Vertexes.Length)
+            {
+                return ordered.MoveToImmutable();
+            }
+
+            throw new InvalidOperationException("Graph has a cycle! No topological ordering exists.");
+        }
     }
 }

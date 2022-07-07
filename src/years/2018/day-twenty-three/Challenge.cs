@@ -83,7 +83,7 @@ namespace DayTwentyThree2018
         private readonly Dictionary<Nanobot, ImmutableHashSet<Nanobot>> _graph =
             new();
 
-        public IEnumerable<Nanobot> Vertexes => _graph.Keys;
+        public ImmutableArray<Nanobot> Vertexes => _graph.Keys.ToImmutableArray();
 
         public void AddVertex(Nanobot nanobot)
         {
