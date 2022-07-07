@@ -55,9 +55,7 @@ namespace Shared
         }
 
         public static Point2d Parse(string value)
-        {
-            return new Point2d(value.Split(",").Select(i => int.Parse(i)).ToImmutableArray());
-        }
+            => Parse(value.AsSpan());
 
         public static Point2d Parse(ReadOnlySpan<char> str)
         {

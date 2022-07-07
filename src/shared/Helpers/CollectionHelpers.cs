@@ -80,6 +80,9 @@ namespace Shared
             return !source.Any(predicate);
         }
 
+        public static IExtremaEnumerable<TSource> MinBySet<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> selector)
+            => MoreLinq.Extensions.MinByExtension.MinBy(source, selector);
+
         public static IExtremaEnumerable<TSource> MaxBySet<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> selector)
             => MoreLinq.Extensions.MaxByExtension.MaxBy(source, selector);
     }
