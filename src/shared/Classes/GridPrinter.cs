@@ -12,12 +12,29 @@ namespace Shared
             where T : struct
             => Print(map, static (map, writer) => new GridPrinter<T>(map, writer));
 
-        public static string Print<T>(IReadOnlyDictionary<Point2d, T> map, Func<IReadOnlyDictionary<Point2d, T>, IGridWriter, GridPrinter<T>> printerFactory)
+        public static string Print<T>(
+            IReadOnlyDictionary<Point2d, T> map,
+            Func<IReadOnlyDictionary<Point2d, T>, IGridWriter, GridPrinter<T>> printerFactory)
             where T : struct
         {
             var builder = new StringBuilder();
             var writer = new StringGridWriter(builder);
             var printer = printerFactory(map, writer);
+            printer.Scan();
+            return builder.ToString().Trim();
+        }
+
+        public static string Print(IEnumerable<Point2d> points, char identifier)
+            => Print(points, identifier, static (points, identifier, writer) => new GridPointPrinter(new HashSet<Point2d>(points), identifier, writer));
+
+        public static string Print(
+            IEnumerable<Point2d> points,
+            char identifier,
+            Func<IEnumerable<Point2d>, char, IGridWriter, GridPointPrinter> printerFactory)
+        {
+            var builder = new StringBuilder();
+            var writer = new StringGridWriter(builder);
+            var printer = printerFactory(points, identifier, writer);
             printer.Scan();
             return builder.ToString().Trim();
         }
@@ -87,6 +104,35 @@ namespace Shared
             else
             {
                 _writer.Append(item.ToString() ?? string.Empty);
+            }
+        }
+    }
+
+    public class GridPointPrinter : GridScanner
+    {
+        private readonly HashSet<Point2d> _points;
+        private readonly string _id;
+        private readonly IGridWriter _writer;
+
+        public GridPointPrinter(HashSet<Point2d> points, char id, IGridWriter writer)
+            : base(Area2d.Create(points))
+        {
+            _points = points;
+            _id = $"{id}";
+            _writer = writer;
+        }
+
+        public override void OnEndOfRow() => _writer.AppendLine();
+
+        public override void OnPosition(Point2d point)
+        {
+            if (_points.Contains(point))
+            {
+                _writer.Append(_id);
+            }
+            else
+            {
+                _writer.Append(".");
             }
         }
     }

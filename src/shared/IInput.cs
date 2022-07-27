@@ -12,6 +12,8 @@ namespace Shared
 
     public interface IInputLines
     {
+        int Length { get; }
+
         IEnumerable<ReadOnlyMemory<char>> AsMemory();
 
         IEnumerable<string> AsString();

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Shared
 {
@@ -37,10 +38,20 @@ namespace Shared
     public sealed class InputLines : IInputLines
     {
         private readonly string _content;
+        private string[]? _lines;
 
         public InputLines(string content)
         {
             _content = content;
+        }
+
+        public int Length
+        {
+            get
+            {
+                EnsureReadLines();
+                return _lines!.Length;
+            }
         }
 
         public IEnumerable<ReadOnlyMemory<char>> AsMemory()
@@ -48,13 +59,8 @@ namespace Shared
 
         public IEnumerable<string> AsString()
         {
-            using var reader = new StringReader(_content);
-
-            string? line;
-            while ((line = reader.ReadLine()) != null)
-            {
-                yield return line;
-            }
+            EnsureReadLines();
+            return _lines!;
         }
 
         public IEnumerable<TOut> Transform<TOut>(Func<string, TOut> transformer)
@@ -63,6 +69,18 @@ namespace Shared
             {
                 yield return transformer(line);
             }
+        }
+
+        private void EnsureReadLines()
+        {
+            if (_lines is not null)
+            {
+                return;
+            }
+
+            using var reader = new StringReader(_content);
+
+            _lines = reader.ReadAllLines().ToArray();
         }
     }
 }
