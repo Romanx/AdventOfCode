@@ -1,4 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <RootNamespace>DayThree2016</RootNamespace>
   </PropertyGroup>
 </Project>
