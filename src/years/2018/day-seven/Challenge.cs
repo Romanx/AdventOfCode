@@ -56,8 +56,7 @@ public class Challenge : ChallengeSync
 
         var ordered = ImmutableArray.CreateBuilder<char>(graph.Vertexes.Length);
 
-        var workers = new PriorityQueue<(char Node, int Start), int>(totalWorkers);
-        var scratch = new PriorityQueue<(char Node, int Start), int>(totalWorkers);
+        var workers = new PrioritySet<(char Node, int Start), int>(totalWorkers);
         var second = 0;
 
         BusyWorkers(totalWorkers, 0, workers, noIncomingEdges);
@@ -79,17 +78,13 @@ public class Challenge : ChallengeSync
                 }
             }
 
-            // Update the existing worker priorities
-            while (workers.TryDequeue(out var workerDetail, out var priority))
+            foreach (var (element, _) in workers.ToArray())
             {
-                var newPriority = NodeTime(workerDetail.Node) - (second - workerDetail.Start);
-                scratch.Enqueue(workerDetail, newPriority);
+                var newPriority = NodeTime(element.Node) - (second - element.Start);
+                workers.TryUpdate(element, newPriority);
             }
 
-            BusyWorkers(totalWorkers, second, scratch, noIncomingEdges);
-
-            // Swap the queues
-            (workers, scratch) = (scratch, workers);
+            BusyWorkers(totalWorkers, second, workers, noIncomingEdges);
         }
 
         return (ordered.MoveToImmutable(), second);
@@ -97,7 +92,7 @@ public class Challenge : ChallengeSync
         static void BusyWorkers(
             int totalWorkers,
             int currentTime,
-            PriorityQueue<(char Node, int Start), int> workers,
+            PrioritySet<(char Node, int Start), int> workers,
             PriorityQueue<char, int> edges)
         {
             while (workers.Count < totalWorkers && edges.TryDequeue(out var node, out _))
