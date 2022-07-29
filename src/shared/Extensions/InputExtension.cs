@@ -72,11 +72,11 @@ namespace Shared
             var builder = ImmutableArray.CreateBuilder<(Point2d Point, char C)>();
             var arr = input.Lines.As2DArray().AsSpan2D();
 
-            for (var row = 0; row < arr.Height; row++)
+            for (var y = 0; y < arr.Height; y++)
             {
-                for (var column = 0; column < arr.Width; column++)
+                for (var x = 0; x < arr.Width; x++)
                 {
-                    builder.Add((new Point2d(row, column), arr[row, column]));
+                    builder.Add((new Point2d(x, y), arr[y, x]));
                 }
             }
 
