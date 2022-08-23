@@ -2,11 +2,11 @@
 
 namespace DayTwentyFour2015
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2015, 12, 24), "It Hangs in the Balance");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var vals = input.Parse();
 
@@ -16,7 +16,7 @@ namespace DayTwentyFour2015
             output.WriteProperty("QE", Product(group));
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             var vals = input.Parse();
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using Microsoft.CodeAnalysis;
@@ -56,13 +57,12 @@ namespace Runner
 
         public static IEnumerable<INamedTypeSymbol> GetAllChallenges(Compilation compilation)
         {
-            var challengeSync = compilation.GetTypeByMetadataName("Shared.ChallengeSync")!;
-            var challengeAsync = compilation.GetTypeByMetadataName("Shared.ChallengeAsync")!;
+            var challenge = compilation.GetTypeByMetadataName("Shared.Challenge")!;
 
             return GetAllTypes(compilation)
                 .OfType<INamedTypeSymbol>()
-                .Where(a => SymbolEqualityComparer.Default.Equals(a.BaseType, challengeSync) || SymbolEqualityComparer.Default.Equals(a.BaseType, challengeAsync))
-                .Where(a => a.DeclaredAccessibility == Accessibility.Public)
+                .Where(a => SymbolEqualityComparer.Default.Equals(a.BaseType, challenge))
+                .Where(a => a.DeclaredAccessibility == Accessibility.Public && a.IsAbstract is false)
                 .ToArray();
         }
 

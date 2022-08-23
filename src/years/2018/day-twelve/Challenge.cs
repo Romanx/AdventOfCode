@@ -2,11 +2,11 @@
 
 namespace DayTwelve2018;
 
-public class Challenge : ChallengeSync
+public class Challenge : Shared.Challenge
 {
     public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2018, 12, 12), "Subterranean Sustainability");
 
-    public override void PartOne(IInput input, IOutput output)
+    public void PartOne(IInput input, IOutput output)
     {
         var (initialState, rules) = input.Parse();
 
@@ -18,7 +18,7 @@ public class Challenge : ChallengeSync
         output.WriteProperty("Number of plants", plants);
     }
 
-    public override void PartTwo(IInput input, IOutput output)
+    public void PartTwo(IInput input, IOutput output)
     {
         var (initialState, rules) = input.Parse();
 

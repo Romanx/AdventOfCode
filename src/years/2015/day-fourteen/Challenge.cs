@@ -2,11 +2,11 @@
 
 namespace DayFourteen2015
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2015, 12, 14), "Reindeer Olympics");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var reindeers = input.Parse();
             const int Timestamp = 2503;
@@ -38,7 +38,7 @@ namespace DayFourteen2015
             }
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             var reindeers = input.Parse();
             const int Timestamp = 2503;

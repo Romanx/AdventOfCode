@@ -3,11 +3,11 @@ using Shared.Grid;
 
 namespace DayEighteen2015
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2015, 12, 18), "Like a GIF For Your Yard");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             const int Steps = 100;
             var points = input.Parse();
@@ -21,7 +21,7 @@ namespace DayEighteen2015
             var lightsOn = points.Count(p => p.Value == LightState.On);
             output.WriteProperty("Number of lights on", lightsOn);
         }
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             const int Steps = 100;
 

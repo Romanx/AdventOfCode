@@ -2,11 +2,11 @@
 
 namespace DayTen2017
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2017, 12, 10), "Knot Hash");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             const int StringLength = 256;
             Span<byte> @string = MoreLinq.MoreEnumerable.Generate<byte>(0, i => (byte)(i + 1))
@@ -25,7 +25,7 @@ namespace DayTen2017
             output.WriteProperty("Result", @string[0] * @string[1]);
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             var ascii = input.Content.ParseAscii();
 

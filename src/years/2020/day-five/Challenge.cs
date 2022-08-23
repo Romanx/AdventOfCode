@@ -1,17 +1,17 @@
 ﻿namespace DayFive2020
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2020, 12, 05), "Binary Boarding");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var maxSeatId = input.Lines.AsMemory().Select(line => FindSeatId(line.Span)).Max();
 
             output.WriteProperty("Seat Id", maxSeatId);
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             var allSeats = BuildSeatList();
             var occupiedSeats = input.Lines.AsMemory().Select(line => FindSeatId(line.Span)).ToImmutableHashSet();

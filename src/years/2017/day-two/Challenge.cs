@@ -2,11 +2,11 @@
 
 namespace DayTwo2017
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2017, 12, 2), "Corruption Checksum");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var checksum = 0;
 
@@ -23,7 +23,7 @@ namespace DayTwo2017
             output.WriteProperty("Checksum", checksum);
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             var results = new List<int>();
 

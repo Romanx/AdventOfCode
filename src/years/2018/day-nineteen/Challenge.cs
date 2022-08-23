@@ -2,11 +2,11 @@
 
 namespace DayNineteen2018
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2018, 12, 19), "Go With The Flow");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var device = ParseDevice(input);
             device.Run();
@@ -15,7 +15,7 @@ namespace DayNineteen2018
             output.WriteProperty("Register Zero Value", registers[0]);
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             // Found by watching the registers until one is large and stable
             var largeNumber = 10_551_275;

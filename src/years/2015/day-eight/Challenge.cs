@@ -4,11 +4,11 @@ using Microsoft.Extensions.ObjectPool;
 
 namespace DayEight2015
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2015, 12, 8), "Matchsticks");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var total = 0;
             var converted = 0;
@@ -26,7 +26,7 @@ namespace DayEight2015
             output.WriteProperty("Difference in characters", total - converted);
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             var total = 0;
             var encodedTotal = 0;

@@ -4,11 +4,11 @@ using Spectre.Console;
 
 namespace DayThirteen2016
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2016, 12, 13), "A Maze of Twisty Little Cubicles");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var graph = input.Parse();
 
@@ -26,7 +26,7 @@ namespace DayThirteen2016
             output.WriteProperty("Path length", path.Length - 1);
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             var graph = input.Parse();
 

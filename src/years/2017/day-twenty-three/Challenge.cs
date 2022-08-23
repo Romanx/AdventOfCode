@@ -3,11 +3,11 @@ using Shared.Parser;
 
 namespace DayTwentyThree2017
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2017, 12, 23), "Coprocessor Conflagration");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var instructions = input.Lines.ParseInstructions();
             var program = new Program
@@ -33,7 +33,7 @@ namespace DayTwentyThree2017
             output.WriteProperty("Number of calls to Multiply", multiplyCalls);
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             var instructions = input.Lines.ParseInstructions();
 

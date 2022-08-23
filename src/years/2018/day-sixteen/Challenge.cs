@@ -2,11 +2,11 @@
 
 namespace DaySixteen2018
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2018, 12, 16), "Chronal Classification");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var (inputs, _) = input.Parse();
 
@@ -24,7 +24,7 @@ namespace DaySixteen2018
             output.WriteProperty("Test cases with 3 or more opcodes", count);
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             var (inputs, program) = input.Parse();
             var allCandidates = FindCandidates(inputs);

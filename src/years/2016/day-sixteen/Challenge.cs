@@ -1,10 +1,10 @@
 ﻿namespace DaySixteen2016
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2016, 12, 16), "Dragon Checksum");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var seed = input.Parse();
 
@@ -14,7 +14,7 @@
             output.WriteProperty("Checksum", Print(checksum.ToArray()));
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             var seed = input.Parse();
 

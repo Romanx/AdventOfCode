@@ -1,10 +1,10 @@
 ﻿namespace DayFifteen2015
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2015, 12, 15), "Science for Hungry People");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var ingredients = input.Parse();
 
@@ -15,7 +15,7 @@
             output.WriteProperty($"Cookie", cookie);
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             var ingredients = input.Parse();
 

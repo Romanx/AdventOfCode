@@ -1,10 +1,10 @@
 ﻿namespace DayOne2019
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2019, 12, 01), "The Tyranny of the Rocket Equation");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var totalMass = input
                 .AsInts()
@@ -14,7 +14,7 @@
             output.WriteProperty("Total Mass", $"{totalMass:N0}");
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             var totalMass = input
                 .AsInts()

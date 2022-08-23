@@ -1,10 +1,10 @@
 ﻿namespace DayFour2016
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2016, 12, 4), "Security Through Obscurity");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var rooms = input.Parse();
 
@@ -15,7 +15,7 @@
             output.WriteProperty("Sum of Valid Sector Ids", sum);
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             var rooms = input.Parse();
 

@@ -6,11 +6,11 @@ using Color = SixLabors.ImageSharp.Color;
 
 namespace DayEight2016
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2016, 12, 8), "Two-Factor Authentication");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var instructions = input.Parse();
             var display = Display.Create(50, 6)
@@ -20,7 +20,7 @@ namespace DayEight2016
                 .Count(kvp => kvp.Value is LightState.On));
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             var instructions = input.Parse();
             var display = Display.Create(50, 6)

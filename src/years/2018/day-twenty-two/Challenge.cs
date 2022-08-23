@@ -4,11 +4,11 @@ using Spectre.Console;
 
 namespace DayTwentyTwo2018
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2018, 12, 22), "Mode Maze");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var start = Point2d.Origin;
             var (depth, target) = input.Parse();
@@ -36,7 +36,7 @@ namespace DayTwentyTwo2018
             });
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             var start = Point2d.Origin;
             var (depth, target) = input.Parse();

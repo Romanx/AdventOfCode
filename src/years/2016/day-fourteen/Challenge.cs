@@ -3,11 +3,11 @@ using System.Text;
 
 namespace DayFourteen2016
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2016, 12, 14), "One-Time Pad");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var data = MD5Stream.CreateIncrementingStream(input.Content.AsString())
                 .Take(100_000)
@@ -21,7 +21,7 @@ namespace DayFourteen2016
             output.WriteProperty("Value", value);
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             var data = MD5Stream.CreateStretchedStream(input.Content.AsString())
                 .Take(50_000)

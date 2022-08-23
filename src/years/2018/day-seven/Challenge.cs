@@ -2,11 +2,11 @@
 
 namespace DaySeven2018;
 
-public class Challenge : ChallengeSync
+public class Challenge : Shared.Challenge
 {
     public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2018, 12, 7), "The Sum of Its Parts");
 
-    public override void PartOne(IInput input, IOutput output)
+    public void PartOne(IInput input, IOutput output)
     {
         var graph = input.Parse();
 
@@ -16,7 +16,7 @@ public class Challenge : ChallengeSync
         output.WriteProperty("Sorted Vertexes", string.Join("", sorted));
     }
 
-    public override void PartTwo(IInput input, IOutput output)
+    public void PartTwo(IInput input, IOutput output)
     {
         var graph = input.Parse();
 

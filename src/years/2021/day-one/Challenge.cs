@@ -1,11 +1,11 @@
 ﻿namespace DayOne2021;
 using static MoreLinq.Extensions.WindowExtension;
 
-public class Challenge : ChallengeSync
+public class Challenge : Shared.Challenge
 {
     public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2021, 12, 1), "Sonar Sweep");
 
-    public override void PartOne(IInput input, IOutput output)
+    public void PartOne(IInput input, IOutput output)
     {
         var distances = input.Lines.Ints();
 
@@ -16,7 +16,7 @@ public class Challenge : ChallengeSync
         output.WriteProperty("Number of Increases", changes.Count(x => x is ChangeType.Increase));
     }
 
-    public override void PartTwo(IInput input, IOutput output)
+    public void PartTwo(IInput input, IOutput output)
     {
         var distances = input.Lines.Ints();
 

@@ -133,15 +133,15 @@ namespace Template
             private static Scriban.Template ChallengeTemplate { get; } = Scriban.Template.Parse(@"
 namespace {{challenge_namespace}};
 
-public class Challenge : ChallengeSync
+public class Challenge : Shared.Challenge
 {
     public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate({{year}}, 12, {{day}}), ""{{challenge_title}}"");
 
-    public override void PartOne(IInput input, IOutput output)
+    public void PartOne(IInput input, IOutput output)
     {
     }
 
-    public override void PartTwo(IInput input, IOutput output)
+    public void PartTwo(IInput input, IOutput output)
     {
     }
 }

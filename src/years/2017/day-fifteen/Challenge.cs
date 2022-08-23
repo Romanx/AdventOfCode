@@ -2,14 +2,14 @@
 
 namespace DayFifteen2017
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2017, 12, 15), "Dueling Generators");
 
         private const int FactorA = 16807;
         private const int FactorB = 48271;
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var (seedA, seedB) = input.Lines.ParseSeeds();
 
@@ -31,7 +31,7 @@ namespace DayFifteen2017
             output.WriteProperty("Number of Matches", count);
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             var (seedA, seedB) = input.Lines.ParseSeeds();
 

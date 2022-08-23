@@ -2,11 +2,11 @@
 
 namespace DayTwentyFour2016
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2016, 12, 24), "Air Duct Spelunking");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var map = input.Parse();
             var start = map.First(kvp => kvp.Value is PointOfInterest poi && poi.Number == 0).Key;
@@ -23,7 +23,7 @@ namespace DayTwentyFour2016
             }
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             var map = input.Parse();
             var start = map.First(kvp => kvp.Value is PointOfInterest poi && poi.Number == 0).Key;

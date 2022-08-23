@@ -2,11 +2,11 @@
 
 namespace DaySix2016
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2016, 12, 6), "Signals and Noise");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var recordedMessages = input.Lines.AsString().ToImmutableArray();
             var message = DecodeMessage(recordedMessages, collection =>
@@ -17,7 +17,7 @@ namespace DaySix2016
             output.WriteProperty("Decoded message", message);
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             var recordedMessages = input.Lines.AsString().ToImmutableArray();
             var message = DecodeMessage(recordedMessages, collection =>

@@ -1,10 +1,10 @@
 ﻿namespace DayOne2018;
 
-public class Challenge : ChallengeSync
+public class Challenge : Shared.Challenge
 {
     public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2018, 12, 1), "Chronal Calibration");
 
-    public override void PartOne(IInput input, IOutput output)
+    public void PartOne(IInput input, IOutput output)
     {
         var totalFrequencyShift = input.Lines.Ints()
             .Aggregate(0, (acc, current) => acc + current);
@@ -12,7 +12,7 @@ public class Challenge : ChallengeSync
         output.WriteProperty("Total Frequency Shift", totalFrequencyShift);
     }
 
-    public override void PartTwo(IInput input, IOutput output)
+    public void PartTwo(IInput input, IOutput output)
     {
         var shifts = input.Lines.Ints().ToImmutableArray();
 

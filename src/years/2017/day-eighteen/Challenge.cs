@@ -4,11 +4,11 @@ using Shared.Parser;
 
 namespace DayEighteen2017
 {
-    public class Challenge : ChallengeAsync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2017, 12, 18), "Duet");
 
-        public override async Task PartOne(IInput input, IOutput output)
+        public async Task PartOne(IInput input, IOutput output)
         {
             var instructions = input.Lines.ParseInstructions();
             var channel = Channel.CreateUnbounded<long>();
@@ -45,7 +45,7 @@ namespace DayEighteen2017
             }
         }
 
-        public override async Task PartTwo(IInput input, IOutput output)
+        public async Task PartTwo(IInput input, IOutput output)
         {
             var instructions = input.Lines.ParseInstructions();
             var program0IO = Channel.CreateUnbounded<long>();

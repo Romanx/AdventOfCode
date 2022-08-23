@@ -1,10 +1,10 @@
 ﻿namespace DayTwenty2018
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2018, 12, 20), "A Regular Map");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var map = input.Parse();
 
@@ -14,7 +14,7 @@
             output.WriteProperty("What is the largest number of doors you would be required to pass through to reach a room?", distance);
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             var map = input.Parse();
 

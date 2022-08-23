@@ -1,10 +1,10 @@
 ﻿namespace DayOne2016
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2016, 12, 1), "No Time for a Taxicab");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var current = Point2d.Origin;
             var direction = Direction.North;
@@ -26,7 +26,7 @@
             output.WriteProperty("Distance from start in blocks", distance);
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             var location = FindFirstVisitedTwice(input.Parse());
 

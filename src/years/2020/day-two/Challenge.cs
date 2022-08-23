@@ -3,11 +3,11 @@ using System.Text.RegularExpressions;
 
 namespace DayTwo2020
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2020, 12, 02), "Password Philosophy");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var records = input.AsRecords();
             var validPasswords = records.Where(r => r.IsValidBasedOnCount()).Count();
@@ -16,7 +16,7 @@ namespace DayTwo2020
             output.WriteProperty("Number of Valid Passwords", validPasswords);
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             var records = input.AsRecords();
             var validPasswords = records.Where(r => r.IsValidBasedOnPosition()).Count();

@@ -3,11 +3,11 @@ using Spectre.Console;
 
 namespace DayEight2017
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2017, 12, 8), "I Heard You Like Registers");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var parser = CpuParser.BuildParser();
             var instructions = parser
@@ -32,7 +32,7 @@ namespace DayEight2017
             });
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             var parser = CpuParser.BuildParser();
             var instructions = parser

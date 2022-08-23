@@ -1,10 +1,10 @@
 ﻿namespace DayTwentyOne2021;
 
-public class Challenge : ChallengeSync
+public class Challenge : Shared.Challenge
 {
     public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2021, 12, 21), "Dirac Dice");
 
-    public override void PartOne(IInput input, IOutput output)
+    public void PartOne(IInput input, IOutput output)
     {
         var players = input.Lines.ParsePlayers();
         var die = new Dice(1, 100);
@@ -35,7 +35,7 @@ public class Challenge : ChallengeSync
         [9] = 1
     }.ToImmutableDictionary();
 
-    public override void PartTwo(IInput input, IOutput output)
+    public void PartTwo(IInput input, IOutput output)
     {
         var players = input.Lines.ParsePlayers();
         var state = new Game(players[0], players[1], true);

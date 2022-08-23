@@ -2,11 +2,11 @@
 
 namespace DayTwentyOne2015
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2015, 12, 21), "RPG Simulator 20XX");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var player = new Unit(UnitType.Player, 100, 0, 0, ImmutableArray<Equipment>.Empty);
             var boss = input.Parse();
@@ -19,7 +19,7 @@ namespace DayTwentyOne2015
             output.WriteProperty("Best Candidate", winner);
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             var player = new Unit(UnitType.Player, 100, 0, 0, ImmutableArray<Equipment>.Empty);
             var boss = input.Parse();

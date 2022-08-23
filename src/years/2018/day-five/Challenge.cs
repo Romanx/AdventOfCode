@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 
 namespace DayFive2018;
 
-public class Challenge : ChallengeSync
+public class Challenge : Shared.Challenge
 {
     public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2018, 12, 5), "Alchemical Reduction");
 
-    public override void PartOne(IInput input, IOutput output)
+    public void PartOne(IInput input, IOutput output)
     {
         var polymer = input.Content.AsString();
 
@@ -18,7 +18,7 @@ public class Challenge : ChallengeSync
         output.WriteProperty("Polymer length", result.Length);
     }
 
-    public override void PartTwo(IInput input, IOutput output)
+    public void PartTwo(IInput input, IOutput output)
     {
         var polymer = input.Content.AsString();
 

@@ -4,11 +4,11 @@ using Microsoft.Toolkit.HighPerformance;
 
 namespace DayTwelve2021;
 
-public class Challenge : ChallengeSync
+public class Challenge : Shared.Challenge
 {
     public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2021, 12, 12), "Passage Pathing");
 
-    public override void PartOne(IInput input, IOutput output)
+    public void PartOne(IInput input, IOutput output)
     {
         var graph = input.Lines.ParseGraph();
         var paths = FindPaths(
@@ -24,7 +24,7 @@ public class Challenge : ChallengeSync
         }
     }
 
-    public override void PartTwo(IInput input, IOutput output)
+    public void PartTwo(IInput input, IOutput output)
     {
         var graph = input.Lines.ParseGraph();
         var paths = FindPaths(graph, CaveFunction);

@@ -3,11 +3,11 @@ using System.Text;
 
 namespace DayFive2016
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2016, 12, 5), "How About a Nice Game of Chess?");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var password = GeneratePassword(input.Content.AsString());
 
@@ -36,7 +36,7 @@ namespace DayFive2016
             }
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             var password = GeneratePassword(input.Content.AsString());
 

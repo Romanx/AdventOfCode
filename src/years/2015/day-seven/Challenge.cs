@@ -2,11 +2,11 @@
 
 namespace DaySeven2015
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2015, 12, 7), "Some Assembly Required");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var instructions = input.Parse();
             var calculator = new Calculator(instructions);
@@ -15,7 +15,7 @@ namespace DaySeven2015
             output.WriteProperty("wire 'a'", result);
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             var instructions = input.Parse();
             var calculator = new Calculator(instructions, new Dictionary<string, ushort>

@@ -1,10 +1,10 @@
 ﻿namespace DayFourteen2021;
 
-public class Challenge : ChallengeSync
+public class Challenge : Shared.Challenge
 {
     public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2021, 12, 14), "Extended Polymerization");
 
-    public override void PartOne(IInput input, IOutput output)
+    public void PartOne(IInput input, IOutput output)
     {
         var (template, rules) = input.Lines.Parse();
 
@@ -30,7 +30,7 @@ public class Challenge : ChallengeSync
         output.WriteProperty("Quantities", $"{most.Count} - {least.Count} = {most.Count - least.Count}");
     }
 
-    public override void PartTwo(IInput input, IOutput output)
+    public void PartTwo(IInput input, IOutput output)
     {
         var (template, rules) = input.Lines.Parse();
 

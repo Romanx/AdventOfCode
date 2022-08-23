@@ -1,10 +1,10 @@
 ﻿namespace DayTwentyFour2021;
 
-public class Challenge : ChallengeSync
+public class Challenge : Shared.Challenge
 {
     public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2021, 12, 24), "Arithmetic Logic Unit");
 
-    public override void PartOne(IInput input, IOutput output)
+    public void PartOne(IInput input, IOutput output)
     {
         var parameters = input.Lines.ParseMagicParameters();
         var (_, max) = Solve(parameters);
@@ -12,7 +12,7 @@ public class Challenge : ChallengeSync
         output.WriteProperty("Maximum value", max);
     }
 
-    public override void PartTwo(IInput input, IOutput output)
+    public void PartTwo(IInput input, IOutput output)
     {
         var parameters = input.Lines.ParseMagicParameters();
         var (min, _) = Solve(parameters);

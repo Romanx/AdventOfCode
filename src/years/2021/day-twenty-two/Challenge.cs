@@ -2,11 +2,11 @@
 
 namespace DayTwentyTwo2021;
 
-public class Challenge : ChallengeSync
+public class Challenge : Shared.Challenge
 {
     public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2021, 12, 22), "Reactor Reboot");
 
-    public override void PartOne(IInput input, IOutput output)
+    public void PartOne(IInput input, IOutput output)
     {
         var targetRegion = new Area3d(
             new DimensionRange(-50, 50),
@@ -23,7 +23,7 @@ public class Challenge : ChallengeSync
         output.WriteProperty("Number of lit cubes", litCubes);
     }
 
-    public override void PartTwo(IInput input, IOutput output)
+    public void PartTwo(IInput input, IOutput output)
     {
         var cubes = input.Lines.ParseCubeRegions();
         var litCubes = NumberOfLitCubes(cubes);

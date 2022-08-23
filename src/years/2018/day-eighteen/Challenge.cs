@@ -4,11 +4,11 @@ using MoreLinq;
 
 namespace DayEighteen2018
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2018, 12, 18), "Settlers of The North Pole");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var map = input.Parse();
             var file = output.File("output.txt");
@@ -30,7 +30,7 @@ namespace DayEighteen2018
             PrintValue(output, map);
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             const int Target = 1_000_000_000;
 

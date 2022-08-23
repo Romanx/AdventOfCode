@@ -1,10 +1,10 @@
 ﻿namespace DayOne2015
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2015, 12, 1), "Not Quite Lisp");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var floor = 0;
             foreach (var c in input.Content.AsSpan())
@@ -22,7 +22,7 @@
             output.WriteProperty("Floor", floor);
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             var floor = 0;
             var span = input.Content.AsSpan();

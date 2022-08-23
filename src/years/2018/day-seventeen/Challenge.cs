@@ -3,11 +3,11 @@ using SixLabors.ImageSharp;
 
 namespace DaySeventeen2018
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2018, 12, 17), "Reservoir Research");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             ImmutableHashSet<Point2d> clayPoints = input.ParseClayPoints();
             var (_, yRange) = Point2d.FindSpaceOfPoints(clayPoints);
@@ -30,7 +30,7 @@ namespace DaySeventeen2018
             output.WriteProperty("Number of flowing and still blocks", waterBlocks);
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             ImmutableHashSet<Point2d> clayPoints = input.ParseClayPoints();
             var (_, yRange) = Point2d.FindSpaceOfPoints(clayPoints);

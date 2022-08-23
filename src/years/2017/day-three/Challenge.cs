@@ -2,11 +2,11 @@
 
 namespace DayThree2017
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2017, 12, 3), "Spiral Memory");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var target = input.Content.AsInt();
 
@@ -15,7 +15,7 @@ namespace DayThree2017
             output.WriteProperty($"Distance from (0, 0) to {end}", PointHelpers.ManhattanDistance(Point2d.Origin, end));
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             var target = input.Content.AsInt();
 

@@ -3,11 +3,11 @@ using static Shared.InstructionHelper;
 
 namespace DayTwentyOne2018
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2018, 12, 21), "Chronal Conversion");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var (instructionPointerBinding, commands) = Parse(input);
             var targetCommand = FindCommandUsingRegisterZero(commands);
@@ -15,7 +15,7 @@ namespace DayTwentyOne2018
 
             output.WriteProperty("Value of register", number);
         }
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             var (instructionPointerBinding, commands) = Parse(input);
             var targetCommand = FindCommandUsingRegisterZero(commands);

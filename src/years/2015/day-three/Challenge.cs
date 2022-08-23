@@ -1,10 +1,10 @@
 ﻿namespace DayThree2015
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2015, 12, 3), "Perfectly Spherical Houses in a Vacuum");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var position = Point2d.Origin;
             var visisted = new HashSet<Point2d> { position };
@@ -18,7 +18,7 @@
             output.WriteProperty("Visisted Count", visisted.Count);
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             var visisted = new HashSet<Point2d> { Point2d.Origin };
             var pawns = new[] { Point2d.Origin, Point2d.Origin };

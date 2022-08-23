@@ -2,11 +2,11 @@
 
 namespace DaySix2018;
 
-public class Challenge : ChallengeSync
+public class Challenge : Shared.Challenge
 {
     public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2018, 12, 6), "Chronal Coordinates");
 
-    public override void PartOne(IInput input, IOutput output)
+    public void PartOne(IInput input, IOutput output)
     {
         var points = input.Parse();
         var area = Area2d.Create(points);
@@ -45,7 +45,7 @@ public class Challenge : ChallengeSync
         output.WriteProperty("Max area", maxArea);
     }
 
-    public override void PartTwo(IInput input, IOutput output)
+    public void PartTwo(IInput input, IOutput output)
     {
         const int LargestArea = 10000;
 

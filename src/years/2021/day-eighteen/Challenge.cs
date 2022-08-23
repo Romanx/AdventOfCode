@@ -1,11 +1,11 @@
 namespace DayEighteen2021;
 using static MoreLinq.Extensions.SubsetsExtension;
 
-public class Challenge : ChallengeSync
+public class Challenge : Shared.Challenge
 {
     public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2021, 12, 18), "Snailfish");
 
-    public override void PartOne(IInput input, IOutput output)
+    public void PartOne(IInput input, IOutput output)
     {
         var result = input.Lines
             .AsMemory()
@@ -16,7 +16,7 @@ public class Challenge : ChallengeSync
         output.WriteProperty("Magnitude", result.Magnitude());
     }
 
-    public override void PartTwo(IInput input, IOutput output)
+    public void PartTwo(IInput input, IOutput output)
     {
         var memory = input.Lines.AsMemory();
         var candidates = memory

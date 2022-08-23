@@ -1,10 +1,10 @@
 ﻿namespace DayNine2021;
 
-public class Challenge : ChallengeSync
+public class Challenge : Shared.Challenge
 {
     public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2021, 12, 9), "Smoke Basin");
 
-    public override void PartOne(IInput input, IOutput output)
+    public void PartOne(IInput input, IOutput output)
     {
         var map = input.As2DPoints()
             .ToImmutableDictionary(k => k.Point, v => v.Character - '0');
@@ -33,7 +33,7 @@ public class Challenge : ChallengeSync
         output.WriteProperty("Risk Level", score);
     }
 
-    public override void PartTwo(IInput input, IOutput output)
+    public void PartTwo(IInput input, IOutput output)
     {
         var map = input.As2DPoints()
             .ToImmutableDictionary(k => k.Point, v => v.Character - '0');

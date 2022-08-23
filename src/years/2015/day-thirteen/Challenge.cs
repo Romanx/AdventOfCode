@@ -2,11 +2,11 @@
 
 namespace DayThirteen2015
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2015, 12, 13), "Knights of the Dinner Table");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var map = input.Parse();
 
@@ -17,7 +17,7 @@ namespace DayThirteen2015
             output.WriteProperty("Table Happiness", CalculateTableHappiness(bestHappiness, map));
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             var map = input.Parse();
             map = AddMe(map);

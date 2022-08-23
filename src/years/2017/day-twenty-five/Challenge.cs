@@ -1,10 +1,10 @@
 ﻿namespace DayTwentyFive2017;
 
-public class Challenge : ChallengeSync
+public class Challenge : Shared.Challenge
 {
     public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2017, 12, 25), "The Halting Problem");
 
-    public override void PartOne(IInput input, IOutput output)
+    public void PartOne(IInput input, IOutput output)
     {
         var (machine, iterations) = input.ParseMachine();
 
@@ -13,7 +13,7 @@ public class Challenge : ChallengeSync
         output.WriteProperty("Diagnostic Checksum", result.Tape.Count);
     }
 
-    public override void PartTwo(IInput input, IOutput output)
+    public void PartTwo(IInput input, IOutput output)
     {
     }
 }

@@ -2,11 +2,11 @@
 
 namespace DayEight2020
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2020, 12, 08), "Handheld Halting");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var instructions = input.ParseInstructions();
             var (accumulator, _) = Computer.RunInstructions(instructions);
@@ -14,7 +14,7 @@ namespace DayEight2020
             output.WriteProperty("Accumulator before loop", accumulator);
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             var instructions = input.ParseInstructions();
             var targetQueue = new Queue<int>(Enumerable.Range(0, instructions.Length).Where(i =>

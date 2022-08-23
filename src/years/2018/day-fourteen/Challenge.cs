@@ -1,14 +1,13 @@
-using static MoreLinq.Extensions.ToDelimitedStringExtension;
-using System.Runtime.InteropServices;
+﻿using static MoreLinq.Extensions.ToDelimitedStringExtension;
 using Microsoft.Toolkit.HighPerformance;
 
 namespace DayFourteen2018;
 
-public class Challenge : ChallengeSync
+public class Challenge : Shared.Challenge
 {
     public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2018, 12, 14), "Chocolate Charts");
 
-    public override void PartOne(IInput input, IOutput output)
+    public void PartOne(IInput input, IOutput output)
     {
         var target = input.Content.AsInt();
         var result = GenerateRecipes(recipes => recipes.Count == target + 10)
@@ -18,7 +17,7 @@ public class Challenge : ChallengeSync
         output.WriteProperty("Result", result);
     }
 
-    public override void PartTwo(IInput input, IOutput output)
+    public void PartTwo(IInput input, IOutput output)
     {
         var target = input.Content.CharactersToInt()
             .ToArray();
@@ -34,7 +33,7 @@ public class Challenge : ChallengeSync
         output.WriteProperty("Result", result);
     }
 
-    public List<int> GenerateRecipes(
+    public static List<int> GenerateRecipes(
         Func<List<int>, bool> stopCondition)
     {
         var history = new List<int> { 3, 7 };

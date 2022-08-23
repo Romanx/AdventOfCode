@@ -3,11 +3,11 @@ using System.Text;
 
 namespace DayTwentyTwo2019
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2019, 12, 22), "Slam Shuffle");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var cards = Enumerable.Range(0, 10007);
 
@@ -63,7 +63,7 @@ namespace DayTwentyTwo2019
             }
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             const long NUMBER_OF_CARDS = 119315717514047L;
             const long SHUFFLES = 101741582076661L;

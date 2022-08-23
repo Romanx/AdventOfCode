@@ -3,11 +3,11 @@ using static MoreLinq.Extensions.IndexExtension;
 
 namespace DayFour2021;
 
-public class Challenge : ChallengeSync
+public class Challenge : Shared.Challenge
 {
     public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2021, 12, 4), "Giant Squid");
 
-    public override void PartOne(IInput input, IOutput output)
+    public void PartOne(IInput input, IOutput output)
     {
         var grids = input.Parse();
         var winner = grids.MinBy(grid => grid.WinningTurn);
@@ -16,7 +16,7 @@ public class Challenge : ChallengeSync
         output.WriteProperty("Winner Score", winner.FinalScore);
     }
 
-    public override void PartTwo(IInput input, IOutput output)
+    public void PartTwo(IInput input, IOutput output)
     {
         var grids = input.Parse();
         var worstGrid = grids.MaxBy(grid => grid.WinningTurn);

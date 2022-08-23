@@ -1,10 +1,10 @@
 ﻿namespace DaySix2017
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2017, 12, 6), "Memory Reallocation");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var banks = input.Content.ParseBanks();
 
@@ -29,7 +29,7 @@
             output.WriteProperty("Number of steps until loop", loop);
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             var banks = input.Content.ParseBanks();
 

@@ -1,17 +1,17 @@
 ﻿namespace DayNine2016
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2016, 12, 9), "Explosives in Cyberspace");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var decompressed = Decompressor.DecompressedLength(input.Content.AsSpan());
 
             output.WriteProperty("Decompressed Length", decompressed);
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             var decompressed = Decompressor.DecompressedLengthV2(input.Content.AsSpan());
 

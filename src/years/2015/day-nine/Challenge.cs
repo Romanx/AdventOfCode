@@ -3,11 +3,11 @@ using static MoreLinq.Extensions.PermutationsExtension;
 
 namespace DayNine2015
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2015, 12, 9), "All in a Single Night");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var map = input.Parse();
 
@@ -22,7 +22,7 @@ namespace DayNine2015
             output.WriteProperty("Weight", weight);
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             var map = input.Parse();
 

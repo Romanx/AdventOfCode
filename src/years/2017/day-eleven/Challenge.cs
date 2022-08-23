@@ -2,11 +2,11 @@
 
 namespace DayEleven2017
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2017, 12, 11), "Hex Ed");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var start = Hex.Origin;
             var directions = input.Content.ParseDirections();
@@ -27,7 +27,7 @@ namespace DayEleven2017
             }
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             var start = Hex.Origin;
             var directions = input.Content.ParseDirections();

@@ -5,11 +5,11 @@ using Shared2019.Computer;
 
 namespace DayTwentyFive2019
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2019, 12, 25), "Cryostasis");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var program = input.Parse();
             var droid = new ScanningDroid(program);
@@ -19,7 +19,7 @@ namespace DayTwentyFive2019
             output.WriteProperty("Passcode", passcode);
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
         }
 

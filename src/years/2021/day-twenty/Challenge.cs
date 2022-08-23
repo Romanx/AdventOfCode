@@ -3,11 +3,11 @@ using Shared.Grid;
 
 namespace DayTwenty2021;
 
-public class Challenge : ChallengeSync
+public class Challenge : Shared.Challenge
 {
     public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2021, 12, 20), "Trench Map");
 
-    public override void PartOne(IInput input, IOutput output)
+    public void PartOne(IInput input, IOutput output)
     {
         var (algorithm, image) = input.Lines.Parse();
         var refined = ApplyRefinements(2, image, algorithm);
@@ -15,7 +15,7 @@ public class Challenge : ChallengeSync
         output.WriteProperty("Lit Pixels", refined.Points.Count);
     }
 
-    public override void PartTwo(IInput input, IOutput output)
+    public void PartTwo(IInput input, IOutput output)
     {
         var (algorithm, image) = input.Lines.Parse();
         var refined = ApplyRefinements(50, image, algorithm);

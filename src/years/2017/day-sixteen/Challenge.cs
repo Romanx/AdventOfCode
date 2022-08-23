@@ -1,10 +1,10 @@
 ﻿namespace DaySixteen2017
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2017, 12, 16), "Permutation Promenade");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var initial = "abcdefghijklmnop";
             var instructions = input.Content.ParseInstructions();
@@ -15,7 +15,7 @@
             output.WriteProperty("After", result);
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             const int Target = 1_000_000_000;
             var seen = new HashSet<string>();

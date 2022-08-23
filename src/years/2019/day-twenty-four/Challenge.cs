@@ -3,11 +3,11 @@ using Microsoft.Toolkit.HighPerformance;
 
 namespace DayTwentyFour2019
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2019, 12, 24), "Planet of Discord");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var hashset = new HashSet<string>();
 
@@ -30,7 +30,7 @@ namespace DayTwentyFour2019
             output.WriteProperty("Biodiversity", biodiversity);
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             var bugs = input.ParseBugs3d();
 

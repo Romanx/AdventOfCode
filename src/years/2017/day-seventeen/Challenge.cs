@@ -1,10 +1,10 @@
 ﻿namespace DaySeventeen2017
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2017, 12, 17), "Spinlock");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var step = input.Content.AsInt();
             var list = new List<int> { 0 };
@@ -19,7 +19,7 @@
             output.WriteProperty("Value after target", list[current + 1 % list.Count]);
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             var step = input.Content.AsInt();
 

@@ -1,16 +1,16 @@
 ﻿namespace DayThree2020
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2020, 12, 03), "Toboggan Trajectory");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var treeCount = CountTreesOnVector(input.Lines.As2DArray(), (3, 1));
             output.WriteProperty("Number of Trees", treeCount);
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             var vectors = ImmutableArray.Create((1, 1), (3, 1), (5, 1), (7, 1), (1, 2));
             var map = input.Lines.As2DArray();

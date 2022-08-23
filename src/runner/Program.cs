@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Immutable;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
+using Humanizer;
 using NodaTime;
 using NodaTime.Text;
 using Shared;
@@ -77,7 +79,6 @@ namespace Runner
             }
 
             var challenge = Challenges[index];
-            ChallengeHeader(console, challenge);
 
             var fs = new PhysicalFileSystem();
             var basePath = fs.ConvertPathFromInternal(AppDomain.CurrentDomain.BaseDirectory);
@@ -85,30 +86,18 @@ namespace Runner
             var inputPath = root / "inputs";
             var outputPath = root / "outputs";
 
-            var dayOutputDirectory = DayOutputDirectory(challenge.Info.Date, outputPath, fs);
             var input = FileInput.Build(new DirectoryEntry(fs, inputPath), challenge.Info.Date);
 
-            var partOneOutput = new Output(dayOutputDirectory, fs);
-            if (challenge is ChallengeSync cs1)
-            {
-                cs1.PartOne(input, partOneOutput);
-            }
-            else if (challenge is ChallengeAsync ca1)
-            {
-                await ca1.PartOne(input, partOneOutput);
-            }
-            await WriteOutputs("Part 1", partOneOutput, fs);
-
-            var partTwoOutput = new Output(dayOutputDirectory, fs);
-            if (challenge is ChallengeSync cs2)
-            {
-                cs2.PartTwo(input, partTwoOutput);
-            }
-            else if (challenge is ChallengeAsync ca2)
-            {
-                await ca2.PartTwo(input, partTwoOutput);
-            }
-            await WriteOutputs("Part 2", partTwoOutput, fs);
+            await RunChallenge(
+                console,
+                challenge,
+                fs,
+                input,
+                challenge =>
+                {
+                    var dayOutputDirectory = DayOutputDirectory(challenge.Info.Date, outputPath, fs);
+                    return new Output(dayOutputDirectory, fs);
+                });
 
             static UPath DayOutputDirectory(LocalDate date, UPath outputPath, FileSystem fs)
             {
@@ -120,13 +109,6 @@ namespace Runner
                 }
 
                 return dir;
-            }
-
-            static void ChallengeHeader(IAnsiConsole console, Challenge challenge)
-            {
-                Console.Clear();
-                console.Write(new FigletText("Advent of Code!").Centered().Color(Color.Red));
-                console.Write(new Markup($"[bold #00d7ff]{challenge.Info.Date}: {challenge.Info.Name}[/]").Centered());
             }
         }
 
@@ -160,7 +142,7 @@ namespace Runner
             console.Write(new Rule() { Style = new Style(foreground: Color.Gold1) }.LeftAligned());
         }
 
-        private static async Task WriteOutputs(string header, Output output, PhysicalFileSystem fs)
+        private static async Task WriteOutputs(string header, Output output, IFileSystem fs)
         {
             AnsiConsole.Write(new Rule(header) { Style = new Style(foreground: Color.Gold1) }.LeftAligned());
 
@@ -200,6 +182,78 @@ namespace Runner
                 }
 
                 AnsiConsole.Write(table);
+            }
+        }
+
+        private static async Task RunChallenge(
+            IAnsiConsole console,
+            Challenge challenge,
+            IFileSystem fileSystem,
+            IInput input,
+            Func<Challenge, Output> buildOutput)
+        {
+            ChallengeHeader(console, challenge);
+            var type = challenge.GetType();
+
+            await TryExecutePart(
+                challenge,
+                type,
+                1,
+                fileSystem,
+                input,
+                buildOutput);
+
+            await TryExecutePart(
+                challenge,
+                type,
+                2,
+                fileSystem,
+                input,
+                buildOutput);
+
+            static async Task TryExecutePart(
+                Challenge challenge,
+                Type type,
+                int methodNumber,
+                IFileSystem fileSystem,
+                IInput input,
+                Func<Challenge, Output> buildOutput)
+            {
+                var methodName = $"Part{methodNumber.ToWords().Titleize()}";
+
+                var method = GetPartMethod(type, methodName);
+                if (method is not null)
+                {
+                    var output = buildOutput(challenge);
+                    var returnType = method.ReturnType;
+                    if (returnType.IsGenericType && returnType.GetGenericTypeDefinition() == typeof(Task))
+                    {
+                        var task = (Task)method.Invoke(challenge, new object[] { input, output })!;
+                        await task;
+                    }
+                    else
+                    {
+                        method.Invoke(challenge, new object[] { input, output });
+                    }
+
+                    await WriteOutputs(methodName.Humanize(LetterCasing.Title), output, fileSystem);
+                }
+            }
+
+            static void ChallengeHeader(IAnsiConsole console, Challenge challenge)
+            {
+                Console.Clear();
+                console.Write(new FigletText("Advent of Code!").Centered().Color(Color.Red));
+                console.Write(new Markup($"[bold #00d7ff]{challenge.Info.Date}: {challenge.Info.Name}[/]").Centered());
+            }
+
+            static MethodInfo? GetPartMethod(Type challengeType, string methodName)
+            {
+                return challengeType
+                    .GetMethod(
+                        methodName,
+                        BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy | BindingFlags.Static,
+                        new Type[] { typeof(IInput), typeof(IOutput) });
             }
         }
 

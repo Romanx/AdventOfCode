@@ -2,11 +2,11 @@
 
 namespace DayEighteen2016
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2016, 12, 18), "Like a Rogue");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var row = input.Content.AsSpan();
             var safeTiles = RoomTrapCalculator.CalculateSafeTiles(row, 40);
@@ -14,7 +14,7 @@ namespace DayEighteen2016
             output.WriteProperty("Safe Tiles", safeTiles);
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             var row = input.Content.AsSpan();
             var safeTiles = RoomTrapCalculator.CalculateSafeTiles(row, 400_000);

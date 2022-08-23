@@ -1,13 +1,13 @@
 ﻿namespace DayTwenty2015
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2015, 12, 20), "Infinite Elves and Infinite Houses");
 
         private const uint Elves = 1_000_000u;
         private readonly uint[] _houses = new uint[Elves];
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var target = uint.Parse(input.Content.AsString());
             var houses = _houses.AsSpan();
@@ -34,7 +34,7 @@
             output.WriteProperty($"Lowest house number to get '{target}' presents", answer);
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             var target = uint.Parse(input.Content.AsString());
 

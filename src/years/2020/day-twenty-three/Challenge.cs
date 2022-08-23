@@ -3,11 +3,11 @@ using MoreLinq;
 
 namespace DayTwentyThree2020
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2020, 12, 23), "Crab Cups");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             const int Moves = 100;
             var cups = new LinkedList<int>(input.Content.CharactersToInt());
@@ -27,7 +27,7 @@ namespace DayTwentyThree2020
             output.WriteProperty("Formatted", builder.ToString());
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             const int Moves = 10_000_000;
             var cups = new LinkedList<int>(input.Content.CharactersToInt().Concat(MoreEnumerable.Sequence(10, 1_000_000)));

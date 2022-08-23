@@ -1,10 +1,10 @@
 ﻿namespace DaySeven2021;
 
-public class Challenge : ChallengeSync
+public class Challenge : Shared.Challenge
 {
     public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2021, 12, 7), "The Treachery of Whales");
 
-    public override void PartOne(IInput input, IOutput output)
+    public void PartOne(IInput input, IOutput output)
     {
         var crabs = input.Content.AsInts();
 
@@ -23,7 +23,7 @@ public class Challenge : ChallengeSync
         }
     }
 
-    public override void PartTwo(IInput input, IOutput output)
+    public void PartTwo(IInput input, IOutput output)
     {
         var crabs = input.Content.AsInts();
 

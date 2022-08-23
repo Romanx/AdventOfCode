@@ -1,10 +1,10 @@
 ﻿namespace DayTen2015
 {
-    public class Challenge : ChallengeSync
+    public class Challenge : Shared.Challenge
     {
         public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2015, 12, 10), "Elves Look, Elves Say");
 
-        public override void PartOne(IInput input, IOutput output)
+        public void PartOne(IInput input, IOutput output)
         {
             var x = input.Content.AsString().Select(c => c - '0').ToArray();
             var result = RunProcess(x)
@@ -14,7 +14,7 @@
             output.WriteProperty("Result Length", result.Length);
         }
 
-        public override void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput input, IOutput output)
         {
             var x = input.Content.AsString().Select(c => c - '0').ToArray();
             var result = RunProcess(x)
