@@ -1,4 +1,5 @@
 ﻿using Helpers;
+using Shared2019;
 
 namespace DayTwo2019;
 
@@ -8,7 +9,7 @@ public class Challenge : Shared.Challenge
 
     public void PartOne(IInput input, IOutput output)
     {
-        var program = input.AsProgram();
+        var program = input.AsIntcodeProgram();
 
         var builder = program.ToBuilder();
         builder[1] = 12;
@@ -23,7 +24,7 @@ public class Challenge : Shared.Challenge
 
     public void PartTwo(IInput input, IOutput output)
     {
-        var program = input.AsProgram();
+        var program = input.AsIntcodeProgram();
         var scratch = new long[program.Length];
 
         foreach (var (noun, verb) in GenerateCandidates())
@@ -59,11 +60,3 @@ public class Challenge : Shared.Challenge
     }
 }
 
-internal static class ParseExtensions
-{
-    public static ImmutableArray<long> AsProgram(this IInput input)
-        => input.Content.Transform(static str =>
-        {
-            return str.Split(',').Select(long.Parse).ToImmutableArray();
-        });
-}
