@@ -226,7 +226,7 @@ namespace Runner
                 {
                     var output = buildOutput(challenge);
                     var returnType = method.ReturnType;
-                    if (returnType.IsGenericType && returnType.GetGenericTypeDefinition() == typeof(Task))
+                    if (returnType == typeof(Task))
                     {
                         var task = (Task)method.Invoke(challenge, new object[] { input, output })!;
                         await task;

@@ -1,4 +1,5 @@
-﻿using Helpers;
+﻿using System.Threading.Tasks;
+using Helpers;
 using Shared2019;
 
 namespace DayTwo2019;
@@ -7,7 +8,7 @@ public class Challenge : Shared.Challenge
 {
     public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2019, 12, 2), "1202 Program Alarm");
 
-    public void PartOne(IInput input, IOutput output)
+    public async Task PartOne(IInput input, IOutput output)
     {
         var program = input.AsIntcodeProgram();
 
@@ -16,13 +17,12 @@ public class Challenge : Shared.Challenge
         builder[2] = 2;
 
         var computer = new IntcodeComputer(builder.ToImmutable());
-        computer.Run();
-        var result = computer.Output.Dequeue();
+        var result = await computer.RunAndGetOutput();
 
-        output.WriteProperty("Computer Result", result);
+        output.WriteProperty("Computer Result", result[0]);
     }
 
-    public void PartTwo(IInput input, IOutput output)
+    public async Task PartTwo(IInput input, IOutput output)
     {
         var program = input.AsIntcodeProgram();
         var scratch = new long[program.Length];
@@ -35,8 +35,7 @@ public class Challenge : Shared.Challenge
             scratch[2] = verb;
 
             var computer = new IntcodeComputer(scratch.ToImmutableArray());
-            computer.Run();
-            var result = computer.Output.Dequeue();
+            var result = (await computer.RunAndGetOutput())[0];
 
             if (result == 19690720)
             {

@@ -1,4 +1,10 @@
-﻿using Helpers;
+﻿using System.Text;
+using System.Threading.Channels;
+using System.Threading.Tasks;
+using Helpers;
+using Shared;
+using Shared.Extensions;
+using Spectre.Console;
 
 namespace Shared2019.Computer
 {
@@ -6,42 +12,47 @@ namespace Shared2019.Computer
     {
         private static readonly int newline = '\n';
         private readonly IntcodeComputer _intcodeComputer;
+        private Task running;
 
         public AsciiComputer(ImmutableArray<long> memory)
         {
             _intcodeComputer = new IntcodeComputer(memory);
+            running = _intcodeComputer.Run();
         }
 
-        public void EnqueueCommand(string command)
+        public async Task<string> EnqueueCommandAndRun(string command)
         {
-            foreach (var c in command.ToCharArray())
+            await EnqueueCommand(command);
+            var commandResult = await WaitAndReadResult();
+            return commandResult;
+
+            async Task EnqueueCommand(string command)
             {
-                _intcodeComputer.Input.Enqueue((int)c);
+                foreach (var c in command.ToCharArray())
+                {
+                    await _intcodeComputer.Input.Writer.WriteAsync(c);
+                }
+
+                await _intcodeComputer.Input.Writer.WriteAsync(newline);
+            }
+        }
+
+        public async Task<string> WaitAndReadResult()
+        {
+            var result = new StringBuilder();
+            var reader = _intcodeComputer.Output.Reader;
+            await foreach (var read in reader.ReadAllAsync())
+            {
+                var @char = (char)read;
+
+                result.Append(@char);
+                if (result.EndsWith("Command?\n", StringComparison.OrdinalIgnoreCase))
+                {
+                    return result.ToString();
+                }
             }
 
-            _intcodeComputer.Input.Enqueue(newline);
-        }
-
-        public string EnqueueCommandAndRun(string command)
-        {
-            EnqueueCommand(command);
-            return Run();
-        }
-
-        public string Run()
-        {
-            _ = _intcodeComputer.Run();
-
-            var buffer = new char[_intcodeComputer.Output.Count];
-            var idx = 0;
-            while (_intcodeComputer.Output.TryDequeue(out var c))
-            {
-                buffer[idx] = (char)c;
-                idx++;
-            }
-
-            var str = new string(buffer);
-            return str;
+            return result.ToString();
         }
     }
 }

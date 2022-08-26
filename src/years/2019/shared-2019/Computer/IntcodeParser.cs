@@ -1,4 +1,6 @@
-﻿namespace Helpers.Computer
+﻿using Microsoft.Toolkit.HighPerformance;
+
+namespace Helpers.Computer
 {
     public static class IntcodeParser
     {
@@ -8,18 +10,9 @@
         {
             var builder = ImmutableArray.CreateBuilder<long>();
 
-            while (true)
+            foreach (var segment in input.Tokenize(comma))
             {
-                var index = input.IndexOf(comma);
-                if (index == -1)
-                {
-                    builder.Add(long.Parse(input));
-                    break;
-                }
-
-                var slice = input.Slice(0, index);
-                builder.Add(long.Parse(slice));
-                input = input[(index + 1)..];
+                builder.Add(long.Parse(segment));
             }
 
             return builder.ToImmutable();

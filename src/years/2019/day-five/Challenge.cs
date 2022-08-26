@@ -1,4 +1,6 @@
-﻿using Helpers;
+﻿using System.Threading.Tasks;
+using Helpers;
+using MoreLinq;
 using Shared2019;
 
 namespace DayFive2019;
@@ -7,29 +9,29 @@ public class Challenge : Shared.Challenge
 {
     public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2019, 12, 5), "Sunny with a Chance of Asteroids");
 
-    public void PartOne(IInput input, IOutput output)
+    public async Task PartOne(IInput input, IOutput output)
     {
         var memory = input.AsIntcodeProgram();
 
         var computer = new IntcodeComputer(memory);
-        computer.Input.Enqueue(1);
-        computer.Run();
+        await computer.Input.Writer.WriteAsync(1);
 
-        var result = computer.Output.Last();
+        var result = await computer.RunAndGetOutput();
+        var diagnosticCode = result[^1];
 
-        output.WriteProperty("Computer result", result);
+        output.WriteProperty("Computer result", diagnosticCode);
     }
 
-    public void PartTwo(IInput input, IOutput output)
+    public async Task PartTwo(IInput input, IOutput output)
     {
         var memory = input.AsIntcodeProgram();
 
         var computer = new IntcodeComputer(memory);
-        computer.Input.Enqueue(5);
-        computer.Run();
+        await computer.Input.Writer.WriteAsync(5);
 
-        var result = computer.Output.Last();
+        var result = await computer.RunAndGetOutput();
+        var diagnosticCode = result[0];
 
-        output.WriteProperty("Computer result", result);
+        output.WriteProperty("Computer result", diagnosticCode);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Helpers.Instructions;
+﻿using System.Threading.Tasks;
+using Helpers.Instructions;
 
 namespace Helpers.Computer.Instructions
 {
@@ -11,11 +12,11 @@ namespace Helpers.Computer.Instructions
             ParameterType.Write
         };
 
-        public override void RunInstruction(in ReadOnlySpan<long> parameters, IntcodeComputer runtime)
+        public override async ValueTask RunInstruction(ReadOnlyMemory<long> parameters, IntcodeComputer runtime)
         {
-            var outputAddress = (int)parameters[0];
+            var outputAddress = (int)parameters.Span[0];
 
-            var input = runtime.Input.Dequeue();
+            var input = await runtime.Input.Reader.ReadAsync();
 
             runtime.WriteToMemory(outputAddress, input);
             runtime.AdjustIndexBy(2);

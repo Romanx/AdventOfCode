@@ -1,4 +1,5 @@
-﻿using Helpers.Instructions;
+﻿using System.Threading.Tasks;
+using Helpers.Instructions;
 
 namespace Helpers.Computer.Instructions
 {
@@ -11,10 +12,12 @@ namespace Helpers.Computer.Instructions
             ParameterType.Read
         };
 
-        public override void RunInstruction(in ReadOnlySpan<long> parameters, IntcodeComputer runtime)
+        public override ValueTask RunInstruction(ReadOnlyMemory<long> parameters, IntcodeComputer runtime)
         {
-            runtime.AdjustRelativeBaseBy((int)parameters[0]);
+            var span = parameters.Span;
+            runtime.AdjustRelativeBaseBy((int)span[0]);
             runtime.AdjustIndexBy(2);
+            return ValueTask.CompletedTask;
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Helpers.Instructions
+﻿using System.Threading.Tasks;
+
+namespace Helpers.Instructions
 {
     internal abstract class Instruction
     {
@@ -6,6 +8,6 @@
 
         public abstract ParameterType[] Parameters { get; }
 
-        public abstract void RunInstruction(in ReadOnlySpan<long> parameters, IntcodeComputer runtime);
+        public abstract ValueTask RunInstruction(ReadOnlyMemory<long> parameters, IntcodeComputer runtime);
     }
 }

@@ -1,4 +1,7 @@
-﻿using Helpers.Instructions;
+﻿using System.Threading;
+using System.Threading.Channels;
+using System.Threading.Tasks;
+using Helpers.Instructions;
 
 namespace Helpers
 {
@@ -6,23 +9,29 @@ namespace Helpers
     {
         private static readonly Dictionary<OpCodes, Instruction> validInstructions = BuildInstructions();
         private readonly ImmutableArray<long> _program;
+        private readonly CancellationTokenSource cancellationTokenSource;
+        private readonly List<Task> tasks = new();
         const int HaltCode = 99;
 
         private long[] _memory;
         private int _index = 0;
         private int _relativeBase = 0;
 
-        public Queue<long> Input { get; } = new Queue<long>();
+        public Channel<long> Input { get; }
 
-        public Queue<long> Output { get; } = new Queue<long>();
+        public Channel<long> Output { get; }
 
         public IntcodeComputer(ImmutableArray<long> memory)
         {
             _program = memory;
             _memory = SetProgram(_program);
+            var opts = new UnboundedChannelOptions { AllowSynchronousContinuations = true };
+            Input = Channel.CreateUnbounded<long>(opts);
+            Output = Channel.CreateUnbounded<long>(opts);
+            cancellationTokenSource = new CancellationTokenSource();
         }
 
-        public IntcodeResult Run()
+        public async Task<IntcodeResult> Run()
         {
             while (_memory[_index] != HaltCode)
             {
@@ -31,18 +40,8 @@ namespace Helpers
 
                 if (validInstructions.TryGetValue(opCode, out var instruction))
                 {
-                    if (opCode == OpCodes.Read && Input.Count == 0)
-                    {
-                        return IntcodeResult.HALT_FORINPUT;
-                    }
-
                     var @params = GetParameters(instruction.Parameters, parameterModes);
-                    instruction.RunInstruction(@params, this);
-
-                    if (opCode == OpCodes.Write)
-                    {
-                        OutputWritten?.Invoke(this, EventArgs.Empty);
-                    }
+                    await instruction.RunInstruction(@params, this);
                 }
                 else
                 {
@@ -50,21 +49,19 @@ namespace Helpers
                 }
             }
 
-            if (Output.Count == 0)
-            {
-                Output.Enqueue(_memory[0]);
-            }
+            Input.Writer.Complete();
+            Output.Writer.Complete();
+            cancellationTokenSource.Cancel();
 
+            await Task.WhenAll(tasks);
             return IntcodeResult.HALT_TERMINATE;
         }
 
-        public void Reset()
+        public async Task<IList<long>> RunAndGetOutput()
         {
-            Input.Clear();
-            Output.Clear();
-            _index = 0;
-            _relativeBase = 0;
-            _memory = SetProgram(_program);
+            await Run();
+            var result = await Output.Reader.ReadAllAsync().ToListAsync();
+            return result;
         }
 
         public void SetIndex(int index) => _index = index;
@@ -100,7 +97,7 @@ namespace Helpers
             return ((OpCodes)opCode, parameters);
         }
 
-        private ReadOnlySpan<long> GetParameters(
+        private ReadOnlyMemory<long> GetParameters(
             ParameterType[] parameterTypes,
             in ReadOnlySpan<int> parameterModes)
         {
@@ -179,7 +176,23 @@ namespace Helpers
                 .ToDictionary(k => k.OpCode, v => v);
         }
 
-        public event EventHandler? OutputWritten;
+        public void AddInputReader(ChannelReader<long> reader)
+        {
+            var task = Task.Run(async () =>
+            {
+                await foreach (var i in reader.ReadAllAsync())
+                {
+                    if (cancellationTokenSource.IsCancellationRequested)
+                    {
+                        return;
+                    }
+
+                    await Input.Writer.WriteAsync(i);
+                }
+            });
+
+            tasks.Add(task);
+        }
     }
 
     internal enum ParameterMode

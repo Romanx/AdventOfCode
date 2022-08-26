@@ -1,4 +1,6 @@
-﻿namespace Helpers.Instructions
+﻿using System.Threading.Tasks;
+
+namespace Helpers.Instructions
 {
     internal class MultiplyInstruction : Instruction
     {
@@ -11,10 +13,13 @@
             ParameterType.Write
         };
 
-        public override void RunInstruction(in ReadOnlySpan<long> parameters, IntcodeComputer runtime)
+        public override ValueTask RunInstruction(ReadOnlyMemory<long> parameters, IntcodeComputer runtime)
         {
-            runtime.WriteToMemory((int)parameters[2], parameters[0] * parameters[1]);
+            var span = parameters.Span;
+            runtime.WriteToMemory((int)span[2], span[0] * span[1]);
             runtime.AdjustIndexBy(4);
+
+            return ValueTask.CompletedTask;
         }
     }
 }

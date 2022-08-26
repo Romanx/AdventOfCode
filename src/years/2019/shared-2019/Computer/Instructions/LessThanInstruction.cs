@@ -1,4 +1,5 @@
-﻿using Helpers.Instructions;
+﻿using System.Threading.Tasks;
+using Helpers.Instructions;
 
 namespace Helpers.Computer.Instructions
 {
@@ -13,11 +14,13 @@ namespace Helpers.Computer.Instructions
             ParameterType.Write
         };
 
-        public override void RunInstruction(in ReadOnlySpan<long> parameters, IntcodeComputer runtime)
+        public override ValueTask RunInstruction(ReadOnlyMemory<long> parameters, IntcodeComputer runtime)
         {
-            var first = parameters[0];
-            var second = parameters[1];
-            var outAddress = (int)parameters[2];
+            var span = parameters.Span;
+
+            var first = span[0];
+            var second = span[1];
+            var outAddress = (int)span[2];
 
             var result = first < second
                 ? 1
@@ -25,6 +28,8 @@ namespace Helpers.Computer.Instructions
 
             runtime.WriteToMemory(outAddress, result);
             runtime.AdjustIndexBy(4);
+
+            return ValueTask.CompletedTask;
         }
     }
 }
