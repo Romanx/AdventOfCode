@@ -1,7 +1,7 @@
 ﻿using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using Microsoft.Toolkit.HighPerformance;
+using CommunityToolkit.HighPerformance;
 
 namespace DayEleven2018;
 

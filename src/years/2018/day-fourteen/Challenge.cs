@@ -1,5 +1,5 @@
 ﻿using static MoreLinq.Extensions.ToDelimitedStringExtension;
-using Microsoft.Toolkit.HighPerformance;
+using CommunityToolkit.HighPerformance;
 
 namespace DayFourteen2018;
 

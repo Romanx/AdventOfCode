@@ -1,4 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.IO;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
 using Spectre.Console;
 
 namespace Shared
@@ -22,6 +25,22 @@ namespace Shared
                 }
 
                 return table;
+            });
+
+            return output;
+        }
+
+        public static IOutput WriteImage(
+            this IOutput output,
+            Image image)
+        {
+            var stream = new MemoryStream();
+            image.SaveAsPng(stream);
+            stream.Position = 0;
+
+            output.WriteBlock(() =>
+            {
+                return new CanvasImage(stream);
             });
 
             return output;

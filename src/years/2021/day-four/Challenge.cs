@@ -1,4 +1,4 @@
-﻿using Microsoft.Toolkit.HighPerformance;
+﻿using CommunityToolkit.HighPerformance;
 using static MoreLinq.Extensions.IndexExtension;
 
 namespace DayFour2021;

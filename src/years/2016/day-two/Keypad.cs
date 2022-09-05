@@ -1,4 +1,4 @@
-﻿using Microsoft.Toolkit.HighPerformance;
+﻿using CommunityToolkit.HighPerformance;
 
 namespace DayTwo2016
 {

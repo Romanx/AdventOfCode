@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Shared.Grid;
 using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Advanced;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 
@@ -25,18 +26,21 @@ namespace Shared
             var imageHeight = yRange.Max - yOffset + 1;
             var image = new Image<Rgba32>(imageWidth, imageHeight);
 
-            for (var y = yRange.Min; y <= yRange.Max; y++)
+            image.ProcessPixelRows(pixelAccessor =>
             {
-                Span<Rgba32> pixelRowSpan = image.GetPixelRowSpan(y - yOffset);
-
-                for (var x = xRange.Min; x <= xRange.Max; x++)
+                for (var y = yRange.Min; y <= yRange.Max; y++)
                 {
-                    var point = new Point2d(x, y);
-                    var offsetX = x - xOffset;
+                    var pixelRowSpan = pixelAccessor.GetRowSpan(y - yOffset);
 
-                    pixelRowSpan[offsetX] = GetColorForPoint(point);
+                    for (var x = xRange.Min; x <= xRange.Max; x++)
+                    {
+                        var point = new Point2d(x, y);
+                        var offsetX = x - xOffset;
+
+                        pixelRowSpan[offsetX] = GetColorForPoint(point);
+                    }
                 }
-            }
+            });
 
             image.Mutate(x => x.Resize(image.Width * 10, image.Height * 10).Pixelate(10));
 
