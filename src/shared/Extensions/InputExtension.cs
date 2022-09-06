@@ -67,20 +67,17 @@ namespace Shared
             return SpanHelpers.SplitByBlankLines(body).ToArray();
         }
 
-        public static ImmutableArray<(Point2d Point, char Character)> As2DPoints(this IInput input)
+        public static IEnumerable<(Point2d Point, char Character)> As2DPoints(this IInput input)
         {
-            var builder = ImmutableArray.CreateBuilder<(Point2d Point, char C)>();
-            var arr = input.Lines.As2DArray().AsSpan2D();
+            var arr = input.Lines.As2DArray().AsMemory2D();
 
-            for (var y = 0; y < arr.Height; y++)
+            for (var y = 0; y < arr.Span.Height; y++)
             {
-                for (var x = 0; x < arr.Width; x++)
+                for (var x = 0; x < arr.Span.Width; x++)
                 {
-                    builder.Add((new Point2d(x, y), arr[y, x]));
+                    yield return (new Point2d(x, y), arr.Span[y, x]);
                 }
             }
-
-            return builder.ToImmutable();
         }
     }
 }

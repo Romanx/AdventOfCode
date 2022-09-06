@@ -222,6 +222,7 @@ namespace Runner
                 var methodName = $"Part{methodNumber.ToWords().Titleize()}";
 
                 var method = GetPartMethod(type, methodName);
+
                 if (method is not null)
                 {
                     var output = buildOutput(challenge);
