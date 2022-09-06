@@ -28,21 +28,21 @@ namespace Shared
 
             image.ProcessPixelRows(pixelAccessor =>
             {
-                for (var y = yRange.Min; y <= yRange.Max; y++)
+                for (var y = 0; y < imageHeight; y++)
                 {
-                    var pixelRowSpan = pixelAccessor.GetRowSpan(y - yOffset);
+                    var pixelRowSpan = pixelAccessor.GetRowSpan(y);
 
-                    for (var x = xRange.Min; x <= xRange.Max; x++)
+                    for (var x = 0; x < imageWidth; x++)
                     {
-                        var point = new Point2d(x, y);
+                        var point = new Point2d(
+                            x + xOffset,
+                            y + yOffset);
                         var offsetX = x - xOffset;
 
-                        pixelRowSpan[offsetX] = GetColorForPoint(point);
+                        pixelRowSpan[x] = GetColorForPoint(point);
                     }
                 }
             });
-
-            image.Mutate(x => x.Resize(image.Width * 10, image.Height * 10).Pixelate(10));
 
             return image;
 
