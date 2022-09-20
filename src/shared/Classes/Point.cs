@@ -13,6 +13,8 @@ namespace Shared
 
         protected Point(ImmutableArray<int> dimensions) => Dimensions = dimensions;
 
+        public int this[int index] => Dimensions[index];
+
         public override int GetHashCode()
         {
             HashCode code = default;

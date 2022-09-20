@@ -80,6 +80,13 @@ namespace Shared
             };
         }
 
+        public void Deconstruct(out int x, out int y, out int z)
+        {
+            x = X;
+            y = Y;
+            z = Z;
+        }
+
         public int CompareTo(Point3d? other) => other is null
             ? -1
             : (other.Row, other.Column, other.Level).CompareTo((Row, Column, Level));
