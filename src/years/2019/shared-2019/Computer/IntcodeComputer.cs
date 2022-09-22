@@ -25,7 +25,7 @@ namespace Helpers
         {
             _program = memory;
             _memory = SetProgram(_program);
-            var opts = new UnboundedChannelOptions { AllowSynchronousContinuations = true };
+            var opts = new UnboundedChannelOptions { AllowSynchronousContinuations = false };
             Input = Channel.CreateUnbounded<long>(opts);
             Output = Channel.CreateUnbounded<long>(opts);
             cancellationTokenSource = new CancellationTokenSource();
