@@ -35,7 +35,7 @@ namespace Shared
             return array;
         }
 
-        public static IEnumerable<int> CharactersToInt(this IInputContent content)
+        public static int[] CharactersToInt(this IInputContent content)
         {
             var span = content.AsSpan();
             var result = new int[span.Length];
