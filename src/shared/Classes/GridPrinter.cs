@@ -96,14 +96,20 @@ namespace Shared
 
         public override void OnPosition(Point2d point)
         {
-            var item = _map[point];
-            if (item.GetType().IsEnum)
+            if (_map.TryGetValue(point, out var item))
             {
-                _writer.Append(EnumHelpers.ToDisplayName(item));
+                if (item.GetType().IsEnum)
+                {
+                    _writer.Append(EnumHelpers.ToDisplayName(item));
+                }
+                else
+                {
+                    _writer.Append(item.ToString() ?? string.Empty);
+                }
             }
             else
             {
-                _writer.Append(item.ToString() ?? string.Empty);
+                _writer.Append("#");
             }
         }
     }

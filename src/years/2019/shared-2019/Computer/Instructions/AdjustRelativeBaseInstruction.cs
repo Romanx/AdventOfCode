@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using Helpers.Instructions;
 
 namespace Helpers.Computer.Instructions
@@ -12,7 +13,7 @@ namespace Helpers.Computer.Instructions
             ParameterType.Read
         };
 
-        public override ValueTask RunInstruction(ReadOnlyMemory<long> parameters, IntcodeComputer runtime)
+        public override ValueTask RunInstruction(ReadOnlyMemory<long> parameters, IntcodeComputer runtime, CancellationToken token)
         {
             var span = parameters.Span;
             runtime.AdjustRelativeBaseBy((int)span[0]);

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using Helpers.Instructions;
 
 namespace Helpers.Computer.Instructions
@@ -12,9 +13,9 @@ namespace Helpers.Computer.Instructions
             ParameterType.Read
         };
 
-        public override async ValueTask RunInstruction(ReadOnlyMemory<long> parameters, IntcodeComputer runtime)
+        public override async ValueTask RunInstruction(ReadOnlyMemory<long> parameters, IntcodeComputer runtime, CancellationToken token)
         {
-            await runtime.Output.Writer.WriteAsync(parameters.Span[0]);
+            await runtime.Output.Writer.WriteAsync(parameters.Span[0], token);
 
             runtime.AdjustIndexBy(2);
         }

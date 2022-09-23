@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 
 namespace Helpers.Instructions
 {
@@ -13,7 +14,7 @@ namespace Helpers.Instructions
             ParameterType.Write
         };
 
-        public override ValueTask RunInstruction(ReadOnlyMemory<long> parameters, IntcodeComputer runtime)
+        public override ValueTask RunInstruction(ReadOnlyMemory<long> parameters, IntcodeComputer runtime, CancellationToken token)
         {
             var span = parameters.Span;
             runtime.WriteToMemory((int)span[2], span[0] + span[1]);

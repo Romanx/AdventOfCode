@@ -31,30 +31,45 @@ namespace Helpers
             cancellationTokenSource = new CancellationTokenSource();
         }
 
-        public async Task<IntcodeResult> Run()
+        public async Task<IntcodeResult> Run(CancellationToken token = default)
         {
-            while (_memory[_index] != HaltCode)
+            var cts = CancellationTokenSource.CreateLinkedTokenSource(
+                cancellationTokenSource.Token,
+                token);
+
+            try
             {
-                var op = _memory[_index];
-                var (opCode, parameterModes) = ParseOperation(op);
+                while (_memory[_index] != HaltCode)
+                {
+                    var op = _memory[_index];
+                    var (opCode, parameterModes) = ParseOperation(op);
 
-                if (validInstructions.TryGetValue(opCode, out var instruction))
-                {
-                    var @params = GetParameters(instruction.Parameters, parameterModes);
-                    await instruction.RunInstruction(@params, this);
+                    if (validInstructions.TryGetValue(opCode, out var instruction))
+                    {
+                        var @params = GetParameters(instruction.Parameters, parameterModes);
+                        await instruction.RunInstruction(@params, this, cts.Token);
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException($"Invalid op code: {opCode}");
+                    }
                 }
-                else
-                {
-                    throw new InvalidOperationException($"Invalid op code: {opCode}");
-                }
+
+                Input.Writer.Complete();
+                Output.Writer.Complete();
+                cancellationTokenSource.Cancel();
+
+                await Task.WhenAll(tasks);
+                return IntcodeResult.HALT_TERMINATE;
             }
+            catch (Exception ex) when (ex is OperationCanceledException or TaskCanceledException)
+            {
+                Input.Writer.Complete();
+                Output.Writer.Complete();
+                cancellationTokenSource.Cancel();
 
-            Input.Writer.Complete();
-            Output.Writer.Complete();
-            cancellationTokenSource.Cancel();
-
-            await Task.WhenAll(tasks);
-            return IntcodeResult.HALT_TERMINATE;
+                return IntcodeResult.HALT_TERMINATE;
+            }
         }
 
         public async Task<IList<long>> RunAndGetOutput()

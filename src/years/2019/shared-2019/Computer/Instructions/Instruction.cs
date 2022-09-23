@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 
 namespace Helpers.Instructions
 {
@@ -8,6 +9,6 @@ namespace Helpers.Instructions
 
         public abstract ParameterType[] Parameters { get; }
 
-        public abstract ValueTask RunInstruction(ReadOnlyMemory<long> parameters, IntcodeComputer runtime);
+        public abstract ValueTask RunInstruction(ReadOnlyMemory<long> parameters, IntcodeComputer runtime, CancellationToken token);
     }
 }

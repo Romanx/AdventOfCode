@@ -131,9 +131,19 @@ namespace Shared.Graph
         public static ImmutableHashSet<TNode> FloodFill<TNode>(
             this IGraph<TNode> graph,
             TNode start,
-            uint distance) where TNode : notnull, IEquatable<TNode>
+            uint? distance = null) where TNode : notnull, IEquatable<TNode>
         {
-            var visited = ImmutableHashSet.CreateBuilder<TNode>();
+            return FloodFillWithSteps(graph, start, distance)
+                .Keys
+                .ToImmutableHashSet();
+        }
+
+        public static ImmutableDictionary<TNode, int> FloodFillWithSteps<TNode>(
+            this IGraph<TNode> graph,
+            TNode start,
+            uint? distance = null) where TNode : notnull, IEquatable<TNode>
+        {
+            var visited = ImmutableDictionary.CreateBuilder<TNode, int>();
 
             var currentFrontier = new List<(TNode, int Steps)>();
             var nextFrontier = new List<(TNode, int Steps)>();
@@ -143,14 +153,14 @@ namespace Shared.Graph
             {
                 foreach (var (current, steps) in currentFrontier)
                 {
-                    if (steps > distance)
+                    if (distance.HasValue && steps > distance)
                         continue;
 
-                    visited.Add(current);
+                    visited.Add(current, steps);
 
                     foreach (var next in graph.Neigbours(current))
                     {
-                        if (visited.Contains(next) is false)
+                        if (visited.ContainsKey(next) is false)
                         {
                             nextFrontier.Add((next, steps + 1));
                         }
