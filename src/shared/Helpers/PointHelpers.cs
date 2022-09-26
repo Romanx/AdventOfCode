@@ -94,6 +94,17 @@ namespace Shared.Helpers
         public static IEnumerable<Point2d> GetNeighbours(Point2d point)
             => Direction.All.Select(dir => point + dir);
 
+        public static AdjacentPoints GetNeighbours(
+            Point2d point,
+            ImmutableHashSet<Point2d> points,
+            AdjacencyType adjacencyType)
+            => new(point, points, adjacencyType);
+
+        public static AdjacentPoints GetNeighbours(
+            Point2d point,
+            AdjacencyType adjacencyType)
+            => new(point, null, adjacencyType);
+
         public static IEnumerable<T> PointsInSpace<T>(IEnumerable<DimensionRange> ranges, Func<IEnumerable<int>, T> factory)
             where T : Point
         {
@@ -123,6 +134,16 @@ namespace Shared.Helpers
                 .ToCharArray()
                 .Index()
                 .Select(kvp => KeyValuePair.Create(new Point2d(rowNum, kvp.Key), kvp.Value));
+        }
+
+        public static IEnumerable<AdjacentPoints> Intersections(ImmutableHashSet<Point2d> points)
+        {
+            foreach (var point in points)
+            {
+                var adjacent = new AdjacentPoints(point, points, AdjacencyType.Cardinal);
+                if (adjacent.Count is 4)
+                    yield return adjacent;
+            }
         }
     }
 }

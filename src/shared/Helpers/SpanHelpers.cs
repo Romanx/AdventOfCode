@@ -156,5 +156,114 @@ namespace Shared.Helpers
 
             return true;
         }
+
+
+
+        public static ReadOnlySpan<T> RemoveSequence<T>(
+            this ReadOnlySpan<T> span,
+            ReadOnlySpan<T> find)
+                where T : IEquatable<T>
+        {
+            var ranges = new List<Range>();
+
+            var count = 0;
+
+            var start = 0;
+            var index = span.IndexOf(find);
+            while (index != -1)
+            {
+                count++;
+
+                if (start > 0)
+                {
+                    var range = start..index;
+                    ranges.Add(range);
+                    start = index + find.Length;
+                }
+                else
+                {
+                    start = index + find.Length;
+                }
+
+                index = span[start..].IndexOf(find);
+
+                if (index is not -1)
+                {
+                    index = start + span[start..].IndexOf(find);
+                }
+            }
+
+            if (start != span.Length)
+            {
+                ranges.Add(start..span.Length);
+            }
+
+            var position = 0;
+            Span<T> next = new T[span.Length - (find.Length * count)];
+            foreach (var range in ranges)
+            {
+                var section = span[range];
+                section.CopyTo(next[position..]);
+                position += section.Length;
+            }
+
+            return next;
+        }
+
+        public static ReadOnlySpan<T> ReplaceSequence<T>(
+            this ReadOnlySpan<T> span,
+            ReadOnlySpan<T> find,
+            ReadOnlySpan<T> replacement)
+                where T : IEquatable<T>
+        {
+            var ranges = new List<Range>();
+
+            var count = 0;
+            var index = span.IndexOf(find);
+            while (index != -1)
+            {
+                ranges.Add(index..(index + find.Length));
+                count++;
+
+                var start = index + find.Length;
+                index = span[start..].IndexOf(find);
+
+                if (index is not -1)
+                {
+                    index = start + span[start..].IndexOf(find);
+                }
+            }
+
+            var position = 0;
+            var nextPosition = 0;
+            Span<T> next = new T[span.Length - (find.Length * count) + (replacement.Length * count)];
+            for (var i = 0; i < ranges.Count; i++)
+            {
+                var range = ranges[i];
+
+                if (position == range.Start.Value)
+                {
+                    replacement.CopyTo(next[nextPosition..]);
+                    nextPosition += replacement.Length;
+                    position = range.End.Value;
+                }
+                else
+                {
+                    var section = span[position..range.Start.Value];
+                    section.CopyTo(next[nextPosition..]);
+                    nextPosition += section.Length;
+                    position += section.Length;
+                    i--;
+                }
+            }
+
+            if (position != span.Length)
+            {
+                var section = span[position..];
+                section.CopyTo(next[nextPosition..]);
+            }
+
+            return next;
+        }
     }
 }
