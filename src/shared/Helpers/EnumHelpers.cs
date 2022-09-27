@@ -12,10 +12,8 @@ namespace Shared
         private static readonly Dictionary<Type, ImmutableDictionary<string, object>> _cache = new();
 
         public static T FromDisplayName<T>(string c)
-            where T : struct
+            where T : Enum
         {
-            if (!typeof(T).IsEnum) { throw new InvalidOperationException("Type must be an enum"); }
-
             if (_cache.TryGetValue(typeof(T), out var items) is false)
             {
                 items = AddNewEntry<T>();
@@ -27,10 +25,8 @@ namespace Shared
         }
 
         public static string ToDisplayName<T>(T item)
-            where T : struct
+            where T : Enum
         {
-            if (!typeof(T).IsEnum) { throw new InvalidOperationException("Type must be an enum"); }
-
             if (_cache.TryGetValue(typeof(T), out var items) is false)
             {
                 items = AddNewEntry<T>();
@@ -45,7 +41,8 @@ namespace Shared
                 : throw new InvalidOperationException($"Unable to find entry for {typeof(T).Name} with the value of '{item}'");
         }
 
-        private static ImmutableDictionary<string, object> AddNewEntry<T>() where T : struct
+        private static ImmutableDictionary<string, object> AddNewEntry<T>()
+            where T : Enum
         {
             var members = typeof(T).GetMembers()
                 .Select(m => (m.Name, Attribute: m.GetCustomAttribute<DisplayAttribute>()))
