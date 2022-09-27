@@ -15,7 +15,7 @@ namespace Shared
         NorthWest,
     }
 
-    public record class Direction : IComparable<Direction?>, IEquatable<Direction>
+    public readonly record struct Direction : IComparable<Direction?>, IEquatable<Direction>
     {
         private Direction(DirectionType directionType)
         {
