@@ -96,7 +96,7 @@ namespace Shared.Helpers
 
         public static AdjacentPoints GetNeighbours(
             Point2d point,
-            ImmutableHashSet<Point2d> points,
+            ISet<Point2d> points,
             AdjacencyType adjacencyType)
             => new(point, points, adjacencyType);
 

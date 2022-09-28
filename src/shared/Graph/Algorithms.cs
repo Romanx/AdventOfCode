@@ -13,7 +13,8 @@ namespace Shared.Graph
         public static ImmutableArray<TNode> BreadthFirstSearch<TNode>(
             this IGraph<TNode> graph,
             TNode start,
-            TNode goal) where TNode : notnull, IEquatable<TNode>
+            TNode goal,
+            bool includeStart = true) where TNode : notnull, IEquatable<TNode>
         {
             var currentFrontier = new List<TNode>();
             var nextFrontier = new List<TNode>();
@@ -41,7 +42,7 @@ namespace Shared.Graph
                 nextFrontier.Clear();
             }
 
-            return ReconstructPath(start, goal, cameFrom);
+            return ReconstructPath(start, goal, cameFrom, includeStart);
         }
 
         public static ImmutableArray<TNode> UniformCostSearch<TNode>(
@@ -89,7 +90,8 @@ namespace Shared.Graph
             this IWeightedGraph<TNode> graph,
             TNode start,
             TNode goal,
-            Func<TNode, TNode, float> heuristicFunction)
+            Func<TNode, TNode, float> heuristicFunction,
+            bool includeStart = true)
             where TNode : notnull, IEquatable<TNode>
         {
             var frontier = new PriorityQueue<TNode, float>();
@@ -125,7 +127,7 @@ namespace Shared.Graph
                 }
             }
 
-            return ReconstructPath(start, goal, cameFrom);
+            return ReconstructPath(start, goal, cameFrom, includeStart);
         }
 
         public static ImmutableHashSet<TNode> FloodFill<TNode>(
@@ -207,7 +209,8 @@ namespace Shared.Graph
         public static ImmutableArray<TNode> ReconstructPath<TNode>(
             TNode start,
             TNode goal,
-            Dictionary<TNode, TNode> cameFrom)
+            Dictionary<TNode, TNode> cameFrom,
+            bool includeStart = true)
             where TNode : notnull, IEquatable<TNode>
         {
             var current = goal;
@@ -221,7 +224,12 @@ namespace Shared.Graph
                     return ImmutableArray<TNode>.Empty;
                 }
             }
-            path.Add(start);
+
+            if (includeStart)
+            {
+                path.Add(start);
+            }
+
             path.Reverse();
             return path.ToImmutable();
         }

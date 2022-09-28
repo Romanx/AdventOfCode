@@ -10,14 +10,14 @@ public readonly record struct AdjacentPoints : IEnumerable<Point2d>
     private readonly Point2d?[] adjacentPoints;
     private readonly AdjacencyType adjacencyType;
 
-    public AdjacentPoints(Point2d center, ImmutableHashSet<Point2d>? points)
+    public AdjacentPoints(Point2d center, ISet<Point2d>? points)
         : this(center, points, AdjacencyType.Cardinal)
     {
     }
 
     public AdjacentPoints(
         Point2d center,
-        ImmutableHashSet<Point2d>? points,
+        ISet<Point2d>? points,
         AdjacencyType adjacencyType)
     {
         Center = center;

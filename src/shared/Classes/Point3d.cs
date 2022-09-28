@@ -93,6 +93,8 @@ namespace Shared
 
         public static implicit operator Point3d((int X, int Y, int Z) i) => new(i.X, i.Y, i.Z);
 
+        public static implicit operator Point2d(Point3d point) => new(point.X, point.Y);
+
         public override int GetHashCode() => base.GetHashCode();
 
         public virtual bool Equals(Point3d? other) => base.Equals(other);
