@@ -45,7 +45,7 @@
                 data = ApplyDragonCurve(data);
                 if (data.Length >= length)
                 {
-                    return data.Slice(0, length);
+                    return data[..length];
                 }
             }
 

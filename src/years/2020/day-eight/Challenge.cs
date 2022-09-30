@@ -54,7 +54,7 @@ namespace DayEight2020
 
     public static class ParsingExtensions
     {
-        private static readonly Regex instructionRegex = new Regex("(.*) ([+-]+\\d*)");
+        private static readonly Regex instructionRegex = new("(.*) ([+-]+\\d*)");
 
         public static ImmutableArray<Instruction> ParseInstructions(this IInput input)
         {

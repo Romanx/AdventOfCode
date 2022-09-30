@@ -102,7 +102,7 @@ namespace DayFour2020
 
     internal static class ParsingExtensions
     {
-        private static readonly Regex keyValuePairRegex = new Regex("([a-z]{3}):(\\S+)");
+        private static readonly Regex keyValuePairRegex = new("([a-z]{3}):(\\S+)");
 
         public static ImmutableArray<Passport> ParsePassports(this IInput input)
         {
@@ -119,7 +119,7 @@ namespace DayFour2020
                 else
                 {
                     var matches = keyValuePairRegex.Matches(line.ToString());
-                    foreach (Match match in matches)
+                    foreach (var match in matches.Cast<Match>())
                     {
                         fieldBuilder.Add(match.Groups[1].Value, match.Groups[2].Value);
                     }

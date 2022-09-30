@@ -1,7 +1,4 @@
-﻿using System.Runtime.InteropServices;
-using Microsoft.Collections.Extensions;
-using CommunityToolkit.HighPerformance;
-
+﻿
 namespace DayTwelve2021;
 
 public class Challenge : Shared.Challenge

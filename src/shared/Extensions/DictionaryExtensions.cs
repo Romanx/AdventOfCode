@@ -54,5 +54,11 @@ namespace System.Collections.Generic
 
             return dictionaryValue;
         }
+
+        public static ref TValue? GetOrAddValueRef<TKey, TValue>(
+            this Dictionary<TKey, TValue> dictionary,
+            TKey key)
+            where TKey : notnull
+        => ref CollectionsMarshal.GetValueRefOrAddDefault(dictionary, key, out _);
     }
 }

@@ -25,7 +25,6 @@ namespace DayTwentyFour2018
                 ? ArmyType.Infection
                 : ArmyType.ImmuneSystem;
 
-            var groups = lines.Span[1..];
             foreach (var group in lines.Span[1..])
             {
                 builder.Add(ParseGroup(group.ToString(), type));

@@ -36,10 +36,6 @@ public class Challenge : Shared.Challenge
         });
         output.WriteProperty("Number of seconds", second - 1);
     }
-
-    public void PartTwo(IInput input, IOutput output)
-    {
-    }
 }
 
 internal static class ParseExtensions

@@ -1,11 +1,10 @@
-﻿using Microsoft.Collections.Extensions;
-
+﻿
 namespace DayTen2016
 {
     class Factory
     {
         private readonly Dictionary<int, int> _outputs;
-        private readonly DictionarySlim<int, Bot> _bots;
+        private readonly Dictionary<int, Bot> _bots;
 
         public Logger Logger { get; }
 
@@ -14,7 +13,7 @@ namespace DayTen2016
         public Factory()
         {
             _outputs = new Dictionary<int, int>();
-            _bots = new DictionarySlim<int, Bot>();
+            _bots = new Dictionary<int, Bot>();
             Logger = new Logger();
         }
 
@@ -38,15 +37,12 @@ namespace DayTen2016
                 transfers = transfers.Remove(instruction);
             }
 
-            static void AssignBots(IEnumerable<Assignment> assignments, DictionarySlim<int, Bot> bots, Logger logger)
+            static void AssignBots(IEnumerable<Assignment> assignments, Dictionary<int, Bot> bots, Logger logger)
             {
                 foreach (var assignment in assignments)
                 {
                     ref var bot = ref bots.GetOrAddValueRef(assignment.BotNumber);
-                    if (bot is null)
-                    {
-                        bot = new Bot(assignment.BotNumber);
-                    }
+                    bot ??= new Bot(assignment.BotNumber);
 
                     bot.Set(assignment.Value);
                     logger.AssignValue(bot.Number, assignment.Value);
@@ -58,7 +54,7 @@ namespace DayTen2016
                 Target target,
                 int value,
                 Dictionary<int, int> outputs,
-                DictionarySlim<int, Bot> bots,
+                Dictionary<int, Bot> bots,
                 Logger logger)
             {
                 if (target.TargetType is TargetType.Output)
@@ -70,10 +66,7 @@ namespace DayTen2016
                 else
                 {
                     ref var targetBot = ref bots.GetOrAddValueRef(target.Number);
-                    if (targetBot is null)
-                    {
-                        targetBot = new Bot(target.Number);
-                    }
+                    targetBot ??= new Bot(target.Number);
 
                     targetBot.Set(value);
 

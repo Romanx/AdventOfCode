@@ -12,10 +12,6 @@ public class Challenge : Shared.Challenge
 
         output.WriteProperty("Diagnostic Checksum", result.Tape.Count);
     }
-
-    public void PartTwo(IInput input, IOutput output)
-    {
-    }
 }
 
 internal static class ParseExtensions

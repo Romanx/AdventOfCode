@@ -17,11 +17,6 @@
             output.WriteProperty("Card Encryption Key", TransformSubjectNumber(deviceLoopSize, cardPublicKey));
         }
 
-        public void PartTwo(IInput input, IOutput output)
-        {
-            output.WriteProperty("There is none! We finished it!", string.Empty);
-        }
-
         static long FindLoopSize(long publicKey)
         {
             var value = 1L;

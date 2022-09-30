@@ -34,9 +34,9 @@ namespace DayTwenty2020
             }
         }
 
-        public string Top => new string(Picture.GetRowSpan(0));
-        public string Left => new string(Picture.GetColumn(0).ToArray());
-        public string Right => new string(Picture.GetColumn(Picture.GetLength(1) - 1).ToArray());
-        public string Bottom => new string(Picture.GetRowSpan(Picture.GetLength(0) - 1));
+        public string Top => new(Picture.GetRowSpan(0));
+        public string Left => new(Picture.GetColumn(0).ToArray());
+        public string Right => new(Picture.GetColumn(Picture.GetLength(1) - 1).ToArray());
+        public string Bottom => new(Picture.GetRowSpan(Picture.GetLength(0) - 1));
     }
 }

@@ -1,5 +1,4 @@
-﻿using Microsoft.Collections.Extensions;
-using Spectre.Console;
+﻿using Spectre.Console;
 
 namespace DayEight2017
 {
@@ -55,9 +54,9 @@ namespace DayEight2017
             _instructions = instructions;
         }
 
-        public DictionarySlim<string, int> Run()
+        public Dictionary<string, int> Run()
         {
-            var registry = new DictionarySlim<string, int>();
+            var registry = new Dictionary<string, int>();
 
             foreach (var instruction in _instructions)
             {
@@ -69,7 +68,7 @@ namespace DayEight2017
 
         public int CalculateMaxMemory()
         {
-            var registry = new DictionarySlim<string, int>();
+            var registry = new Dictionary<string, int>();
             var max = 0;
 
             foreach (var instruction in _instructions)

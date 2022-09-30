@@ -1,5 +1,4 @@
-﻿using Microsoft.Collections.Extensions;
-using Shared.Parser;
+﻿using Shared.Parser;
 
 namespace DayEight2017
 {
@@ -23,7 +22,7 @@ namespace DayEight2017
 
     abstract record Instruction(string Name)
     {
-        public abstract void Apply(DictionarySlim<string, int> registry);
+        public abstract void Apply(Dictionary<string, int> registry);
     }
 
     [CommandRegex("(?<Registry>[a-z]+) inc (?<OpValue>-?[0-9]*) if (?<ConditionRegistry>[a-z]+) (?<ConditionOperator>>|<|>=|==|!=|<=) (?<ConditionValue>-?[0-9]*)")]
@@ -38,7 +37,7 @@ namespace DayEight2017
             return new Increment(registry, opValue, condition);
         }
 
-        public override void Apply(DictionarySlim<string, int> registry)
+        public override void Apply(Dictionary<string, int> registry)
         {
             if (Condition.Check(registry))
             {
@@ -60,7 +59,7 @@ namespace DayEight2017
             return new Decrement(registry, opValue, condition);
         }
 
-        public override void Apply(DictionarySlim<string, int> registry)
+        public override void Apply(Dictionary<string, int> registry)
         {
             if (Condition.Check(registry))
             {
@@ -81,7 +80,7 @@ namespace DayEight2017
             return new RegistryCondition(registry, op, value);
         }
 
-        public bool Check(DictionarySlim<string, int> registry)
+        public bool Check(Dictionary<string, int> registry)
         {
             var value = registry.TryGetValue(Registry, out var regVal)
                 ? regVal

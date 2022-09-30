@@ -22,7 +22,7 @@ namespace DaySixteen2020
 
     internal static class ParseExtensions
     {
-        private static readonly Regex RuleRegex = new Regex("(.+): (\\d+)-(\\d+) or (\\d+)-(\\d+)");
+        private static readonly Regex RuleRegex = new("(.+): (\\d+)-(\\d+) or (\\d+)-(\\d+)");
 
         public static Data Parse(this IInput input)
         {

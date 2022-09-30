@@ -1,10 +1,7 @@
 ﻿using System.Text;
-using System.Threading.Channels;
 using System.Threading.Tasks;
 using Helpers;
-using Shared;
 using Shared.Extensions;
-using Spectre.Console;
 
 namespace Shared2019.Computer
 {
@@ -12,12 +9,11 @@ namespace Shared2019.Computer
     {
         private static readonly int newline = '\n';
         private readonly IntcodeComputer _intcodeComputer;
-        private Task running;
 
         public AsciiComputer(ImmutableArray<long> memory)
         {
             _intcodeComputer = new IntcodeComputer(memory);
-            running = _intcodeComputer.Run();
+            _ = _intcodeComputer.Run();
         }
 
         public async Task<string> EnqueueCommandAndRun(string command)

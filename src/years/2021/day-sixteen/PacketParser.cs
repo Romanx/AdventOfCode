@@ -4,7 +4,7 @@ static class PacketParser
 {
     public static Packet ParsePacket(ReadOnlyMemory<char> binary)
     {
-        var (packet, remaining) = ParsePacketInner(binary);
+        var (packet, _) = ParsePacketInner(binary);
 
         return packet;
     }

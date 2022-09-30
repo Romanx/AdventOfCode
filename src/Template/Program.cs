@@ -102,8 +102,8 @@ namespace Template
                 fs.WriteAllText(dayPath / $"Challenge.cs", ChallengeTemplate.Render(new
                 {
                     ChallengeNamespace = ns,
-                    Year = challengeDate.Year,
-                    Day = challengeDate.Day,
+                    challengeDate.Year,
+                    challengeDate.Day,
                     ChallengeTitle = title
                 }));
                 Commands.Stage(repo, $"{fs.ConvertPathToInternal(dayPath / $"Challenge.cs")}");

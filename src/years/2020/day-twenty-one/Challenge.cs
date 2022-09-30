@@ -99,7 +99,7 @@ namespace DayTwentyOne2020
 
     internal static class ParseExtensions
     {
-        private static readonly Regex regex = new Regex("(.*) \\(contains (.*)\\)");
+        private static readonly Regex regex = new("(.*) \\(contains (.*)\\)");
 
         public static ImmutableArray<Food> ParseFoodList(this IInput input)
         {

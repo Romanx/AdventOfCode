@@ -18,10 +18,6 @@ namespace DayTwentyFive2015
 
             output.WriteProperty($"Result for ({row}, {column})", result);
         }
-
-        public void PartTwo(IInput input, IOutput output)
-        {
-        }
     }
 
     internal static class ParseExtensions

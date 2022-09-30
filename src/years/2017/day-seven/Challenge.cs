@@ -1,5 +1,4 @@
-﻿using Microsoft.Collections.Extensions;
-
+﻿
 namespace DaySeven2017
 {
     public class Challenge : Shared.Challenge
@@ -65,8 +64,8 @@ namespace DaySeven2017
 
         public static Program Parse(this IInputLines lines)
         {
-            var programs = new DictionarySlim<string, Program>();
-            var relationships = new DictionarySlim<string, List<string>>();
+            var programs = new Dictionary<string, Program>();
+            var relationships = new Dictionary<string, List<string>>();
 
             foreach (var line in lines.AsMemory())
             {
@@ -85,7 +84,7 @@ namespace DaySeven2017
             return root;
         }
 
-        private static Program ParseLine(ReadOnlySpan<char> line, DictionarySlim<string, List<string>> relationships)
+        private static Program ParseLine(ReadOnlySpan<char> line, Dictionary<string, List<string>> relationships)
         {
             var match = regex.Match(line);
 
@@ -105,16 +104,16 @@ namespace DaySeven2017
             return new Program { Name = name, Weight = weight };
         }
 
-        private static void ApplyRelationships(DictionarySlim<string, Program> programs, DictionarySlim<string, List<string>> relationships)
+        private static void ApplyRelationships(Dictionary<string, Program> programs, Dictionary<string, List<string>> relationships)
         {
             foreach (var (parent, children) in relationships)
             {
-                ref var parentProgram = ref programs.GetOrAddValueRef(parent);
+                var parentProgram = programs[parent];
                 var builder = ImmutableArray.CreateBuilder<Program>();
                 builder.AddRange(parentProgram.Children);
                 foreach (var child in children)
                 {
-                    ref var cp = ref programs.GetOrAddValueRef(child);
+                    var cp = programs[child];
                     builder.Add(cp);
                     cp.Parent = parentProgram;
                 }

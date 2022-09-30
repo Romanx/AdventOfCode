@@ -53,10 +53,6 @@
                     .ToDictionary(k => k.Source, v => v.Neighbours);
             }
         }
-
-        public void PartTwo(IInput input, IOutput output)
-        {
-        }
     }
 
     internal static class ChallengeExtensions

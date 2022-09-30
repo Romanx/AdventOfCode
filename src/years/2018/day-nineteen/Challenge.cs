@@ -15,7 +15,7 @@ namespace DayNineteen2018
             output.WriteProperty("Register Zero Value", registers[0]);
         }
 
-        public void PartTwo(IInput input, IOutput output)
+        public void PartTwo(IInput _, IOutput output)
         {
             // Found by watching the registers until one is large and stable
             var largeNumber = 10_551_275;

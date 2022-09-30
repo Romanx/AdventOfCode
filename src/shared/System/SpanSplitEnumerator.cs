@@ -34,7 +34,7 @@ namespace System
         /// Returns the current element of the enumeration.
         /// </summary>
         /// <returns>Returns a <see cref="Range"/> instance that indicates the bounds of the current element withing the source span.</returns>
-        public Range Current => new Range(_startCurrent, _endCurrent);
+        public Range Current => new(_startCurrent, _endCurrent);
 
         internal SpanSplitEnumerator(ReadOnlySpan<T> span, ReadOnlySpan<T> separators)
         {
@@ -73,11 +73,11 @@ namespace System
                 return false;
             }
 
-            ReadOnlySpan<T> slice = _buffer.Slice(_startNext);
+            var slice = _buffer[_startNext..];
             _startCurrent = _startNext;
 
-            int separatorIndex = _splitOnSingleToken ? slice.IndexOf(_separator) : slice.IndexOf(_separators);
-            int elementLength = (separatorIndex != -1 ? separatorIndex : slice.Length);
+            var separatorIndex = _splitOnSingleToken ? slice.IndexOf(_separator) : slice.IndexOf(_separators);
+            var elementLength = (separatorIndex != -1 ? separatorIndex : slice.Length);
 
             _endCurrent = _startCurrent + elementLength;
             _startNext = _endCurrent + _separatorLength;

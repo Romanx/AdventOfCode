@@ -58,8 +58,8 @@ namespace DaySeven2020
 
     public static class ParsingExtensions
     {
-        private static readonly Regex ruleRegex = new Regex("(.*) contain ([0-9 a-zA-Z,]*)");
-        private static readonly Regex bagRegex = new Regex("(\\d) ([a-zA-Z ]*)[,.]?");
+        private static readonly Regex ruleRegex = new("(.*) contain ([0-9 a-zA-Z,]*)");
+        private static readonly Regex bagRegex = new("(\\d) ([a-zA-Z ]*)[,.]?");
 
         public static ImmutableDictionary<string, ImmutableArray<BagCountAndColour>> ParseRules(this IInput input)
         {

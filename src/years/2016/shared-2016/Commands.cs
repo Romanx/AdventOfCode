@@ -150,7 +150,7 @@ namespace Shared
     [CommandRegex("nop")]
     record Nop() : Command("nop", Array.Empty<object>())
     {
-        public static Nop Build(in PcreRefMatch.GroupList groups)
+        public static Nop Build(in PcreRefMatch.GroupList _)
             => new();
 
         public override void Apply(Program program)

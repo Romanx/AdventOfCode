@@ -51,10 +51,6 @@ namespace DayTwentyFive2016
                     }).All(x => x is true);
             }
         }
-
-        public void PartTwo(IInput input, IOutput output)
-        {
-        }
     }
 
     [CommandRegex("out (.*)")]

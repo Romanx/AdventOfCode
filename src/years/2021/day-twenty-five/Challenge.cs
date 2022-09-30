@@ -30,10 +30,6 @@ public class Challenge : Shared.Challenge
         }
     }
 
-    public void PartTwo(IInput input, IOutput output)
-    {
-    }
-
     private static (int Steps, Map Map) RunUntilNotMoving(Map current)
     {
         var seen = new HashSet<Map>()

@@ -15,7 +15,7 @@ class Minecart : IComparable<Minecart>
     }
 
     public bool CollidesWith(Minecart other)
-        => this != other && this.Alive && other.Alive && Position == other.Position;
+        => this != other && Alive && other.Alive && Position == other.Position;
 
     public void Move(TrackSystem track)
     {

@@ -61,7 +61,7 @@ namespace DayTwo2020
 
     internal static class ParsingExtensions
     {
-        internal static readonly Regex PasswordRegex = new Regex("(?<LowerBound>[0-9]+)-(?<UpperBound>[0-9]+) (?<Letter>[a-z]): (?<Password>[a-z]*)");
+        internal static readonly Regex PasswordRegex = new("(?<LowerBound>[0-9]+)-(?<UpperBound>[0-9]+) (?<Letter>[a-z]): (?<Password>[a-z]*)");
 
         public static ImmutableArray<PasswordRecord> AsRecords(this IInput input)
         {

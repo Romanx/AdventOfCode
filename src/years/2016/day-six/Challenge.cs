@@ -1,5 +1,4 @@
-﻿using Microsoft.Collections.Extensions;
-
+﻿
 namespace DaySix2016
 {
     public class Challenge : Shared.Challenge
@@ -42,7 +41,7 @@ namespace DaySix2016
 
                 for (var i = 0; i < span.Length; i++)
                 {
-                    var dictionary = new DictionarySlim<char, int>();
+                    var dictionary = new Dictionary<char, int>();
 
                     foreach (var line in recordedMessages)
                     {
