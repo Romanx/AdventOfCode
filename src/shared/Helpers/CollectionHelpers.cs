@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using MoreLinq;
 
 namespace Shared
@@ -10,7 +11,8 @@ namespace Shared
         /// <summary>
         /// Merges any overlapping and contigious ranges
         /// </summary>
-        public static ICollection<NumberRange> MergeOverlapping(this IList<NumberRange> ranges)
+        public static ICollection<NumberRange<T>> MergeOverlapping<T>(this IList<NumberRange<T>> ranges)
+            where T : IBinaryNumber<T>
         {
             if (ranges.Count == 0)
             {
@@ -20,7 +22,7 @@ namespace Shared
             var arr = ranges.ToArray();
             Array.Sort(arr, Compare);
 
-            var stack = new Stack<NumberRange>();
+            var stack = new Stack<NumberRange<T>>();
             stack.Push(arr[0]);
 
             for (var i = 0; i < arr.Length; i++)
@@ -28,9 +30,9 @@ namespace Shared
                 var top = stack.Peek();
 
                 // If the current intervals end is just after our current. Merge
-                if (top.End + 1 == arr[i].Start)
+                if (top.End + T.One == arr[i].Start)
                 {
-                    var next = new NumberRange(top.Start, arr[i].End);
+                    var next = new NumberRange<T>(top.Start, arr[i].End);
                     stack.Pop();
                     stack.Push(next);
                 }
@@ -42,7 +44,7 @@ namespace Shared
                 }
                 else if (top.End < arr[i].End)
                 {
-                    var next = new NumberRange(top.Start, arr[i].End);
+                    var next = new NumberRange<T>(top.Start, arr[i].End);
                     stack.Pop();
                     stack.Push(next);
                 }
@@ -50,7 +52,7 @@ namespace Shared
 
             return stack.Reverse().ToArray();
 
-            static int Compare(NumberRange left, NumberRange right)
+            static int Compare(NumberRange<T> left, NumberRange<T> right)
             {
                 if (left.Start == right.Start)
                 {

@@ -26,7 +26,7 @@
 
             output.WriteProperty("First valid IP", ips.Count());
 
-            static IEnumerable<uint> CalculateGapsInBlacklist(ImmutableArray<NumberRange> blacklist)
+            static IEnumerable<uint> CalculateGapsInBlacklist(ImmutableArray<NumberRange<uint>> blacklist)
             {
                 var first = blacklist[0];
                 foreach (var next in blacklist.Skip(1))
@@ -45,9 +45,9 @@
 
     internal static class ParseExtensions
     {
-        public static ImmutableArray<NumberRange> Parse(this IInput input)
+        public static ImmutableArray<NumberRange<uint>> Parse(this IInput input)
         {
-            var builder = ImmutableArray.CreateBuilder<NumberRange>();
+            var builder = ImmutableArray.CreateBuilder<NumberRange<uint>>();
             foreach (var line in input.Lines.AsMemory())
             {
                 builder.Add(ParseRange(line.Span));
@@ -56,14 +56,14 @@
             builder.Sort(static (x, y) => x.Start.CompareTo(y.Start));
             return builder.ToImmutable();
 
-            static NumberRange ParseRange(ReadOnlySpan<char> span)
+            static NumberRange<uint> ParseRange(ReadOnlySpan<char> span)
             {
                 var split = span.IndexOf('-');
 
                 var first = uint.Parse(span[..split]);
                 var second = uint.Parse(span[(split + 1)..]);
 
-                return new NumberRange(first, second);
+                return new NumberRange<uint>(first, second);
             }
         }
     }
