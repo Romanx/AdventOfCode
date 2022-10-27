@@ -87,21 +87,9 @@ namespace Shared.Helpers
         {
             var builder = ImmutableArray.CreateBuilder<int>();
 
-            while (span.IsEmpty is false)
+            foreach (var section in span.Tokenize(','))
             {
-                var index = span.IndexOf(',');
-
-                if (index == -1)
-                {
-                    builder.Add(int.Parse(span));
-                    span = ReadOnlySpan<char>.Empty;
-                }
-                else
-                {
-                    var number = span[..index];
-                    span = span[(index + 1)..];
-                    builder.Add(int.Parse(number));
-                }
+                builder.Add(int.Parse(section));
             }
 
             return builder.ToImmutable();
