@@ -1,4 +1,6 @@
-﻿namespace DayEleven2021;
+﻿using System.Runtime.InteropServices;
+
+namespace DayEleven2021;
 
 public class Challenge : Shared.Challenge
 {
@@ -62,7 +64,7 @@ public class Challenge : Shared.Challenge
 
             flashed.Add(point);
 
-            var neighbours = Direction.All.Select(dir => point + dir);
+            var neighbours = Directions.All.Select(dir => point + dir);
             foreach (var neighbour in neighbours)
             {
                 if (builder.ContainsKey(neighbour))

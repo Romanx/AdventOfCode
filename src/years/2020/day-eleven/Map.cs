@@ -37,7 +37,7 @@
 
         public IEnumerable<(Point2d Point, bool Occupied)> VisibleAdjacentSeats(Point2d point)
         {
-            foreach (var direction in Direction.All)
+            foreach (var direction in Directions.All)
             {
                 var firstInDirection = FirstInDirection(point, direction);
                 if (firstInDirection is not null)

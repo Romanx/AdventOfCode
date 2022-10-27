@@ -25,8 +25,8 @@ public readonly record struct AdjacentPoints : IEnumerable<Point2d>
         var count = 0;
 
         var directions = adjacencyType is AdjacencyType.Cardinal
-            ? Direction.CardinalDirections
-            : Direction.All;
+            ? Directions.CardinalDirections
+            : Directions.All;
 
         if (points is not null)
         {
@@ -83,8 +83,8 @@ public readonly record struct AdjacentPoints : IEnumerable<Point2d>
     public IEnumerator<Point2d> GetEnumerator()
     {
         var directions = adjacencyType is AdjacencyType.Cardinal
-            ? Direction.CardinalDirections
-            : Direction.All;
+            ? Directions.CardinalDirections
+            : Directions.All;
 
         foreach (var direction in directions)
         {

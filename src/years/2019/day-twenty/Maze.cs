@@ -33,7 +33,7 @@ public class Maze : IWeightedGraph<Point3d>
 
     private IEnumerable<Point3d> NormalNeighbours(Point3d node)
     {
-        foreach (var neighbour in Direction.CardinalDirections.Select(dir => node + dir))
+        foreach (var neighbour in Directions.CardinalDirections.Select(dir => node + dir))
         {
             if (portals.TryGetValue(neighbour, out var portal))
             {
@@ -48,7 +48,7 @@ public class Maze : IWeightedGraph<Point3d>
 
     private IEnumerable<Point3d> RecursiveNeighbours(Point3d node)
     {
-        foreach (var neighbour in Direction.CardinalDirections.Select(dir => node + dir))
+        foreach (var neighbour in Directions.CardinalDirections.Select(dir => node + dir))
         {
             var hasPortal = portals.TryGetValue(neighbour, out var portal);
 

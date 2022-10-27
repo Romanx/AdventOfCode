@@ -34,7 +34,7 @@ namespace DayNineteen2017
 
                 if (@char is '+')
                 {
-                    (direction, _) = Direction.CardinalDirections
+                    (direction, _) = Directions.CardinalDirections
                         .Select(dir => (Direction: dir, Point: point + dir))
                         .Where(n => map.ContainsKey(n.Point) && visited.Contains(n.Point) is false)
                         .Single();
@@ -84,7 +84,7 @@ namespace DayNineteen2017
 
                 if (@char is '+')
                 {
-                    (direction, _) = Direction.CardinalDirections
+                    (direction, _) = Directions.CardinalDirections
                         .Select(dir => (Direction: dir, Point: point + dir))
                         .Where(n => map.ContainsKey(n.Point) && visited.Contains(n.Point) is false)
                         .Single();

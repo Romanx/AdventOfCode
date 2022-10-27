@@ -67,7 +67,7 @@ namespace Shared
         }
 
         public IEnumerable<Point2d> GetAllNeighbours()
-            => Direction.All.Select(dir => this + dir);
+            => Directions.All.Select(dir => this + dir);
 
         public Point3d Z(int depth) => new(Row, Column, depth);
 

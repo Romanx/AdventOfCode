@@ -89,10 +89,10 @@ namespace Shared.Helpers
         }
 
         public static IEnumerable<Point2d> GetDirectNeighbours(Point2d point)
-            => Direction.CardinalDirections.Select(dir => point + dir);
+            => Directions.CardinalDirections.Select(dir => point + dir);
 
         public static IEnumerable<Point2d> GetNeighbours(Point2d point)
-            => Direction.All.Select(dir => point + dir);
+            => Directions.All.Select(dir => point + dir);
 
         public static AdjacentPoints GetNeighbours(
             Point2d point,
