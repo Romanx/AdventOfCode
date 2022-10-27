@@ -6,17 +6,8 @@ namespace DayEight2017
     {
         public static CommandParser<Instruction> BuildParser()
         {
-            var parser = new CommandParser<Instruction>();
-
-            var types = typeof(Instruction).Assembly.GetTypes()
-                .Where(t => t.BaseType == typeof(Instruction));
-
-            foreach (var type in types)
-            {
-                parser.AddType(type);
-            }
-
-            return parser;
+            return new CommandParser<Instruction>()
+                .AddDerivedTypes<Instruction>();
         }
     }
 

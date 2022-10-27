@@ -6,15 +6,8 @@ namespace Shared
     {
         public static CommandParser<Command> BuildParser()
         {
-            var parser = new CommandParser<Command>();
-
-            var types = typeof(Command).Assembly.GetTypes()
-                .Where(t => t.BaseType == typeof(Command));
-
-            foreach (var type in types)
-            {
-                parser.AddType(type);
-            }
+            var parser = new CommandParser<Command>()
+                .AddDerivedTypes<Command>();
 
             return parser;
         }

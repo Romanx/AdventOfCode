@@ -12,20 +12,6 @@ namespace Shared.Parser
 
         public CommandParser<TBase> AddType<T>() => AddType(typeof(T));
 
-        public CommandParser<TBase> AddType(Type type)
-        {
-            var attr = type.GetCustomAttribute<CommandRegexAttribute>();
-
-            if (attr is null)
-            {
-                return this;
-            }
-
-            var regex = new PcreRegex(attr.Regex, PcreOptions.Compiled);
-            _types.Add(regex, type);
-            return this;
-        }
-
         private delegate TBase Build(in PcreRefMatch.GroupList groups);
 
         public CommandParser<TBase> AddDerivedTypes<T>()
@@ -70,6 +56,20 @@ namespace Shared.Parser
             }
 
             return results;
+        }
+
+        private CommandParser<TBase> AddType(Type type)
+        {
+            var attr = type.GetCustomAttribute<CommandRegexAttribute>();
+
+            if (attr is null)
+            {
+                return this;
+            }
+
+            var regex = new PcreRegex(attr.Regex, PcreOptions.Compiled);
+            _types.Add(regex, type);
+            return this;
         }
     }
 }
