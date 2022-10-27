@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Shared.HexGrid
 {
-    public record class Hex(Point3d Point)
+    public readonly record struct Hex(Point3d Point)
     {
         public static Hex Origin { get; } = new Hex(Point3d.Origin);
 
@@ -23,7 +24,8 @@ namespace Shared.HexGrid
         }
     }
 
-    public record HexDirection(HexDirectionType DirectionType)
+    public readonly record struct HexDirection(HexDirectionType DirectionType)
+        : IParsable<HexDirection>, ISpanParsable<HexDirection>
     {
         public static HexDirection East { get; } = new HexDirection(HexDirectionType.East);
         public static HexDirection SouthEast { get; } = new HexDirection(HexDirectionType.SouthEast);
@@ -32,18 +34,47 @@ namespace Shared.HexGrid
         public static HexDirection NorthWest { get; } = new HexDirection(HexDirectionType.NorthWest);
         public static HexDirection NorthEast { get; } = new HexDirection(HexDirectionType.NorthEast);
 
-        public static HexDirection Parse(string str)
+        //   \ n  /
+        // nw +--+ ne
+        //   /    \
+        // -+      +-
+        //   \    /
+        // sw +--+ se
+        //   / s  \
+        public static HexDirection Parse(string s, IFormatProvider? provider = null)
+            => Parse(s.AsSpan(), provider);
+
+        public static HexDirection Parse(ReadOnlySpan<char> s, IFormatProvider? provider = null)
         {
-            return str.Trim().ToUpper() switch
+            if (TryParse(s, provider, out var result))
             {
-                "E" => East,
-                "SE" => SouthEast,
-                "SW" => SouthWest,
-                "W" => West,
-                "NE" => NorthEast,
-                "NW" => NorthWest,
-                _ => throw new NotImplementedException()
+                return result;
+            }
+
+            throw new InvalidOperationException($"Unable to parse {s} to a HexDirection");
+        }
+
+        public static bool TryParse([NotNullWhen(true)] string? s, IFormatProvider? provider, [MaybeNullWhen(false)] out HexDirection result)
+            => TryParse(s.AsSpan(), provider, out result);
+
+        public static bool TryParse(ReadOnlySpan<char> s, IFormatProvider? provider, [MaybeNullWhen(false)] out HexDirection result)
+        {
+            var trimmed = s.Trim();
+            Span<char> upper = stackalloc char[trimmed.Length];
+            trimmed.ToUpperInvariant(upper);
+
+            (result, var success) = upper switch
+            {
+                "N" => (NorthWest, true),
+                "NW" => (West, true),
+                "NE" => (NorthEast, true),
+                "S" => (SouthEast, true),
+                "SW" => (SouthWest, true),
+                "SE" => (East, true),
+                _ => (default, false),
             };
+
+            return success;
         }
     }
 

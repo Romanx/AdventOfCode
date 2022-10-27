@@ -1,4 +1,5 @@
-﻿using Shared.HexGrid;
+﻿using CommunityToolkit.HighPerformance;
+using Shared.HexGrid;
 
 namespace DayEleven2017
 {
@@ -60,32 +61,15 @@ namespace DayEleven2017
 
             static ImmutableArray<HexDirection> Inner(string str)
             {
-                return str
-                    .Split(",", StringSplitOptions.RemoveEmptyEntries & StringSplitOptions.TrimEntries)
-                    .Select(s => Parse(s))
-                    .ToImmutableArray();
-            }
-        }
+                var directions = ImmutableArray.CreateBuilder<HexDirection>();
 
-        //   \ n  /
-        // nw +--+ ne
-        //   /    \
-        // -+      +-
-        //   \    /
-        // sw +--+ se
-        //   / s  \
-        private static HexDirection Parse(string str)
-        {
-            return str.Trim().ToUpper() switch
-            {
-                "N" => HexDirection.NorthWest,
-                "NW" => HexDirection.West,
-                "NE" => HexDirection.NorthEast,
-                "S" => HexDirection.SouthEast,
-                "SW" => HexDirection.SouthWest,
-                "SE" => HexDirection.East,
-                _ => throw new NotImplementedException()
-            };
+                foreach (var step in str.Tokenize(','))
+                {
+                    directions.Add(HexDirection.Parse(step));
+                }
+
+                return directions.ToImmutable();
+            }
         }
     }
 }
