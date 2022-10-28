@@ -1,4 +1,6 @@
-﻿using Shared.Grid;
+﻿using System.Collections.Specialized;
+using CommunityToolkit.HighPerformance.Helpers;
+using Shared.Grid;
 
 namespace DayTwentyFour2019
 {
@@ -6,63 +8,81 @@ namespace DayTwentyFour2019
     {
         private static readonly Area2d Area = Area2d.Create(5, 5);
 
-        public static ImmutableHashSet<Point2d> Step(ImmutableHashSet<Point2d> bugs)
+        public static Plane Step(Plane plane)
         {
-            var result = ImmutableHashSet.CreateBuilder<Point2d>();
+            var next = new Plane(Area);
 
             foreach (var point in Area.Items)
             {
-                var countNeighbours = CountActiveNeighbours(point, bugs);
+                var neighbors = PointHelpers.GetDirectNeighbours(point)
+                    .Where(Area.Contains)
+                    .Count(plane.At);
 
-                if (bugs.Contains(point))
+                var active = plane.At(point)
+                    ? neighbors is 1
+                    : neighbors is 1 or 2;
+
+                if (active)
                 {
-                    if (countNeighbours == 1)
-                    {
-                        result.Add(point);
-                    }
-                }
-                else
-                {
-                    if (countNeighbours == 1 || countNeighbours == 2)
-                    {
-                        result.Add(point);
-                    }
+                    next.Set(point, active);
                 }
             }
 
-            return result.ToImmutable();
+            return next;
         }
+    }
 
-        private static int CountActiveNeighbours(Point2d point, ImmutableHashSet<Point2d> bugs)
+    public record struct Plane : IEquatable<Plane>
+    {
+        private readonly int yBoundary;
+        ulong representation;
+
+        public Plane(Area2d area)
         {
-            var count = 0;
-
-            foreach (var neighbour in PointHelpers.GetDirectNeighbours(point))
-            {
-                if (bugs.Contains(neighbour))
-                {
-                    count++;
-                }
-            }
-
-            return count;
+            yBoundary = area.Width - 1;
+            representation = 0;
         }
 
-        public static long CalculateBiodiversity(ImmutableHashSet<Point2d> bugs)
+        public void Set(Point2d point, bool value)
         {
-            long result = 0;
-            var count = 0;
-            
-            foreach (var point in Area.Items)
+            var idx = CalculateIndex(point);
+            BitHelper.SetFlag(ref representation, idx, value);
+        }
+
+        public void SetAll(IEnumerable<Point2d> points, bool value)
+        {
+            foreach (var point in points)
             {
-                if (bugs.Contains(point))
+                Set(point, value);
+            }
+        }
+
+        public bool At(Point2d point)
+            => BitHelper.HasFlag(representation, CalculateIndex(point));
+
+        public ulong Biodiversity => representation;
+
+        public bool Equals(Plane other)
+            => representation == other.representation;
+
+        public override int GetHashCode()
+            => representation.GetHashCode();
+
+        public string ToString(Area2d area)
+        {
+            var points = new HashSet<Point2d>();
+            foreach (var point in area.Items)
+            {
+                if (At(point))
                 {
-                    result += (long)Math.Pow(2, count);
+                    points.Add(point);
                 }
-                count++;
             }
 
-            return result;
+            return GridPrinter.Print(points, '#');
         }
+
+        private int CalculateIndex(Point2d point)
+            => point.X + (point.Y * (yBoundary + 1));
     }
 }

@@ -23,14 +23,10 @@ namespace DayTwentyFour2019
             {
                 foreach (var neighbor in GetAdjacentPoints(position))
                 {
-                    if (counts.ContainsKey(neighbor))
-                    {
-                        counts[neighbor]++;
-                    }
-                    else
-                    {
-                        counts[neighbor] = 1;
-                    }
+                    counts.AddOrUpdate(
+                        neighbor,
+                        1,
+                        static (_, num) => num + 1);
                 }
             }
 

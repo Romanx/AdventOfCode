@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using CommunityToolkit.HighPerformance;
+using Shared.Grid;
 
 namespace DayTwentyFour2019
 {
@@ -9,25 +10,21 @@ namespace DayTwentyFour2019
 
         public void PartOne(IInput input, IOutput output)
         {
-            var hashset = new HashSet<string>();
+            var hashset = new HashSet<Plane>();
 
-            var bugs = input.ParseBugs();
-            hashset.Add(GridPrinter.Print(bugs, '#'));
+            var plane = input.ParseBugs();
 
             while (true)
             {
-                bugs = SinglePlanePlanet.Step(bugs);
-                var layout = GridPrinter.Print(bugs, '#');
+                plane = SinglePlanePlanet.Step(plane);
 
-                if (hashset.Add(layout) is false)
+                if (hashset.Add(plane) is false)
                 {
                     break;
                 }
             }
 
-            var biodiversity = SinglePlanePlanet.CalculateBiodiversity(bugs);
-
-            output.WriteProperty("Biodiversity", biodiversity);
+            output.WriteProperty("Biodiversity", plane.Biodiversity);
         }
 
         public void PartTwo(IInput input, IOutput output)
@@ -43,23 +40,17 @@ namespace DayTwentyFour2019
 
     internal static class ParseExtensions
     {
-        public static ImmutableHashSet<Point2d> ParseBugs(this IInput input)
+        public static Plane ParseBugs(this IInput input)
         {
-            var builder = ImmutableHashSet.CreateBuilder<Point2d>();
+            var plane = new Plane(Area2d.Create(5, 5));
 
-            var arr = input.Lines.As2DArray().AsSpan2D();
-            for (var column = 0; column < arr.Height; column++)
-            {
-                for (var row = 0; row < arr.Width; row++)
-                {
-                    if (arr[row, column] == '#')
-                    {
-                        builder.Add(new Point2d(row, column));
-                    }
-                }
-            }
+            var points = input.As2DPoints()
+                .Where(kvp => kvp.Character is '#')
+                .Select(kvp => kvp.Point);
 
-            return builder.ToImmutable();
+            plane.SetAll(points, true);
+
+            return plane;
         }
 
         public static ImmutableHashSet<Point3d> ParseBugs3d(this IInput input)
