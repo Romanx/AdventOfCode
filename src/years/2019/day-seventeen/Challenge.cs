@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Shared2019;
 using Spectre.Console;
-using static Shared.Helpers.PointHelpers;
+using static Shared.PointHelpers;
 
 namespace DaySeventeen2019;
 

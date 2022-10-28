@@ -2,22 +2,16 @@
 
 namespace DayTwentyThree2018
 {
-    internal static class ParseExtensions
+    internal static partial class ParseExtensions
     {
         public static ImmutableArray<Nanobot> Parse(this IInput input)
         {
-            var regex = new Regex("^pos=<(?<Position>.*)>, r=(?<Radius>.*)$");
+            var regex = Regex();
             var builder = ImmutableArray.CreateBuilder<Nanobot>();
             foreach (var line in input.Lines.AsString())
             {
                 var result = regex.Match(line);
-
-                var positionArray = result.Groups["Position"].Value
-                    .Split(',')
-                    .Select(int.Parse)
-                    .ToImmutableArray();
-
-                var position = new Point3d(positionArray);
+                var position = Point3d.Parse(result.Groups["Position"].Value);
                 var radius = uint.Parse(result.Groups["Radius"].Value);
 
                 builder.Add(new(position, radius));
@@ -25,5 +19,8 @@ namespace DayTwentyThree2018
 
             return builder.ToImmutable();
         }
+
+        [GeneratedRegex("^pos=<(?<Position>.*)>, r=(?<Radius>.*)$")]
+        private static partial Regex Regex();
     }
 }

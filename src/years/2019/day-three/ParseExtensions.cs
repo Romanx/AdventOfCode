@@ -19,14 +19,14 @@ internal static class ParseExtensions
         var builder = ImmutableArray.CreateBuilder<LineSegment>();
         var position = Point2d.Origin;
 
-        foreach (ReadOnlySpan<char> command in line.Tokenize(','))
+        foreach (var command in line.Tokenize(','))
         {
             var direction = GridDirection.FromChar(command[0]);
             var length = int.Parse(command[1..^0]);
 
             var start = position + direction;
 
-            var end = Point2d.AddInDirection(start, direction, length - 1);
+            var end = start + (direction, length - 1);
 
             builder.Add(LineSegment.Create(start, end));
             position = end;

@@ -100,7 +100,7 @@ namespace Shared
             {
                 if (item.GetType().IsEnum)
                 {
-                    _writer.Append(EnumHelpers.ToDisplayName((item as Enum)!));
+                    _writer.Append(EnumHelpers.ToDisplayName(item));
                 }
                 else
                 {

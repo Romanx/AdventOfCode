@@ -15,7 +15,7 @@ namespace DaySeventeen2018
             {
                 [WaterSpring] = CellType.Spring,
             };
-            var (xRange, yRange) = Point2d.FindSpaceOfPoints(_map.Keys);
+            var (xRange, yRange) = PointHelpers.FindSpaceOfPoints(_map.Keys);
             _gridDimensions = new Area2d(xRange.Pad(3), yRange);
         }
 

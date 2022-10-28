@@ -108,9 +108,7 @@ namespace DayTwenty2020
                 char[,] image)
             {
                 var count = 0;
-                var ranges = PointHelpers.FindSpaceOfPoints(points, Point2d.NumberOfDimensions);
-                var xRange = ranges[0];
-                var yRange = ranges[1];
+                var (xRange, yRange) = PointHelpers.FindSpaceOfPoints(points);
 
                 var span = image.AsSpan2D();
                 for (var column = 0; column < span.Width; column++)

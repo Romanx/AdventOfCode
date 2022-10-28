@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
+using System.Numerics;
 using MoreLinq;
 using Shared.Grid;
+using Shared.Helpers;
 
-namespace Shared.Helpers
+namespace Shared
 {
     public static class PointHelpers
     {
@@ -25,14 +27,21 @@ namespace Shared.Helpers
             return (rad >= 0 ? rad : (2 * Math.PI + rad)) * 360 / (2 * Math.PI);
         }
 
-        public static int ManhattanDistance(Point2d a, Point2d b)
+        public static int ManhattanDistance<T>(T a, T b)
+            where T : IPoint
         {
-            return Math.Abs(a.X - b.X) + Math.Abs(a.Y - b.Y);
-        }
+            var result = 0;
+            Span<int> aDimensions = stackalloc int[T.DimensionCount];
+            Span<int> bDimensions = stackalloc int[T.DimensionCount];
+            a.GetDimensions(aDimensions);
+            b.GetDimensions(bDimensions);
 
-        public static int ManhattanDistance(Point3d a, Point3d b)
-        {
-            return Math.Abs(a.X - b.X) + Math.Abs(a.Y - b.Y) + Math.Abs(a.Z - b.Z);
+            for (var i = 0; i < T.DimensionCount; i++)
+            {
+                result += int.Abs(aDimensions[i] - bDimensions[i]);
+            }
+
+            return result;
         }
 
         public static int SlopeBetweenTwoPoints(Point2d a, Point2d b)
@@ -41,51 +50,63 @@ namespace Shared.Helpers
         }
 
         public static IEnumerable<T> GetNeighboursInDistance<T>(this T point, int distance, Func<IEnumerable<int>, T> factory)
-            where T : Point
+            where T : IPoint, IEquatable<T>
         {
-            var combinations = point.Dimensions
+            var scratch = new int[T.DimensionCount];
+            point.GetDimensions(scratch);
+
+            var combinations = scratch
                 .Select(d => MoreEnumerable.Sequence(d - distance, d + distance))
                 .CartesianProduct();
 
             foreach (var combin in combinations)
             {
                 var pt = factory(combin);
-                if (pt != point)
+                if (!pt.Equals(point))
                 {
                     yield return pt;
                 }
             }
         }
 
-        public static ImmutableArray<DimensionRange> FindSpaceOfPoints<T>(IEnumerable<T> points, int dimensions)
-            where T : Point
+        public static ImmutableArray<DimensionRange> FindSpaceOfPoints<T>(IEnumerable<T> points)
+            where T : IPoint
         {
-            var dimensionRanges = Enumerable.Range(0, dimensions)
-                .Select(_ => (Min: (int?)null, Max: (int?)null))
-                .ToArray();
+            var dimensionCount = T.DimensionCount;
+
+            var ranges = new (int? Min, int? Max)[dimensionCount];
+            Span<int> scratch = stackalloc int[dimensionCount]; 
 
             foreach (var point in points)
             {
-                for (var i = 0; i < point.Dimensions.Length; i++)
-                {
-                    var dimensionVal = point.Dimensions[i];
-                    var dimensionRange = dimensionRanges[i];
+                point.GetDimensions(scratch);
 
-                    if (dimensionRange.Min is null || dimensionVal < dimensionRange.Min)
-                    {
-                        dimensionRange.Min = dimensionVal;
-                    }
-                    else if (dimensionRange.Max is null || dimensionVal > dimensionRange.Max)
-                    {
-                        dimensionRange.Max = dimensionVal;
-                    }
-                    dimensionRanges[i] = dimensionRange;
+                for (var i = 0; i < dimensionCount; i++)
+                {
+                    var val = scratch[i];
+                    var (min, max) = ranges[i];
+
+                    var nextMin = min is null || val < min
+                        ? val
+                        : min;
+
+                    var nextMax = max is null || val > max
+                        ? val
+                        : max;
+
+                    ranges[i] = (nextMin, nextMax);
                 }
             }
 
-            return dimensionRanges
-                .Select(r => new DimensionRange(r.Min!.Value, r.Max!.Value))
-                .ToImmutableArray();
+            var builder = ImmutableArray.CreateBuilder<DimensionRange>(dimensionCount);
+            for (var i = 0; i < dimensionCount; i++)
+            {
+                var (min, max) = ranges[i];
+
+                builder.Add(new DimensionRange(min!.Value, max!.Value));
+            }
+
+            return builder.MoveToImmutable();
         }
 
         public static IEnumerable<Point2d> GetDirectNeighbours(Point2d point)
@@ -106,7 +127,7 @@ namespace Shared.Helpers
             => new(point, null, adjacencyType);
 
         public static IEnumerable<T> PointsInSpace<T>(IEnumerable<DimensionRange> ranges, Func<IEnumerable<int>, T> factory)
-            where T : Point
+            where T : IPoint
         {
             var cart = ranges
                 .Select(range => MoreEnumerable.Sequence(range.Min, range.Max))

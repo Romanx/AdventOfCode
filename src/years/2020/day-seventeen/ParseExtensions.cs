@@ -2,27 +2,18 @@
 {
     internal static class ParseExtensions
     {
-        public static ImmutableHashSet<Point3d> ParseSpace3d(this IInput input)
-        {
-            var set = ImmutableHashSet.CreateBuilder<Point3d>();
+        public static ImmutableHashSet<Point3d> ParseSpace3d(this IInput input) => ParseInputPoints(input)
+            .Select(point => point.Z(0))
+            .ToImmutableHashSet();
 
-            var arr = input.Lines.As2DArray();
-            for (var row = 0; row < arr.GetLength(0); row++)
-            {
-                for (var column = 0; column < arr.GetLength(1); column++)
-                {
-                    if (arr[row, column] == '#')
-                    {
-                        set.Add(new Point3d(row, column, 0));
-                    }
-                }
-            }
+        public static ImmutableHashSet<Point4d> ParseSpace4d(this IInput input) => ParseInputPoints(input)
+            .Select(point => new Point4d(point.X, point.Y, 0, 0))
+            .ToImmutableHashSet();
 
-            return set.ToImmutable();
-        }
-
-        public static ImmutableHashSet<Point4d> ParseSpace4d(this IInput input) =>
-            input.ParseSpace3d()
-            .Select(p => new Point4d(Point.ConvertToPoint(p.Dimensions, Point4d.NumberOfDimensions))).ToImmutableHashSet();
+        private static IEnumerable<Point2d> ParseInputPoints(IInput input) =>
+            input
+                .As2DPoints()
+                .Where(kvp => kvp.Character is '#')
+                .Select(kvp => kvp.Point);
     }
 }

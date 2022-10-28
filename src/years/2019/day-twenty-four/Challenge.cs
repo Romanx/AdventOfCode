@@ -12,12 +12,12 @@ namespace DayTwentyFour2019
             var hashset = new HashSet<string>();
 
             var bugs = input.ParseBugs();
-            hashset.Add(Print(bugs));
+            hashset.Add(GridPrinter.Print(bugs, '#'));
 
             while (true)
             {
                 bugs = SinglePlanePlanet.Step(bugs);
-                var layout = Print(bugs);
+                var layout = GridPrinter.Print(bugs, '#');
 
                 if (hashset.Add(layout) is false)
                 {
@@ -38,22 +38,6 @@ namespace DayTwentyFour2019
 
             MultiPlanePlanet.Print(result);
             output.WriteProperty("Number of Bugs", result.Count);
-        }
-
-        private static string Print(ImmutableHashSet<Point2d> bugs)
-        {
-            var builder = new StringBuilder();
-
-            for (var column = 0; column < 5; column++)
-            {
-                for (var row = 0; row < 5; row++)
-                {
-                    builder.Append(bugs.Contains((row, column)) ? '#' : '.');
-                }
-                builder.AppendLine();
-            }
-
-            return builder.ToString();
         }
     }
 

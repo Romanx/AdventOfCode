@@ -17,7 +17,7 @@ public class Challenge : Shared.Challenge
                     .MinBySet(other => PointHelpers.ManhattanDistance(point, other))
                     .ToArray();
 
-                var closest = closestByDistance.Length > 1
+                Point2d? closest = closestByDistance.Length > 1
                     ? null
                     : closestByDistance[0];
 
@@ -31,14 +31,14 @@ public class Challenge : Shared.Challenge
                 kvp.Key.X == area.XRange.Max ||
                 kvp.Key.Y == area.YRange.Min ||
                 kvp.Key.Y == area.YRange.Max)
-            .Where(kvp => kvp.Value is not null)
-            .Select(kvp => kvp.Value!)
+            .Where(kvp => kvp.Value.HasValue)
+            .Select(kvp => kvp.Value!.Value)
             .Distinct();
 
         var candidates = points.Except(infinite);
 
         var maxArea = map
-            .Where(kvp => kvp.Value is not null && candidates.Contains(kvp.Value))
+            .Where(kvp => kvp.Value is not null && candidates.Contains(kvp.Value!.Value))
             .GroupBy(kvp => kvp.Value!)
             .Max(kvp => kvp.Count());
 
@@ -68,6 +68,6 @@ public class Challenge : Shared.Challenge
 internal static class ParseExtensions
 {
     public static ImmutableHashSet<Point2d> Parse(this IInput input) => input.Lines
-        .Transform(Point2d.Parse)
+        .Transform(static str => Point2d.Parse(str))
         .ToImmutableHashSet();
 }

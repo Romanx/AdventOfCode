@@ -1,4 +1,4 @@
-﻿using static Shared.Helpers.PointHelpers;
+﻿using static Shared.PointHelpers;
 
 namespace DayTen2019;
 

@@ -25,7 +25,6 @@ namespace Shared
         }
 
         public static string ToDisplayName<T>(T item)
-            where T : Enum
         {
             if (_cache.TryGetValue(typeof(T), out var items) is false)
             {
@@ -42,7 +41,6 @@ namespace Shared
         }
 
         private static ImmutableDictionary<string, object> AddNewEntry<T>()
-            where T : Enum
         {
             var members = typeof(T).GetMembers()
                 .Select(m => (m.Name, Attribute: m.GetCustomAttribute<DisplayAttribute>()))

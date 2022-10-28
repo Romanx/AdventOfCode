@@ -100,11 +100,11 @@ namespace Shared.Grid
 
         public static Area2d Create(IEnumerable<Point2d> points)
         {
-            var (x, y) = Point2d.FindSpaceOfPoints(points);
+            var dimensions = PointHelpers.FindSpaceOfPoints(points);
 
             return new Area2d(
-                new DimensionRange(x.Min, x.Max),
-                new DimensionRange(y.Min, y.Max)
+                dimensions[0],
+                dimensions[1]
             );
         }
 
@@ -115,6 +115,14 @@ namespace Shared.Grid
 
             var xRange = new DimensionRange(0, xMax);
             var yRange = new DimensionRange(0, yMax);
+
+            return new Area2d(xRange, yRange);
+        }
+
+        public static Area2d Create(int width, int height)
+        {
+            var xRange = new DimensionRange(0, width - 1);
+            var yRange = new DimensionRange(0, height - 1);
 
             return new Area2d(xRange, yRange);
         }

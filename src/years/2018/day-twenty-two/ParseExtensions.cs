@@ -11,7 +11,8 @@ namespace DayTwentyTwo2018
             var second = lines[1];
 
             var depth = ulong.Parse(first.Span[(first.Span.IndexOf(':') + 1)..]);
-            var target = new Point2d(SpanHelpers.ParseCommaSeparatedList(second.Span[(second.Span.IndexOf(':') + 1)..]));
+            var span = second.Span[(second.Span.IndexOf(':') + 1)..];
+            var target = Point2d.Parse(span);
 
             return (depth, target);
         }

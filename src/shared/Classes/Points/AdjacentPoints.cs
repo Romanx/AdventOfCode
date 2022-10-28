@@ -90,7 +90,7 @@ public readonly record struct AdjacentPoints : IEnumerable<Point2d>
         {
             var point = adjacentPoints[(int)direction.DirectionType];
             if (point is not null)
-                yield return point;
+                yield return point.Value;
         }
     }
 

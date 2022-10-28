@@ -10,7 +10,7 @@ namespace DaySeventeen2018
         public void PartOne(IInput input, IOutput output)
         {
             ImmutableHashSet<Point2d> clayPoints = input.ParseClayPoints();
-            var (_, yRange) = Point2d.FindSpaceOfPoints(clayPoints);
+            var (_, yRange) = PointHelpers.FindSpaceOfPoints(clayPoints);
 
             var before = output.File("before.txt");
             var after = output.File("after.txt");
@@ -32,8 +32,8 @@ namespace DaySeventeen2018
 
         public void PartTwo(IInput input, IOutput output)
         {
-            ImmutableHashSet<Point2d> clayPoints = input.ParseClayPoints();
-            var (_, yRange) = Point2d.FindSpaceOfPoints(clayPoints);
+            var clayPoints = input.ParseClayPoints();
+            var (_, yRange) = PointHelpers.FindSpaceOfPoints(clayPoints);
             var scan = new Scan(clayPoints);
             scan.Flow(Scan.WaterSpring);
 

@@ -13,7 +13,7 @@ namespace Shared.Helpers
                 (accumulator, sequence) =>
                     from accseq in accumulator
                     from item in sequence
-                    select accseq.Concat(new[] { item }));
+                    select accseq.Append(item));
         }
     }
 }

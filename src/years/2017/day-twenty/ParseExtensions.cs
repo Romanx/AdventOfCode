@@ -9,28 +9,22 @@ namespace DayTwenty2017
         public static ImmutableArray<Particle> ParseParticles(this IInputLines lines)
         {
             var builder = ImmutableArray.CreateBuilder<Particle>();
-            foreach (var (idx, line) in lines.AsString().Index())
+            foreach (var (idx, line) in lines.AsMemory().Index())
             {
-                builder.Add(ParseParticle(idx, line));
+                builder.Add(ParseParticle(idx, line.Span));
             }
 
             return builder.ToImmutable();
 
-            static Particle ParseParticle(int id, string line)
+            static Particle ParseParticle(int id, ReadOnlySpan<char> line)
             {
                 var match = regex.Match(line);
 
                 return new Particle(
                     id,
-                    ParsePoint(match.Groups[1].Value),
-                    ParsePoint(match.Groups[2].Value),
-                    ParsePoint(match.Groups[3].Value));
-            }
-
-            static Point3d ParsePoint(string input)
-            {
-                var arr = input.Split(',').Select(int.Parse).ToImmutableArray();
-                return new Point3d(arr);
+                    Point3d.Parse(match.Groups[1].Value),
+                    Point3d.Parse(match.Groups[2].Value),
+                    Point3d.Parse(match.Groups[3].Value));
             }
         }
     }

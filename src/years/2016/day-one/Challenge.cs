@@ -18,7 +18,7 @@
                     _ => throw new InvalidOperationException("Invalid direction")
                 };
 
-                current = Point2d.AddInDirection(current, direction, directions.Distance);
+                current += (direction, directions.Distance);
             }
 
             var distance = PointHelpers.ManhattanDistance(Point2d.Origin, current);

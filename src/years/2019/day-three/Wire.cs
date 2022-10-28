@@ -14,7 +14,7 @@ public readonly record struct Wire(ImmutableArray<LineSegment> Path)
             {
                 if (segment.Intersects(otherSegment, out var collision))
                 {
-                    collisions.Add(collision);
+                    collisions.Add(collision.Value);
                 }
             }
         }

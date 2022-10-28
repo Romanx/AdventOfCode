@@ -16,14 +16,14 @@
 
                 ship = command switch
                 {
-                    'N' => ship with { Position = Point2d.AddInDirection(ship.Position, Direction.North, int.Parse(rest)) },
-                    'S' => ship with { Position = Point2d.AddInDirection(ship.Position, Direction.South, int.Parse(rest)) },
-                    'E' => ship with { Position = Point2d.AddInDirection(ship.Position, Direction.East, int.Parse(rest)) },
-                    'W' => ship with { Position = Point2d.AddInDirection(ship.Position, Direction.West, int.Parse(rest)) },
+                    'N' => ship with { Position = ship.Position + (Direction.North, int.Parse(rest)) },
+                    'S' => ship with { Position = ship.Position + (Direction.South, int.Parse(rest)) },
+                    'E' => ship with { Position = ship.Position + (Direction.East, int.Parse(rest)) },
+                    'W' => ship with { Position = ship.Position + (Direction.West, int.Parse(rest)) },
                     'L' or 'R' => ship with { Facing = MoveByDegrees(ship.Facing, command, int.Parse(rest)) },
                     'F' => ship with
                     {
-                        Position = Point2d.AddInDirection(ship.Position, ship.Facing, int.Parse(rest)),
+                        Position = ship.Position + (ship.Facing, int.Parse(rest)),
                     },
                     _ => throw new InvalidOperationException($"Command not recognised {command}"),
                 };
@@ -65,10 +65,10 @@
 
                 (ship, waypoint) = command switch
                 {
-                    'N' => (ship, Point2d.AddInDirection(waypoint, Direction.North, argument)),
-                    'S' => (ship, Point2d.AddInDirection(waypoint, Direction.South, argument)),
-                    'E' => (ship, Point2d.AddInDirection(waypoint, Direction.East, argument)),
-                    'W' => (ship, Point2d.AddInDirection(waypoint, Direction.West, argument)),
+                    'N' => (ship, waypoint + (Direction.North, argument)),
+                    'S' => (ship, waypoint + (Direction.South, argument)),
+                    'E' => (ship, waypoint + (Direction.East, argument)),
+                    'W' => (ship, waypoint + (Direction.West, argument)),
                     'L' or 'R' => (ship, RotateWaypoint(waypoint, command, argument)),
                     'F' => (MoveToNTimes(ship, waypoint, argument), waypoint),
                     _ => throw new InvalidOperationException($"Command not recognised {command}"),

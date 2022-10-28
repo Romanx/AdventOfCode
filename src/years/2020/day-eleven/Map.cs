@@ -42,7 +42,7 @@
                 var firstInDirection = FirstInDirection(point, direction);
                 if (firstInDirection is not null)
                 {
-                    yield return (firstInDirection, Seats[firstInDirection]);
+                    yield return (firstInDirection.Value, Seats[firstInDirection.Value]);
                 }
             }
 

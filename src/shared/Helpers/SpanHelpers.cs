@@ -43,7 +43,7 @@ namespace Shared.Helpers
                 if (condition(line))
                 {
                     var content = lines[..index];
-                    while (condition(lines.Span[index + 1]))
+                    while (index + 1 < line.Length && condition(lines.Span[index + 1]))
                     {
                         index++;
                     }

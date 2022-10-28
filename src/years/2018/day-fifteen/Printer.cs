@@ -8,7 +8,7 @@ namespace DayFifteen2018
         {
             var builder = new StringBuilder();
 
-            var (rows, columns) = Point2d.FindSpaceOfPoints(map.Keys);
+            var (rows, columns) = PointHelpers.FindSpaceOfPoints(map.Keys);
 
             foreach (var column in columns)
             {

@@ -48,21 +48,10 @@
                 return points
                     .Select(point => (
                         Source: point,
-                        Neighbours: points.Where(p => p != point && p.DistanceTo(point) <= 3).ToImmutableHashSet()
+                        Neighbours: points.Where(p => p != point && PointHelpers.ManhattanDistance(p, point) <= 3).ToImmutableHashSet()
                     ))
                     .ToDictionary(k => k.Source, v => v.Neighbours);
             }
-        }
-    }
-
-    internal static class ChallengeExtensions
-    {
-        public static int DistanceTo(this Point4d a, Point4d b)
-        {
-            return Math.Abs(a.X - b.X) +
-                Math.Abs(a.Y - b.Y) +
-                Math.Abs(a.Z - b.Z) +
-                Math.Abs(a.W - b.W);
         }
     }
 
@@ -71,9 +60,9 @@
         public static ImmutableHashSet<Point4d> Parse(this IInput input)
         {
             var builder = ImmutableHashSet.CreateBuilder<Point4d>();
-            foreach (var line in input.Lines.AsString())
+            foreach (var line in input.Lines.AsMemory())
             {
-                builder.Add(new Point4d(line.Split(",").Select(int.Parse).ToImmutableArray()));
+                builder.Add(Point4d.Parse(line.Span));
             }
 
             return builder.ToImmutable();

@@ -43,11 +43,20 @@ namespace DaySeventeen2020
 
             static IEnumerable<Point3d> PointsInSpace(ImmutableHashSet<Point3d> active)
             {
-                var ranges = PointHelpers.FindSpaceOfPoints(active, Point3d.NumberOfDimensions)
+                var ranges = PointHelpers.FindSpaceOfPoints(active)
                     .Select(r => new DimensionRange(r.Min - 1, r.Max + 1))
                     .ToImmutableArray();
 
-                return PointHelpers.PointsInSpace(ranges, dim => new Point3d(dim.ToImmutableArray()));
+                return PointHelpers.PointsInSpace(
+                    ranges,
+                    static dim =>
+                    {
+                        var dimensions = dim.ToArray();
+                        return new Point3d(
+                            dimensions[0],
+                            dimensions[1],
+                            dimensions[2]);
+                    });
             }
 
             static int CountActiveNeighbours(Point3d point, ImmutableHashSet<Point3d> active)
@@ -102,11 +111,21 @@ namespace DaySeventeen2020
 
             static IEnumerable<Point4d> PointsInSpace(ImmutableHashSet<Point4d> active)
             {
-                var ranges = PointHelpers.FindSpaceOfPoints(active, Point4d.NumberOfDimensions)
+                var ranges = PointHelpers.FindSpaceOfPoints(active)
                     .Select(r => new DimensionRange(r.Min - 1, r.Max + 1))
                     .ToImmutableArray();
 
-                return PointHelpers.PointsInSpace(ranges, dim => new Point4d(dim.ToImmutableArray()));
+                return PointHelpers.PointsInSpace(
+                    ranges,
+                    static dim =>
+                    {
+                        var dimensions = dim.ToArray();
+                        return new Point4d(
+                            dimensions[0],
+                            dimensions[1],
+                            dimensions[2],
+                            dimensions[3]);
+                    });
             }
 
             static int CountActiveNeighbours(Point4d point, ImmutableHashSet<Point4d> active)
