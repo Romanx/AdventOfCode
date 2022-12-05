@@ -79,5 +79,14 @@ namespace Shared
                 }
             }
         }
+
+        public static IEnumerable<T> As<T>(this IInputLines lines)
+            where T : ISpanParsable<T>
+        {
+            return lines.Transform(static str =>
+            {
+                return T.Parse(str, null);
+            });
+        }
     }
 }
