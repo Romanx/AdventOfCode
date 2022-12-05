@@ -88,5 +88,14 @@ namespace Shared
                 return T.Parse(str, null);
             });
         }
+
+        public static IEnumerable<T> AsParsable<T>(this IInputLines lines)
+            where T : IParsable<T>
+        {
+            return lines.Transform(static str =>
+            {
+                return T.Parse(str, null);
+            });
+        }
     }
 }
