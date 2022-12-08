@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Numerics;
 
 namespace System
 {
@@ -44,6 +45,66 @@ namespace System
             }
 
             return result[..total];
+        }
+
+        public static T Max<T>(this Span<T> span)
+            where T : INumber<T>
+            => Max((ReadOnlySpan<T>)span);
+
+        public static T Max<T>(this ReadOnlySpan<T> span)
+            where T : INumber<T>
+        {
+            if (span.Length is 0)
+            {
+                throw new InvalidOperationException("Cannot get max item of an empty span");
+            }
+
+            var current = span[0];
+            for (var i = 1; i < span.Length; i++)
+            {
+                if (span[i] > current)
+                {
+                    current = span[i];
+                }
+            }
+
+            return current;
+        }
+
+        public static bool All<T>(this Span<T> span, T item)
+            where T : IEquatable<T>
+            => All((ReadOnlySpan<T>)span, item);
+
+        public static bool All<T>(this ReadOnlySpan<T> span, T item)
+            where T : IEquatable<T>
+        {
+            for (var i = 0; i <  span.Length; i++)
+            {
+                if (span[i].Equals(item) is false)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public static bool Any<T>(this Span<T> span, T item)
+            where T : IEquatable<T>
+            => Any((ReadOnlySpan<T>)span, item);
+
+        public static bool Any<T>(this ReadOnlySpan<T> span, T item)
+            where T : IEquatable<T>
+        {
+            for (var i = 0; i < span.Length; i++)
+            {
+                if (span[i].Equals(item))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

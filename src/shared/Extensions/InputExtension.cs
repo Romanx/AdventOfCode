@@ -35,6 +35,25 @@ namespace Shared
             return array;
         }
 
+        public static T[,] As2DArray<T>(
+            this IInputLines inputLines,
+            Func<char, T> converter)
+        {
+            var lines = inputLines.AsArray();
+            var array = new T[lines.Length, lines[0].Length];
+
+            for (var y = 0; y < lines.Length; y++)
+            {
+                var line = lines[y].AsSpan();
+                for (var x = 0; x < line.Length; x++)
+                {
+                    array[y, x] = converter(line[x]);
+                }
+            }
+
+            return array;
+        }
+
         public static int[] CharactersToInt(this IInputContent content)
         {
             var span = content.AsSpan();

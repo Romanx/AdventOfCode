@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using CommunityToolkit.HighPerformance;
 
 namespace Shared.Grid
 {
-    public class Area2d
+    public readonly record struct Area2d
     {
         public Area2d(DimensionRange xRange, DimensionRange yRange)
         {
@@ -123,6 +124,14 @@ namespace Shared.Grid
         {
             var xRange = new DimensionRange(0, width - 1);
             var yRange = new DimensionRange(0, height - 1);
+
+            return new Area2d(xRange, yRange);
+        }
+
+        public static Area2d Create<T>(ReadOnlySpan2D<T> span)
+        {
+            var xRange = new DimensionRange(0, span.Width - 1);
+            var yRange = new DimensionRange(0, span.Height - 1);
 
             return new Area2d(xRange, yRange);
         }
