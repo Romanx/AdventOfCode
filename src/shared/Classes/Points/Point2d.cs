@@ -5,7 +5,7 @@ using PCRE;
 
 namespace Shared
 {
-    public readonly record struct Point2d :
+    public readonly partial record struct Point2d :
         IComparable<Point2d>,
         IParsable<Point2d>,
         ISpanParsable<Point2d>,
@@ -133,6 +133,9 @@ namespace Shared
         public static Point2d operator +(Point2d point, Direction direction)
             => point + (direction, 1);
 
+        public static Point2d operator -(Point2d point, Direction direction)
+            => point - (direction, 1);
+
         public static Point2d operator +(Point2d point, (Direction Direction, int Count) modifier) => modifier.Direction.DirectionType switch
         {
             DirectionType.North => point + (0, -modifier.Count),
@@ -143,6 +146,19 @@ namespace Shared
             DirectionType.SouthEast => point + (modifier.Count, modifier.Count),
             DirectionType.SouthWest => point + (-modifier.Count, modifier.Count),
             DirectionType.West => point + (-modifier.Count, 0),
+            _ => point
+        };
+
+        public static Point2d operator -(Point2d point, (Direction Direction, int Count) modifier) => modifier.Direction.DirectionType switch
+        {
+            DirectionType.North => point - (0, -modifier.Count),
+            DirectionType.NorthEast => point - (modifier.Count, -modifier.Count),
+            DirectionType.NorthWest => point - (-modifier.Count, -modifier.Count),
+            DirectionType.East => point - (modifier.Count, 0),
+            DirectionType.South => point - (0, modifier.Count),
+            DirectionType.SouthEast => point - (modifier.Count, modifier.Count),
+            DirectionType.SouthWest => point - (-modifier.Count, modifier.Count),
+            DirectionType.West => point - (-modifier.Count, 0),
             _ => point
         };
 
