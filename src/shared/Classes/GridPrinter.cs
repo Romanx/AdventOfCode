@@ -24,6 +24,22 @@ namespace Shared
             return builder.ToString().Trim();
         }
 
+        public static string Print<T>(T[,] array)
+            where T : struct
+            => Print(array, static (array, writer) => new ArrayPrinter<T>(array, writer));
+
+        public static string Print<T>(
+            T[,] array,
+            Func<T[,], IGridWriter, ArrayPrinter<T>> printerFactory)
+            where T : struct
+        {
+            var builder = new StringBuilder();
+            var writer = new StringGridWriter(builder);
+            var printer = printerFactory(array, writer);
+            printer.Scan();
+            return builder.ToString().Trim();
+        }
+
         public static string Print(IEnumerable<Point2d> points, char identifier)
             => Print(points, identifier, static (points, identifier, writer) => new GridPointPrinter(new HashSet<Point2d>(points), identifier, writer));
 
@@ -143,6 +159,35 @@ namespace Shared
         }
     }
 
+    public class ArrayPrinter<T> : GridScanner
+        where T : notnull
+    {
+        private readonly T[,] array;
+        private readonly IGridWriter _writer;
+
+        public ArrayPrinter(T[,] array, IGridWriter writer)
+            : base(Area2d.Create(array))
+        {
+            this.array = array;
+            _writer = writer;
+        }
+
+        public override void OnEndOfRow() => _writer.AppendLine();
+
+        public override void OnPosition(Point2d point)
+        {
+            var value = array[point.Y, point.X];
+
+            if (value.GetType().IsEnum)
+            {
+                _writer.Append(EnumHelpers.ToDisplayName(value));
+            }
+            else
+            {
+                _writer.Append(value.ToString() ?? string.Empty);
+            }
+        }
+    }
 
     public interface IGridWriter
     {
