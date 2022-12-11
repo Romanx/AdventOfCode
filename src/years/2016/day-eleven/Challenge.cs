@@ -117,20 +117,6 @@ namespace DayEleven2016
         }
     }
 
-    internal static class OutputExtensions
-    {
-        public static void AddPanel(this IOutput output, string title, string content)
-        {
-            output.WriteBlock(() =>
-            {
-                return new Panel(new Text(content))
-                {
-                    Header = new PanelHeader(title, Justify.Center)
-                };
-            });
-        }
-    }
-
     record Item(Material Material) : IComparable<Item>
     {
         public int CompareTo(Item? other) =>

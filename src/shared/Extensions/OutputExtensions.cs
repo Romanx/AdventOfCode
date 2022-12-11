@@ -45,5 +45,16 @@ namespace Shared
 
             return output;
         }
+
+        public static void AddPanel(this IOutput output, string title, string content)
+        {
+            output.WriteBlock(() =>
+            {
+                return new Panel(new Text(content))
+                {
+                    Header = new PanelHeader(title, Justify.Center)
+                };
+            });
+        }
     }
 }
