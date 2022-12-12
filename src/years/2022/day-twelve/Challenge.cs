@@ -12,9 +12,12 @@ public class Challenge : Shared.Challenge
         var graph = map.ToGridGraph(IsValidNeigbour);
 
         var steps = Algorithms
-            .AStarSearch(graph, start, end, Point2d.ManhattanDistance, false);
+            .UniformCostSearch(graph, start, end, false);
 
         output.WriteProperty("Number of steps to target", steps.Length);
+        
+        static bool IsValidNeigbour(Point2d current, char currentValue, Point2d neighbour, char neighbourValue)
+            => neighbourValue <= currentValue + 1;
     }
 
     public void PartTwo(IInput input, IOutput output)
@@ -22,25 +25,26 @@ public class Challenge : Shared.Challenge
         var (_, end, map) = input.ParseMap();
         var graph = map.ToGridGraph(IsValidNeigbour);
 
-        var candidates = map
+        var goals = map
             .Where(kvp => kvp.Value is 'a')
             .Select(kvp => kvp.Key)
-            .ToArray();
+            .ToImmutableHashSet();
 
-        var best = candidates
-            .Select(point =>
-            {
-                return Algorithms
-                    .AStarSearch(graph, point, end, Point2d.ManhattanDistance, false);
-            })
+        var paths = Algorithms.UniformCostSearch(
+            graph,
+            end,
+            goals,
+            false);
+
+        var best = paths.Values
             .Where(steps => steps.Length > 0)
             .MinBy(steps => steps.Length);
 
         output.WriteProperty("Number of steps to target", best.Length);
-    }
 
-    private static bool IsValidNeigbour(Point2d current, char currentValue, Point2d neighbour, char neighbourValue)
-        => neighbourValue <= currentValue + 1;
+        static bool IsValidNeigbour(Point2d current, char currentValue, Point2d neighbour, char neighbourValue)
+            => neighbourValue >= currentValue - 1;
+    }
 }
 
 internal static class ParseExtensions

@@ -84,7 +84,7 @@ namespace DayTwentyTwo2018
                 }
             }
 
-            static float Heuristic(Node goal, Node next)
+            static int Heuristic(Node goal, Node next)
             {
                 return PointHelpers.ManhattanDistance(goal.Position, next.Position);
             }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Linq;
 using System.Numerics;
 
 namespace Shared.Graph
@@ -15,6 +16,21 @@ namespace Shared.Graph
             this IGraph<TNode> graph,
             TNode start,
             TNode goal,
+            bool includeStart = true) where TNode : notnull, IEquatable<TNode>
+        {
+            var paths = BreadthFirstSearch(graph, start, ImmutableHashSet.Create(goal), includeStart);
+
+            return paths[goal];
+        }
+
+        /// <remarks>
+        /// This uses a faster algorithm for BFS using lists rather than a queue found here:
+        /// https://www.redblobgames.com/pathfinding/a-star/implementation.html#optimize-bfs-queue
+        /// </remarks>
+        public static ImmutableDictionary<TNode, ImmutableArray<TNode>> BreadthFirstSearch<TNode>(
+            this IGraph<TNode> graph,
+            TNode start,
+            IReadOnlySet<TNode> goals,
             bool includeStart = true) where TNode : notnull, IEquatable<TNode>
         {
             var currentFrontier = new List<TNode>();
@@ -43,16 +59,19 @@ namespace Shared.Graph
                 nextFrontier.Clear();
             }
 
-            return ReconstructPath(start, goal, cameFrom, includeStart);
+            return ReconstructPaths(start, goals, includeStart, cameFrom);
         }
 
-        public static ImmutableArray<TNode> UniformCostSearch<TNode, THuristicValue>(
-            this IWeightedGraph<TNode> graph,
+        public static ImmutableDictionary<TNode, ImmutableArray<TNode>> UniformCostSearch<TNode, THuristicValue>(
+            this IWeightedGraph<TNode, THuristicValue> graph,
             TNode start,
-            TNode goal)
+            IReadOnlySet<TNode> goals,
+            bool includeStart = true)
             where TNode : notnull, IEquatable<TNode>
             where THuristicValue : INumber<THuristicValue>
         {
+            var goalCopy = goals.ToHashSet();
+
             var frontier = new PriorityQueue<TNode, THuristicValue>();
             frontier.Enqueue(start, THuristicValue.Zero);
 
@@ -68,9 +87,13 @@ namespace Shared.Graph
 
             while (frontier.TryDequeue(out var current, out _))
             {
-                if (current.Equals(goal))
+                if (goalCopy.Contains(current))
                 {
-                    break;
+                    goalCopy.Remove(current);
+                    if (goalCopy.Count is 0)
+                    {
+                        break;
+                    }
                 }
 
                 foreach (var next in graph.Neigbours(current))
@@ -86,11 +109,24 @@ namespace Shared.Graph
                 }
             }
 
-            return ReconstructPath(start, goal, cameFrom);
+            return ReconstructPaths(start, goals, includeStart, cameFrom);
+        }
+
+        public static ImmutableArray<TNode> UniformCostSearch<TNode, THuristicValue>(
+            this IWeightedGraph<TNode, THuristicValue> graph,
+            TNode start,
+            TNode goal,
+            bool includeStart = true)
+            where TNode : notnull, IEquatable<TNode>
+            where THuristicValue : INumber<THuristicValue>
+        {
+            var paths = UniformCostSearch(graph, start, ImmutableHashSet.Create(goal), includeStart);
+
+            return paths[goal];
         }
 
         public static ImmutableArray<TNode> AStarSearch<TNode, THuristicValue>(
-            this IWeightedGraph<TNode> graph,
+            this IWeightedGraph<TNode, THuristicValue> graph,
             TNode start,
             TNode goal,
             Func<TNode, TNode, THuristicValue> heuristicFunction,
@@ -208,6 +244,17 @@ namespace Shared.Graph
             }
 
             return visited.ToImmutable();
+        }
+
+        private static ImmutableDictionary<TNode, ImmutableArray<TNode>> ReconstructPaths<TNode>(TNode start, IReadOnlySet<TNode> goals, bool includeStart, Dictionary<TNode, TNode> cameFrom) where TNode : notnull, IEquatable<TNode>
+        {
+            var dictionary = ImmutableDictionary.CreateBuilder<TNode, ImmutableArray<TNode>>();
+            foreach (var goal in goals)
+            {
+                dictionary[goal] = ReconstructPath(start, goal, cameFrom, includeStart);
+            }
+
+            return dictionary.ToImmutable();
         }
 
         public static ImmutableArray<TNode> ReconstructPath<TNode>(
