@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Immutable;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -142,9 +143,9 @@ namespace Runner
             console.Write(new Rule() { Style = new Style(foreground: Color.Gold1) }.LeftAligned());
         }
 
-        private static async Task WriteOutputs(string header, Output output, IFileSystem fs)
+        private static async Task WriteOutputs(string header, Output output, Stopwatch stopwatch, IFileSystem fs)
         {
-            AnsiConsole.Write(new Rule(header) { Style = new Style(foreground: Color.Gold1) }.LeftAligned());
+            AnsiConsole.Write(new Rule($"{header} ({stopwatch.Elapsed.Humanize()})") { Style = new Style(foreground: Color.Gold1) }.LeftAligned());
 
             var props = output.GetProperties();
 
@@ -227,17 +228,26 @@ namespace Runner
                 {
                     var output = buildOutput(challenge);
                     var returnType = method.ReturnType;
+                    Stopwatch stopwatch;
+
                     if (returnType == typeof(Task))
                     {
+                        stopwatch = Stopwatch.StartNew();
                         var task = (Task)method.Invoke(challenge, new object[] { input, output })!;
                         await task;
                     }
                     else
                     {
+                        stopwatch = Stopwatch.StartNew();
                         method.Invoke(challenge, new object[] { input, output });
                     }
+                    stopwatch.Stop();
 
-                    await WriteOutputs(methodName.Humanize(LetterCasing.Title), output, fileSystem);
+                    await WriteOutputs(
+                        methodName.Humanize(LetterCasing.Title),
+                        output,
+                        stopwatch,
+                        fileSystem);
                 }
             }
 
