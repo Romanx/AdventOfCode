@@ -107,7 +107,7 @@ public readonly record struct LineSegment
             return new LineSegment(start, end, LineType.Vertical);
         }
 
-        var slope = PointHelpers.SlopeBetweenTwoPoints(start, end);
+        var slope = Point2d.SlopeBetweenTwoPoints(start, end);
         if (slope is 1 or -1)
         {
             return new LineSegment(start, end, LineType.Diagonal);

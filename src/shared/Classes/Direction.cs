@@ -5,6 +5,7 @@ namespace Shared
 {
     public enum DirectionType
     {
+        None,
         North,
         NorthEast,
         East,
@@ -27,6 +28,7 @@ namespace Shared
 
         public DirectionType DirectionType { get; }
 
+        public static Direction None { get; } = new Direction(DirectionType.None);
         public static Direction North { get; } = new Direction(DirectionType.North);
         public static Direction NorthEast { get; } = new Direction(DirectionType.NorthEast);
         public static Direction NorthWest { get; } = new Direction(DirectionType.NorthWest);

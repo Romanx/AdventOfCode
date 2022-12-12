@@ -63,7 +63,7 @@ public class Challenge : Shared.Challenge
                 var current = next[x];
 
                 // If the tail is more than one away move it to where the head was
-                next[x] = Point2d.Distance(previous, current) > 1
+                next[x] = Point2d.DiagonalDistance(previous, current) > 1
                     ? current + Point2d.DirectionBetweenPoints(current, previous)
                     : current;
             }

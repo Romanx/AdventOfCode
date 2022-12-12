@@ -138,6 +138,7 @@ namespace Shared
 
         public static Point2d operator +(Point2d point, (Direction Direction, int Count) modifier) => modifier.Direction.DirectionType switch
         {
+            DirectionType.None => point,
             DirectionType.North => point + (0, -modifier.Count),
             DirectionType.NorthEast => point + (modifier.Count, -modifier.Count),
             DirectionType.NorthWest => point + (-modifier.Count, -modifier.Count),
@@ -151,6 +152,7 @@ namespace Shared
 
         public static Point2d operator -(Point2d point, (Direction Direction, int Count) modifier) => modifier.Direction.DirectionType switch
         {
+            DirectionType.None => point,
             DirectionType.North => point - (0, -modifier.Count),
             DirectionType.NorthEast => point - (modifier.Count, -modifier.Count),
             DirectionType.NorthWest => point - (-modifier.Count, -modifier.Count),

@@ -44,11 +44,6 @@ namespace Shared
             return result;
         }
 
-        public static int SlopeBetweenTwoPoints(Point2d a, Point2d b)
-        {
-            return (b.Y - a.Y) / (b.X - a.X);
-        }
-
         public static IEnumerable<T> GetNeighboursInDistance<T>(this T point, int distance, Func<IEnumerable<int>, T> factory)
             where T : IPoint, IEquatable<T>
         {

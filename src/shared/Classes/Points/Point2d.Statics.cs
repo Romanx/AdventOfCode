@@ -1,55 +1,66 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace Shared
 {
     public readonly partial record struct Point2d
     {
+        /// <summary>
+        /// The manhanttan distance between two points
+        /// http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html#manhattan-distance
+        /// </summary>
+        /// <param name="left">The left point</param>
+        /// <param name="right">The right point</param>
+        /// <returns>The distance between the two points only cardinal movement</returns>
         public static int ManhattanDistance(Point2d left, Point2d right)
             => PointHelpers.ManhattanDistance(left, right);
 
-        public static int Distance(Point2d left, Point2d right)
+        /// <summary>
+        /// The diagonal distance between two points
+        /// http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html#diagonal-distance
+        /// </summary>
+        /// <param name="left">The left point</param>
+        /// <param name="right">The right point</param>
+        /// <returns>The distance between the two points including diagonal movement</returns>
+        public static int DiagonalDistance(Point2d left, Point2d right)
         {
-            return (int)Math.Sqrt(Math.Pow(right.X - left.X, 2) + Math.Pow(right.Y - left.Y, 2));
+            var dx = int.Abs(left.X - right.X);
+            var dy = int.Abs(left.Y - right.Y);
+
+            return dx + dy - int.Min(dx, dy);
         }
 
+        /// <summary>
+        /// Calculat the direction between the two points
+        /// </summary>
+        /// <param name="left">The left point</param>
+        /// <param name="right">The right point</param>
+        /// <returns>The direction between the two different points</returns>
         public static Direction DirectionBetweenPoints(Point2d left, Point2d right)
         {
-            var angle = PointHelpers.AngleInDegrees(left, right);
+            var xDiff = right.X - left.X;
+            var yDiff = right.Y - left.Y;
 
-            if (angle is 0)
+            return (xDiff, yDiff) switch
             {
-                return Direction.North;
-            }
-            else if (angle > 0 && angle < 90)
-            {
-                return Direction.NorthEast;
-            }
-            else if (angle is 90)
-            {
-                return Direction.East;
-            }
-            else if (angle > 90 && angle < 180)
-            {
-                return Direction.SouthEast;
-            }
-            else if (angle is 180)
-            {
-                return Direction.South;
-            }
-            else if (angle > 180 && angle < 270)
-            {
-                return Direction.SouthWest;
-            }
-            else if (angle is 270)
-            {
-                return Direction.West;
-            }
-            else if (angle > 270 && angle < 360)
-            {
-                return Direction.NorthWest;
-            }
+                (< 0,   0) => Direction.West,
+                (> 0,   0) => Direction.East,
+                (  0, < 0) => Direction.North,
+                (  0, > 0) => Direction.South,
 
-            throw new InvalidOperationException("Unable to calculate direction between points");
+                (> 0, > 0) => Direction.SouthEast,
+                (> 0, < 0) => Direction.NorthEast,
+
+                (< 0, < 0) => Direction.NorthWest,
+                (< 0, > 0) => Direction.SouthWest,
+
+                (  0,   0) => Direction.None,
+            };
+        }
+
+        public static int SlopeBetweenTwoPoints(Point2d a, Point2d b)
+        {
+            return (b.Y - a.Y) / (b.X - a.X);
         }
     }
 }
