@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Numerics;
 
 namespace Shared.Graph
 {
@@ -45,22 +46,24 @@ namespace Shared.Graph
             return ReconstructPath(start, goal, cameFrom, includeStart);
         }
 
-        public static ImmutableArray<TNode> UniformCostSearch<TNode>(
+        public static ImmutableArray<TNode> UniformCostSearch<TNode, THuristicValue>(
             this IWeightedGraph<TNode> graph,
             TNode start,
-            TNode goal) where TNode : notnull, IEquatable<TNode>
+            TNode goal)
+            where TNode : notnull, IEquatable<TNode>
+            where THuristicValue : INumber<THuristicValue>
         {
-            var frontier = new PriorityQueue<TNode, float>();
-            frontier.Enqueue(start, 0);
+            var frontier = new PriorityQueue<TNode, THuristicValue>();
+            frontier.Enqueue(start, THuristicValue.Zero);
 
             var cameFrom = new Dictionary<TNode, TNode>()
             {
                 [start] = start
             };
 
-            var costSoFar = new Dictionary<TNode, float>()
+            var costSoFar = new Dictionary<TNode, THuristicValue>()
             {
-                [start] = 0
+                [start] = THuristicValue.Zero
             };
 
             while (frontier.TryDequeue(out var current, out _))
@@ -72,7 +75,7 @@ namespace Shared.Graph
 
                 foreach (var next in graph.Neigbours(current))
                 {
-                    var newCost = costSoFar[current] + graph.Cost(current, next);
+                    var newCost = costSoFar[current] + THuristicValue.CreateChecked(graph.Cost(current, next));
                     if (costSoFar.TryGetValue(next, out var nextCost) is false || newCost < nextCost)
                     {
                         costSoFar[next] = newCost;
@@ -86,25 +89,26 @@ namespace Shared.Graph
             return ReconstructPath(start, goal, cameFrom);
         }
 
-        public static ImmutableArray<TNode> AStarSearch<TNode>(
+        public static ImmutableArray<TNode> AStarSearch<TNode, THuristicValue>(
             this IWeightedGraph<TNode> graph,
             TNode start,
             TNode goal,
-            Func<TNode, TNode, float> heuristicFunction,
+            Func<TNode, TNode, THuristicValue> heuristicFunction,
             bool includeStart = true)
             where TNode : notnull, IEquatable<TNode>
+            where THuristicValue : INumber<THuristicValue>
         {
-            var frontier = new PriorityQueue<TNode, float>();
-            frontier.Enqueue(start, 0);
+            var frontier = new PriorityQueue<TNode, THuristicValue>();
+            frontier.Enqueue(start, THuristicValue.Zero);
 
             var cameFrom = new Dictionary<TNode, TNode>()
             {
                 [start] = start
             };
 
-            var costSoFar = new Dictionary<TNode, float>()
+            var costSoFar = new Dictionary<TNode, THuristicValue>()
             {
-                [start] = 0
+                [start] = THuristicValue.Zero
             };
 
             while (frontier.TryDequeue(out var current, out _))
@@ -116,7 +120,7 @@ namespace Shared.Graph
 
                 foreach (var next in graph.Neigbours(current))
                 {
-                    var newCost = costSoFar[current] + graph.Cost(current, next);
+                    var newCost = costSoFar[current] + THuristicValue.CreateChecked(graph.Cost(current, next));
                     if (costSoFar.TryGetValue(next, out var nextCost) is false || newCost < nextCost)
                     {
                         costSoFar[next] = newCost;
@@ -234,10 +238,11 @@ namespace Shared.Graph
             return path.ToImmutable();
         }
 
-        public static ImmutableArray<T> TopologicalSort<T>(
+        public static ImmutableArray<T> TopologicalSort<T, THuristicValue>(
             IVertexGraph<T> graph,
-            Func<T, int>? costFunction = null)
+            Func<T, THuristicValue>? costFunction = null)
             where T : IEquatable<T>
+            where THuristicValue : INumber<THuristicValue>
         {
             var indegree = new Dictionary<T, int>(graph.Vertexes.Length);
             foreach (var node in graph.Vertexes)
@@ -253,12 +258,15 @@ namespace Shared.Graph
                 }
             }
 
-            var noIncomingEdges = new PriorityQueue<T, int>();
+            var noIncomingEdges = new PriorityQueue<T, THuristicValue>();
             foreach (var node in graph.Vertexes)
             {
                 if (indegree[node] == 0)
                 {
-                    var cost = costFunction?.Invoke(node) ?? 0;
+                    var cost = costFunction is not null
+                        ? costFunction(node) 
+                        : THuristicValue.Zero;
+
                     noIncomingEdges.Enqueue(node, cost);
                 }
             }
@@ -275,7 +283,10 @@ namespace Shared.Graph
 
                     if (indegree[neighbour] == 0)
                     {
-                        var cost = costFunction?.Invoke(neighbour) ?? 0;
+                        var cost = costFunction is not null
+                            ? costFunction(node)
+                            : THuristicValue.Zero;
+
                         noIncomingEdges.Enqueue(neighbour, cost);
                     }
                 }

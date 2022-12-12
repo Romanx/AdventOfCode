@@ -4,6 +4,7 @@
     <Nullable>enable</Nullable>
     <TargetFramework>net7.0</TargetFramework>
     <EnablePreviewFeatures>true</EnablePreviewFeatures>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
   </PropertyGroup>
 
 </Project>

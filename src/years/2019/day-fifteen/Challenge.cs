@@ -15,7 +15,7 @@ public class Challenge : Shared.Challenge
         var droid = new Droid(input.AsIntcodeProgram());
         var map = await droid.Run();
 
-        var graph = new GridGraph<CellType>(map, (_, cellType) => cellType is not CellType.Wall);
+        var graph = new SimpleGridGraph<CellType>(map, (_, _, _, cellType) => cellType is not CellType.Wall);
         var target = map.First(m => m.Value is CellType.OxygenSystem).Key;
 
         var path = Algorithms.BreadthFirstSearch(graph, Point2d.Origin, target);
@@ -36,7 +36,7 @@ public class Challenge : Shared.Challenge
         var droid = new Droid(input.AsIntcodeProgram());
         var map = await droid.Run();
 
-        var graph = new GridGraph<CellType>(map, (_, cellType) => cellType is not CellType.Wall);
+        var graph = new SimpleGridGraph<CellType>(map, (_, _, _, cellType) => cellType is not CellType.Wall);
         var target = map.First(m => m.Value is CellType.OxygenSystem).Key;
 
         var points = Algorithms.FloodFillWithSteps(graph, target, null);
