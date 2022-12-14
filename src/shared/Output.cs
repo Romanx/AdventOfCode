@@ -112,7 +112,10 @@ namespace Shared
         {
             var path = _outputDirectory / fileNameAndExtension;
             var fileEntry = new FileEntry(_fileSystem, path);
-            _fileSystem.CreateDirectory(_outputDirectory);
+            if (_fileSystem.DirectoryExists(_outputDirectory) is false)
+            {
+                _fileSystem.CreateDirectory(_outputDirectory);
+            }
 
             return (fileEntry.Open(FileMode.CreateNew, FileAccess.ReadWrite), fileEntry);
         }

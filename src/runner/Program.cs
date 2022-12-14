@@ -87,6 +87,7 @@ namespace Runner
             var inputPath = root / "inputs";
             var outputPath = root / "outputs";
 
+            var dayOutputDirectory = DayOutputDirectory(challenge.Info.Date, outputPath, fs);
             var input = FileInput.Build(new DirectoryEntry(fs, inputPath), challenge.Info.Date);
 
             await RunChallenge(
@@ -96,7 +97,6 @@ namespace Runner
                 input,
                 challenge =>
                 {
-                    var dayOutputDirectory = DayOutputDirectory(challenge.Info.Date, outputPath, fs);
                     return new Output(dayOutputDirectory, fs);
                 });
 

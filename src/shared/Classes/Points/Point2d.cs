@@ -12,7 +12,7 @@ namespace Shared
         IEquatable<Point2d>,
         IPoint
     {
-        private static readonly PcreRegex regex = new(@"([-+]?[0-9]+),\s*([-+]?[0-9]+)", PcreOptions.Compiled);
+        public static PcreRegex RegexExpression { get; } = new(@"([-+]?[0-9]+),\s*([-+]?[0-9]+)", PcreOptions.Compiled);
 
         public Point2d(int row, int column)
         {
@@ -105,7 +105,7 @@ namespace Shared
 
         public static bool TryParse(ReadOnlySpan<char> s, IFormatProvider? provider, [MaybeNullWhen(false)] out Point2d result)
         {
-            var match = regex.Match(s);
+            var match = RegexExpression.Match(s);
             if (match.Success)
             {
                 var x = int.Parse(match.Groups[1].Value);

@@ -2,9 +2,22 @@
 using Shared.Grid;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
 
 namespace Shared
 {
+    public sealed class GridImageWriter : GridImageWriter<Color>
+    {
+        public GridImageWriter(IReadOnlyDictionary<Point2d, Color> map)
+            : base(map)
+        {
+        }
+
+        protected override Color GetColorForPoint(Point2d point)
+            => _map.TryGetValue(point, out var color)
+                ? color
+                : Color.Black;
+    }
 
     public abstract class GridImageWriter<T>
     {
@@ -15,27 +28,26 @@ namespace Shared
             _map = map;
         }
 
-        public Image Generate()
+        public Image Generate(int scale = 8)
         {
             var (xRange, yRange) = Area2d.Create(_map.Keys);
             var (xOffset, yOffset) = CalculateOffsets(xRange.Min, yRange.Min);
 
             var imageWidth = xRange.Max - xOffset + 1;
             var imageHeight = yRange.Max - yOffset + 1;
-            var image = new Image<Rgba32>(imageWidth, imageHeight);
+            var image = new Image<Rgba32>(imageWidth * scale, imageHeight * scale);
 
             image.ProcessPixelRows(pixelAccessor =>
             {
-                for (var y = 0; y < imageHeight; y++)
+                for (var y = 0; y < pixelAccessor.Height; y++)
                 {
                     var pixelRowSpan = pixelAccessor.GetRowSpan(y);
+                    var yPoint = (y / scale) + yOffset;
 
-                    for (var x = 0; x < imageWidth; x++)
+                    for (var x = 0; x < pixelAccessor.Width; x++)
                     {
-                        var point = new Point2d(
-                            x + xOffset,
-                            y + yOffset);
-                        var offsetX = x - xOffset;
+                        var xPoint = (x / scale) + xOffset;
+                        var point = new Point2d(xPoint, yPoint);
 
                         pixelRowSpan[x] = GetColorForPoint(point);
                     }
