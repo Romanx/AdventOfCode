@@ -40,7 +40,7 @@ class TrackSystem
 
     public string Print()
     {
-        return GridPrinter.Print(_grid, (map, writer) =>
+        return GridPrinter.Print(_grid, '#', (map, writer, empty) =>
         {
             return new TrackPrinter(map, Minecarts, writer);
         });
@@ -54,7 +54,7 @@ class TrackSystem
             IReadOnlyDictionary<Point2d, TrackType> map,
             ImmutableArray<Minecart> minecarts,
             IGridWriter writer)
-            : base(map, writer)
+            : base(map, writer, '#')
         {
             _minecarts = minecarts.ToImmutableDictionary(k => k.Position, v => v);
         }

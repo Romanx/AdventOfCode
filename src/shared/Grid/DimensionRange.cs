@@ -14,6 +14,9 @@ namespace Shared.Grid
         public DimensionRange Intersect(DimensionRange other)
             => new(Math.Max(Min, other.Min), Math.Min(Max, other.Max));
 
+        public bool Contains(int value)
+            => Min <= value && Max >= value;
+
         public IEnumerator<int> GetEnumerator() => MoreEnumerable.Sequence(Min, Max).GetEnumerator();
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();

@@ -22,7 +22,7 @@ namespace Shared.Grid
             BottomLeft = new Point2d(XRange.Min, YRange.Min);
             BottomRight = new Point2d(XRange.Max, YRange.Min);
 
-            Count = XRange.Size * YRange.Size;
+            Count = (long)XRange.Size * (long)YRange.Size;
         }
 
         public bool Contains(Point2d point)
@@ -38,7 +38,7 @@ namespace Shared.Grid
         public IEnumerable<Point2d> Items => GetItems();
         public DimensionRange XRange { get; }
         public DimensionRange YRange { get; }
-        public int Count { get; }
+        public long Count { get; }
         public Point2d TopLeft { get; }
         public Point2d TopRight { get; }
         public Point2d BottomLeft { get; }

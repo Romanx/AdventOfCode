@@ -8,18 +8,19 @@ namespace Shared
 {
     public static class GridPrinter
     {
-        public static string Print<T>(IReadOnlyDictionary<Point2d, T> map)
+        public static string Print<T>(IReadOnlyDictionary<Point2d, T> map, char empty = '#')
             where T : struct
-            => Print(map, static (map, writer) => new GridPrinter<T>(map, writer));
+            => Print(map, empty, static (map, writer, empty) => new GridPrinter<T>(map, writer, empty));
 
         public static string Print<T>(
             IReadOnlyDictionary<Point2d, T> map,
-            Func<IReadOnlyDictionary<Point2d, T>, IGridWriter, GridPrinter<T>> printerFactory)
+            char empty,
+            Func<IReadOnlyDictionary<Point2d, T>, IGridWriter, char, GridPrinter<T>> printerFactory)
             where T : struct
         {
             var builder = new StringBuilder();
             var writer = new StringGridWriter(builder);
-            var printer = printerFactory(map, writer);
+            var printer = printerFactory(map, writer, empty);
             printer.Scan();
             return builder.ToString().Trim();
         }
@@ -55,15 +56,19 @@ namespace Shared
             return builder.ToString().Trim();
         }
 
-        public static void Write<T>(IReadOnlyDictionary<Point2d, T> map, TextWriter streamWriter)
+        public static void Write<T>(IReadOnlyDictionary<Point2d, T> map, TextWriter streamWriter, char empty = '#')
             where T : struct
-            => Write(map, streamWriter, static (map, writer) => new GridPrinter<T>(map, writer));
+            => Write(map, streamWriter, empty, static (map, writer, empty) => new GridPrinter<T>(map, writer, empty));
 
-        public static void Write<T>(IReadOnlyDictionary<Point2d, T> map, TextWriter streamWriter, Func<IReadOnlyDictionary<Point2d, T>, IGridWriter, GridPrinter<T>> printerFactory)
+        public static void Write<T>(
+            IReadOnlyDictionary<Point2d, T> map,
+            TextWriter streamWriter,
+            char empty,
+            Func<IReadOnlyDictionary<Point2d, T>, IGridWriter, char, GridPrinter<T>> printerFactory)
             where T : struct
         {
             var writer = new TextGridWriter(streamWriter);
-            var printer = printerFactory(map, writer);
+            var printer = printerFactory(map, writer, empty);
             printer.Scan();
         }
 
@@ -100,12 +105,17 @@ namespace Shared
     {
         protected readonly IReadOnlyDictionary<Point2d, T> _map;
         protected readonly IGridWriter _writer;
+        private readonly string empty;
 
-        public GridPrinter(IReadOnlyDictionary<Point2d, T> map, IGridWriter writer)
+        public GridPrinter(
+            IReadOnlyDictionary<Point2d, T> map,
+            IGridWriter writer,
+            char empty)
             : base(Area2d.Create(map.Keys))
         {
             _map = map;
             _writer = writer;
+            this.empty = empty.ToString();
         }
 
         public override void OnEndOfRow() => _writer.AppendLine();
@@ -125,7 +135,7 @@ namespace Shared
             }
             else
             {
-                _writer.Append("#");
+                _writer.Append(empty);
             }
         }
     }

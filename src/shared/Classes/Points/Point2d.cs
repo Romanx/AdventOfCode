@@ -124,11 +124,20 @@ namespace Shared
         public static Point2d operator +(Point2d left, Point2d right)
             => new(left.Row + right.Row, left.Column + right.Column);
 
+        public static Point2d operator +(Point2d left, int value)
+            => new(left.Row + value, left.Column + value);
+
         public static Point2d operator -(Point2d left, Point2d right)
             => new(left.Row - right.Row, left.Column - right.Column);
 
+        public static Point2d operator -(Point2d left, int value)
+            => new(left.Row - value, left.Column - value);
+
         public static Point2d operator *(Point2d left, int multiplier)
             => new(left.Row * multiplier, left.Column * multiplier);
+
+        public static Point2d operator /(Point2d left, int divisor)
+            => new(left.Row / divisor, left.Column / divisor);
 
         public static Point2d operator +(Point2d point, Direction direction)
             => point + (direction, 1);

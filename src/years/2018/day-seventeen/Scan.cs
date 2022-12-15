@@ -112,13 +112,13 @@ namespace DaySeventeen2018
         public void Write(MemoryStream stream)
         {
             using var writer = new StreamWriter(stream, leaveOpen: true);
-            GridPrinter.Write(_map, writer, static (map, writer) => new ScanGridPrinter(map, writer));
+            GridPrinter.Write(_map, writer, '#', static (map, writer, empty) => new ScanGridPrinter(map, writer));
         }
 
         private class ScanGridPrinter : GridPrinter<CellType>
         {
             public ScanGridPrinter(IReadOnlyDictionary<Point2d, CellType> map, IGridWriter writer)
-                : base(map, writer)
+                : base(map, writer, '#')
             {
             }
 

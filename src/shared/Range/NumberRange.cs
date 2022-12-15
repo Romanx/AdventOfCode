@@ -2,13 +2,16 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
 using CommunityToolkit.HighPerformance;
-using Shared.Grid;
 
 namespace Shared
 {
     public readonly record struct NumberRange<T>(T Start, T End) : ISpanParsable<NumberRange<T>>
         where T : IBinaryNumber<T>, IParsable<T>
     {
+        public static NumberRange<T> Empty { get; } = new NumberRange<T>(T.Zero, T.Zero);
+
+        public T Length { get; } = End - Start;
+
         public bool Contains(T number) => number >= Start && number <= End;
 
         public bool Contains(NumberRange<T> other) => other.Start >= Start && other.End <= End;
