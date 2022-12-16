@@ -6,7 +6,7 @@ using System.Linq;
 namespace Shared.Graph
 {
     public sealed record Graph<T> : IVertexGraph<T>
-        where T : IEquatable<T>
+        where T : IEquatable<T>, IComparable<T>
     {
         private readonly ImmutableDictionary<T, ImmutableArray<T>> _map;
 
