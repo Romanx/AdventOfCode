@@ -1,4 +1,6 @@
-﻿using CommunityToolkit.HighPerformance;
+﻿using System.Linq;
+using Shared.Graph;
+using static MoreLinq.Extensions.SubsetsExtension;
 
 namespace DaySixteen2022;
 
@@ -8,20 +10,41 @@ public class Challenge : Shared.Challenge
 
     public void PartOne(IInput input, IOutput output)
     {
-        var parsed = input.Parse();
+        const uint minutes = 30;
+        var valveMap = input.Parse();
+        
+        var start = new SearchState(
+            ImmutableArray.Create(new Valve("AA", 0)),
+            0,
+            0,
+            ImmutableHashSet<string>.Empty);
 
-        RunGraph(parsed);
+        var stateMap = RunGraph(start, new SearchGraph(valveMap, minutes));
+        var best = stateMap.Values.MaxBy(s => s.TotalPressure);
+
+        output.WriteProperty("Total Pressure", best.TotalPressure);
     }
 
     public void PartTwo(IInput input, IOutput output)
     {
+        const uint minutes = 26;
+        var valveMap = input.Parse();
+        var start = new SearchState(
+            ImmutableArray.Create(new Valve("AA", 0), new Valve("AA", 0)),
+            0,
+            0,
+            ImmutableHashSet<string>.Empty);
+
+        var stateMap = RunGraph(start, new SearchGraph(valveMap, minutes));
+        var best = stateMap.Values.MaxBy(s => s.TotalPressure);
+
+        output.WriteProperty("Max Pressure", best.TotalPressure);
     }
 
-    public object RunGraph(ImmutableDictionary<Valve, ImmutableArray<Valve>> parsed)
+    ImmutableDictionary<SearchState, SearchState> RunGraph(SearchState start, SearchGraph graph)
     {
         var currentFrontier = new List<SearchState>();
         var nextFrontier = new List<SearchState>();
-        var start = SearchState.Empty;
 
         currentFrontier.Add(start);
         var cameFrom = new Dictionary<SearchState, SearchState>
@@ -33,20 +56,12 @@ public class Challenge : Shared.Challenge
         {
             foreach (var current in currentFrontier)
             {
-                var linked = parsed[current.CurrentValve];
-
-                foreach (var next in linked)
+                foreach (var next in graph.Neigbours(current))
                 {
-                    var nextState = current with
+                    if (cameFrom.ContainsKey(next) is false)
                     {
-                        CurrentValve = next,
-                        CurrentTime = current.CurrentTime + 1,
-                    };
-
-                    if (cameFrom.ContainsKey(nextState) is false)
-                    {
-                        nextFrontier.Add(nextState);
-                        cameFrom[nextState] = current;
+                        nextFrontier.Add(next);
+                        cameFrom[next] = current;
                     }
                 }
             }
@@ -54,76 +69,7 @@ public class Challenge : Shared.Challenge
             (currentFrontier, nextFrontier) = (nextFrontier, currentFrontier);
             nextFrontier.Clear();
         }
-    }
-}
 
-internal static class ParseExtensions
-{
-    private static readonly PcreRegex regex = new(@"Valve (?<Valve>[A-Z]+) has flow rate=(?<FlowRate>\d+); tunnel(?:s)? lead(?:s)? to valve(?:s)? (?<Valves>.*)");
-
-    public static ImmutableDictionary<Valve, ImmutableArray<Valve>> Parse(this IInput input)
-    {
-        var valveMap = new Dictionary<Valve, List<string>>();
-
-        foreach (var line in input.Lines.AsMemory())
-        {
-            var match = regex.Match(line.Span);
-            var name = new string(match.Groups["Valve"].Value);
-            var flowRate = uint.Parse(match.Groups["FlowRate"].Value);
-
-            var linked = new List<string>();
-            foreach (var linkedValve in match.Groups["Valves"].Value.Tokenize(','))
-            {
-                linked.Add(new string(linkedValve.Trim()));
-            }
-
-            var valve = new Valve(name, flowRate);
-            valveMap[valve] = linked;
-        }
-
-        var dict = ImmutableDictionary.CreateBuilder<Valve, ImmutableArray<Valve>>();
-        dict.AddRange(valveMap.Keys.Select(v => KeyValuePair.Create(v, ImmutableArray<Valve>.Empty)));
-
-        foreach (var (valve, linked) in valveMap)
-        {
-            dict[valve] = linked
-                .Select(l => dict.Keys.First(k => k.Name == l))
-                .ToImmutableArray();
-        }
-
-        return dict.ToImmutable();
-    }
-}
-
-readonly record struct Valve(string Name, uint FlowRate);
-
-readonly record struct SearchState(
-    Valve CurrentValve,
-    uint CurrentTime,
-    ImmutableArray<(string Valve, uint TimeOpened)> Valves) : IEquatable<SearchState>
-{
-    public static SearchState Empty { get; } = new SearchState(
-        new Valve("AA", 0),
-        0,
-        ImmutableArray<(string Valve, uint TimeOpened)>.Empty);
-
-    public override int GetHashCode()
-    {
-        HashCode hash = new();
-        hash.Add(CurrentValve);
-        hash.Add(CurrentTime);
-        foreach (var value in Valves)
-        {
-            hash.Add(value);
-        }
-
-        return hash.ToHashCode();
-    }
-
-    public bool Equals(SearchState other)
-    {
-        return other.CurrentTime == CurrentTime
-            && other.CurrentValve == CurrentValve
-            && Valves.SequenceEqual(other.Valves);
+        return cameFrom.ToImmutableDictionary();
     }
 }

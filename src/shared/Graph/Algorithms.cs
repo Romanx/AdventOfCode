@@ -260,7 +260,7 @@ namespace Shared.Graph
         public static ImmutableArray<TNode> ReconstructPath<TNode>(
             TNode start,
             TNode goal,
-            Dictionary<TNode, TNode> cameFrom,
+            IReadOnlyDictionary<TNode, TNode> cameFrom,
             bool includeStart = true)
             where TNode : notnull, IEquatable<TNode>
         {
