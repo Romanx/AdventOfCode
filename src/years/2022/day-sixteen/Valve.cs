@@ -1,3 +1,3 @@
 ﻿namespace DaySixteen2022;
 
-readonly record struct Valve(string Name, uint FlowRate);
+readonly record struct Valve(string Name, byte FlowRate);

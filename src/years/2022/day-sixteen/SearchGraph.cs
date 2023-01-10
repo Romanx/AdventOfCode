@@ -2,55 +2,22 @@
 
 namespace DaySixteen2022;
 
-class SearchGraph : IGraph<SearchState>
+class SearchGraph : IVertexGraph<Valve>, IWeightedGraph<Valve, byte>
 {
-    private readonly ImmutableDictionary<Valve, ImmutableHashSet<(Valve Valve, ushort Distance)>> valveMap;
+    private readonly ImmutableDictionary<Valve, ImmutableArray<Valve>> valveMap;
 
-    public uint MaxTime { get; }
-
-    public SearchGraph(
-        ImmutableDictionary<Valve, ImmutableHashSet<(Valve Valve, ushort Distance)>> valveMap,
-        uint maxTime)
+    public SearchGraph(ImmutableDictionary<Valve, ImmutableArray<Valve>> valveMap)
     {
         this.valveMap = valveMap;
-        MaxTime = maxTime;
+        Vertexes = valveMap.Keys
+            .OrderBy(k => k.Name)
+            .ToImmutableArray();
     }
 
-    public IEnumerable<SearchState> Neigbours(SearchState node)
-    {
-        var time = node.CurrentTime;
+    public ImmutableArray<Valve> Vertexes { get; }
 
-        if (time > MaxTime)
-        {
-            yield break;
-        }
+    public byte Cost(Valve nodeA, Valve nodeB) => 1;
 
-        foreach (var current in node.CurrentPositions)
-        {
-            if (current.FlowRate > 0 &&
-                node.OpenValves.Contains(current.Name) is false &&
-                (time + 1) <= MaxTime)
-            {
-                yield return node.OpenValve(current, time + 1, MaxTime);
-            }
-        }
-
-        if (currentValve.FlowRate > 0 &&
-            openValves.Contains(currentValve.Name) is false &&
-            (time + 1) <= MaxTime)
-        {
-            yield return node.OpenValve(currentValve, time + 1, MaxTime);
-        }
-
-        var connected = valveMap[currentValve];
-        foreach (var (next, distance) in connected)
-        {
-            yield return node with
-            {
-                CurrentTime = time + distance,
-                CurrentValve = next,
-                Path = node.Path.Add(next.Name),
-            };
-        }
-    }
+    public IEnumerable<Valve> Neigbours(Valve node)
+        => valveMap[node];
 }

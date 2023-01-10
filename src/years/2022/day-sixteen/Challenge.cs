@@ -1,6 +1,7 @@
-﻿using System.Linq;
+﻿using System.Runtime.InteropServices;
+using CommunityToolkit.HighPerformance;
+using MoreLinq;
 using Shared.Graph;
-using static MoreLinq.Extensions.SubsetsExtension;
 
 namespace DaySixteen2022;
 
@@ -10,66 +11,180 @@ public class Challenge : Shared.Challenge
 
     public void PartOne(IInput input, IOutput output)
     {
-        const uint minutes = 30;
         var valveMap = input.Parse();
-        
-        var start = new SearchState(
-            ImmutableArray.Create(new Valve("AA", 0)),
-            0,
-            0,
-            ImmutableHashSet<string>.Empty);
+        var graph = new SearchGraph(valveMap);
+        var parsed = BuildParsedInput(graph);
 
-        var stateMap = RunGraph(start, new SearchGraph(valveMap, minutes));
-        var best = stateMap.Values.MaxBy(s => s.TotalPressure);
+        ushort best = 0;
 
-        output.WriteProperty("Total Pressure", best.TotalPressure);
+        BranchAndBound(
+            parsed.FlowRateForIndex,
+            parsed.OrderedFlowRateIndexes,
+            parsed.ShortestPathLengths,
+            State.New(parsed.StartingNode, 30),
+            new Dictionary<ushort, ushort>(),
+            ref best,
+            (bound, best) => bound > best);
+
+        output.WriteProperty("Total Pressure Released", best);
     }
 
     public void PartTwo(IInput input, IOutput output)
     {
-        const uint minutes = 26;
-        var valveMap = input.Parse();
-        var start = new SearchState(
-            ImmutableArray.Create(new Valve("AA", 0), new Valve("AA", 0)),
-            0,
-            0,
-            ImmutableHashSet<string>.Empty);
-
-        var stateMap = RunGraph(start, new SearchGraph(valveMap, minutes));
-        var best = stateMap.Values.MaxBy(s => s.TotalPressure);
-
-        output.WriteProperty("Max Pressure", best.TotalPressure);
     }
 
-    ImmutableDictionary<SearchState, SearchState> RunGraph(SearchState start, SearchGraph graph)
+    private static void BranchAndBound(
+        ImmutableArray<byte> flowRates,
+        ImmutableArray<byte> orderedFlowRateIndexes,
+        Memory2D<byte> shortestPathLengths,
+        State state,
+        Dictionary<ushort, ushort> bestForVisited,
+        ref ushort best,
+        Func<ushort, ushort, bool> filterBound)
     {
-        var currentFrontier = new List<SearchState>();
-        var nextFrontier = new List<SearchState>();
-
-        currentFrontier.Add(start);
-        var cameFrom = new Dictionary<SearchState, SearchState>
+        if (bestForVisited.TryGetValue(state.Visited, out var currentBest) is false)
         {
-            [start] = start,
-        };
-
-        while (currentFrontier.Count > 0)
-        {
-            foreach (var current in currentFrontier)
-            {
-                foreach (var next in graph.Neigbours(current))
-                {
-                    if (cameFrom.ContainsKey(next) is false)
-                    {
-                        nextFrontier.Add(next);
-                        cameFrom[next] = current;
-                    }
-                }
-            }
-
-            (currentFrontier, nextFrontier) = (nextFrontier, currentFrontier);
-            nextFrontier.Clear();
+            currentBest = bestForVisited[state.Visited] = ushort.Max(state.PressureReleased, currentBest);
         }
 
-        return cameFrom.ToImmutableDictionary();
+        best = ushort.Max(state.PressureReleased, best);
+
+        var next = new List<(ushort Bound, State Branch)>();
+        foreach (var branch in state.Branch(flowRates, shortestPathLengths))
+        {
+            var bound = branch.Bound(flowRates, orderedFlowRateIndexes);
+
+            if (filterBound(bound, best) is false)
+                continue;
+
+            next.Add((bound, branch));
+        }
+
+        foreach (var (bound, branch) in next.OrderByDescending(pair => pair.Bound))
+        {
+            if (filterBound(bound, best)) 
+            {
+                BranchAndBound(
+                    flowRates,
+                    orderedFlowRateIndexes,
+                    shortestPathLengths,
+                    branch,
+                    bestForVisited,
+                    ref best,
+                    filterBound);
+            }
+        }
+    }
+
+    private static ParsedInput BuildParsedInput(SearchGraph graph)
+    {
+        var distances = Algorithms.FloydWarshall<SearchGraph, Valve, byte>(graph);
+
+        var interestingValves = graph.Vertexes
+            .Select((valve, index) => (valve, index))
+            .Where(kvp => kvp.valve.Name == "AA" || kvp.valve.FlowRate > 0)
+            .Select(kvp => kvp.index)
+            .ToArray();
+
+        var flowRates = interestingValves
+            .Select(i => graph.Vertexes[i].FlowRate)
+            .ToImmutableArray();
+
+        var shortest = new byte[
+            interestingValves.Length,
+            interestingValves.Length];
+
+        for (var i = 0; i < interestingValves.Length; i++)
+        {
+            var iIndex = interestingValves[i];
+            for (var j = 0; j < interestingValves.Length; j++)
+            {
+                var jIndex = interestingValves[j];
+
+                shortest[i, j] = distances[iIndex, jIndex];
+            }
+        }
+
+        var start = interestingValves
+            .Where(i => graph.Vertexes[i].Name is "AA")
+            .First();
+
+        var sortedFlowRates = flowRates
+            .Select((rate, index) => (rate, index))
+            .OrderByDescending(kvp => kvp.rate)
+            .Select(kvp => (byte)kvp.index)
+            .ToImmutableArray();
+
+        return new ParsedInput(flowRates, shortest, sortedFlowRates, (byte)start);
+    }
+}
+
+readonly record struct ParsedInput(
+    ImmutableArray<byte> FlowRateForIndex,
+    Memory2D<byte> ShortestPathLengths,
+    ImmutableArray<byte> OrderedFlowRateIndexes,
+    byte StartingNode);
+
+readonly record struct State(
+    ushort Visited,
+    ushort Avoid,
+    ushort PressureReleased,
+    byte MinutesRemaining,
+    byte Position)
+{
+    public static State New(byte position, byte minutesRemaning) => new State(
+        0, (ushort)(1 << position), 0, minutesRemaning, position);
+
+    public bool CanVisit(byte i)
+    {
+        var x = Visited | Avoid;
+        var y = 1 << i;
+
+        return (x & y) == 0;
+    }
+
+    public ushort Bound(ImmutableArray<byte> flowRates, ImmutableArray<byte> sortedFlowRateIndices)
+    {
+        var current = this;
+        
+        // Make the assumption that if all valves were one apart.
+        // It'd take on minute to get to the valve and one minute to turn it on. So Take every 2.
+        // Take each valve we can visit and add their flow rates and when we could plausibily turn them on.
+
+        var future = (ushort)(0..(MinutesRemaining + 1)).ToEnumerable()
+            .Reverse()
+            .TakeEvery(2)
+            .Skip(1)
+            .Zip(sortedFlowRateIndices.Where(current.CanVisit).Select(i => flowRates[i]))
+            .Sum(kvp => kvp.First * kvp.Second);
+
+        return (ushort)(PressureReleased + future);
+    }
+
+    public IEnumerable<State> Branch(ImmutableArray<byte> flowRates, Memory2D<byte> shortestPathLengths)
+    {
+        var span = shortestPathLengths.Span;
+        var row = span.GetRowSpan(Position);
+        var branches = new State[row.Length];
+
+        for (byte i = 0; i < row.Length; i++)
+        {
+            var destination = i;
+            var distance = row[i];
+
+            if (CanVisit(i))
+            {
+                var minutesRemaining = MinutesRemaining - (distance + 1);
+
+                branches[i] = this with
+                {
+                    Visited = (ushort)(Visited | (ushort)(1u << destination)),
+                    PressureReleased = (ushort)(PressureReleased + (minutesRemaining * flowRates[i])),
+                    Position = destination
+                };
+            }
+        }
+
+        return branches;
     }
 }

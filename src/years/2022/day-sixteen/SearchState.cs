@@ -35,7 +35,7 @@ readonly record struct SearchState(
     public bool Equals(SearchState other)
     {
         return other.TotalPressure == TotalPressure
-            && CurrentPositions.SequenceEqual(other.CurrentPositions);
+            && CurrentPositions.SequenceEqual(other.CurrentPositions)
             && OpenValves.SequenceEqual(other.OpenValves);
     }
 }

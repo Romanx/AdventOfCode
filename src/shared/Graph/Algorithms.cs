@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Numerics;
+using CommunityToolkit.HighPerformance;
 
 namespace Shared.Graph
 {
@@ -246,6 +247,63 @@ namespace Shared.Graph
             return visited.ToImmutable();
         }
 
+        /// <summary>
+        /// An algorithm for finding shortest paths in a directed weighted graph with positive or negative edge weights (but with no negative cycles)
+        /// https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm
+        /// </summary>
+        /// <typeparam name="TNode"></typeparam>
+        /// <returns></returns>
+        public static TWeightValue[,] FloydWarshall<TGraph, TNode, TWeightValue>(TGraph graph)
+            where TNode : notnull, IEquatable<TNode>
+            where TGraph : IWeightedGraph<TNode, TWeightValue>, IVertexGraph<TNode>
+            where TWeightValue : INumber<TWeightValue>, IMinMaxValue<TWeightValue>
+        {
+            var distances = new TWeightValue[graph.Vertexes.Length, graph.Vertexes.Length];
+            distances.AsSpan2D().Fill(TWeightValue.MaxValue);
+
+            for (var i = 0; i < graph.Vertexes.Length; i++)
+            {
+                var vertex = graph.Vertexes[i];
+                foreach (var neighbour in graph.Neigbours(vertex))
+                {
+                    var index = graph.Vertexes.IndexOf(neighbour);
+                    distances[i, index] = graph.Cost(vertex, neighbour);
+                }
+            }
+
+            for (var i = 0; i < graph.Vertexes.Length; i++)
+            {
+                distances[i, i] = TWeightValue.Zero;
+            }
+
+            for (var k = 0; k < graph.Vertexes.Length; k++)
+            {
+                for (var i = 0; i < graph.Vertexes.Length; i++)
+                {
+                    for (var j = 0; j < graph.Vertexes.Length; j++)
+                    {
+                        var (overflow, result) = OverflowingAdd(distances[i, k], distances[k, j]);
+
+                        if (overflow is false && distances[i, j] > result)
+                        {
+                            distances[i, j] = result;
+                        }
+                    }
+                }
+            }
+
+            return distances;
+
+            static (bool, TWeightValue vale) OverflowingAdd(TWeightValue a, TWeightValue b)
+            {
+                var overflow = TWeightValue.MaxValue - a < b;
+
+                return overflow
+                    ? (overflow, TWeightValue.MaxValue)
+                    : (overflow, a + b);
+            }
+        }
+
         private static ImmutableDictionary<TNode, ImmutableArray<TNode>> ReconstructPaths<TNode>(TNode start, IReadOnlySet<TNode> goals, bool includeStart, Dictionary<TNode, TNode> cameFrom) where TNode : notnull, IEquatable<TNode>
         {
             var dictionary = ImmutableDictionary.CreateBuilder<TNode, ImmutableArray<TNode>>();
@@ -311,7 +369,7 @@ namespace Shared.Graph
                 if (indegree[node] == 0)
                 {
                     var cost = costFunction is not null
-                        ? costFunction(node) 
+                        ? costFunction(node)
                         : THuristicValue.Zero;
 
                     noIncomingEdges.Enqueue(node, cost);
