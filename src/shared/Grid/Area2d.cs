@@ -83,6 +83,26 @@ namespace Shared.Grid
                 YRange.Intersect(other.YRange));
         }
 
+        public Area2d Add(IEnumerable<Point2d> points)
+        {
+            var minX = XRange.Min;
+            var maxX = XRange.Max;
+            var minY = YRange.Min;
+            var maxY = YRange.Max;
+
+            foreach (var point in points)
+            {
+                minX = Math.Min(minX, point.X);
+                maxX = Math.Max(maxX, point.X);
+                minY = Math.Min(minY, point.Y);
+                maxY = Math.Max(maxY, point.Y);
+            }
+
+            return new Area2d(
+                new DimensionRange(minX, maxX),
+                new DimensionRange(minY, maxY));
+        }
+
         public static Area2d Create(string start, string end)
             => Create(Point2d.Parse(start), Point2d.Parse(end));
 

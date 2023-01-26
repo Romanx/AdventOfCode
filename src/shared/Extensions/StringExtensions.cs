@@ -24,5 +24,26 @@ namespace Shared
                     span[index] = replace;
                 });
         }
+
+        public static char[,] As2DArray(this string str)
+        {
+            var lines = str.Split(
+                new string[] { "\r\n", "\r", "\n" },
+                StringSplitOptions.None
+            );
+
+            var array = new char[lines.Length, lines[0].Length];
+
+            for (var y = 0; y < lines.Length; y++)
+            {
+                var line = lines[y].AsSpan();
+                for (var x = 0; x < line.Length; x++)
+                {
+                    array[y, x] = line[x];
+                }
+            }
+
+            return array;
+        }
     }
 }
