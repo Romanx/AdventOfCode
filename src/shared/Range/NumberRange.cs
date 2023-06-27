@@ -6,7 +6,7 @@ using CommunityToolkit.HighPerformance;
 namespace Shared
 {
     public readonly record struct NumberRange<T>(T Start, T End) : ISpanParsable<NumberRange<T>>
-        where T : IBinaryNumber<T>, IParsable<T>
+        where T : INumber<T>, IParsable<T>
     {
         public static NumberRange<T> Empty { get; } = new NumberRange<T>(T.Zero, T.Zero);
 
@@ -62,5 +62,10 @@ namespace Shared
 
         public static bool TryParse([NotNullWhen(true)] string? s, IFormatProvider? provider, [MaybeNullWhen(false)] out NumberRange<T> result)
             => TryParse(s.AsSpan(), provider, out result);
+
+        public static implicit operator NumberRange<T>(Range range)
+        {
+            return new(T.CreateChecked(range.Start.Value), T.CreateChecked(range.End.Value));
+        }
     }
 }

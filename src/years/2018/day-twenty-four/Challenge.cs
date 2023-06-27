@@ -23,7 +23,7 @@ namespace DayTwentyFour2018
         {
             var armies = input.Parse();
 
-            var range = 0..short.MaxValue;
+            NumberRange<int> range = 0..short.MaxValue;
 
             var boost = range.BinarySearch(midpoint =>
             {

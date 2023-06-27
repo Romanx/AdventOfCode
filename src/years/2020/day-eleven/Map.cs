@@ -1,19 +1,21 @@
-﻿namespace DayEleven2020
+﻿using Shared;
+
+namespace DayEleven2020
 {
     internal class Map : IEquatable<Map?>
     {
         public ImmutableDictionary<Point2d, bool> Seats { get; }
-        public Range Columns { get; }
-        public Range Rows { get; }
+        public NumberRange<int> Columns { get; }
+        public NumberRange<int> Rows { get; }
 
         public Map(ImmutableDictionary<Point2d, bool> seats, int columns, int rows)
         {
             Seats = seats;
-            Columns = 0..columns;
-            Rows = 0..rows;
+            Columns = new NumberRange<int>(0, columns);
+            Rows = new NumberRange<int>(0, rows);
         }
 
-        public Map(ImmutableDictionary<Point2d, bool> seats, Range columns, Range rows)
+        public Map(ImmutableDictionary<Point2d, bool> seats, NumberRange<int> columns, NumberRange<int> rows)
         {
             Seats = seats;
             Columns = columns;
@@ -65,9 +67,9 @@
 
         public void Print()
         {
-            for (var column = 0; column < Columns.End.Value; column++)
+            for (var column = 0; column < Columns.End; column++)
             {
-                for (var row = 0; row < Rows.End.Value; row++)
+                for (var row = 0; row < Rows.End; row++)
                 {
                     if (Seats.TryGetValue(new Point2d(row, column), out var occupied))
                     {

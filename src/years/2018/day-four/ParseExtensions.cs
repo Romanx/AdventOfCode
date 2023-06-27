@@ -1,4 +1,6 @@
-﻿namespace DayFour2018;
+﻿using Shared;
+
+namespace DayFour2018;
 
 internal static class ParseExtensions
 {
@@ -35,18 +37,18 @@ internal static class ParseExtensions
         return new GuardShift(shiftDate, guardId, times);
     }
 
-    private static ImmutableArray<Range> ParseSleepTimes(ReadOnlyMemory<ReadOnlyMemory<char>> lines)
+    private static ImmutableArray<NumberRange<int>> ParseSleepTimes(ReadOnlyMemory<ReadOnlyMemory<char>> lines)
     {
         if (lines.Length % 2 != 0)
             throw new InvalidOperationException("Should have pairs of events!");
 
-        var builder = ImmutableArray.CreateBuilder<Range>(lines.Length / 2);
+        var builder = ImmutableArray.CreateBuilder<NumberRange<int>>(lines.Length / 2);
         for (var i = 0; i < lines.Length; i += 2)
         {
             var (startDate, _) = SplitLine(lines.Span[i]);
             var (endDate, _) = SplitLine(lines.Span[i + 1]);
 
-            var range = startDate.Minute..endDate.Minute;
+            NumberRange<int> range = startDate.Minute..endDate.Minute;
             builder.Add(range);
         }
 

@@ -86,6 +86,6 @@
 
     internal record Adapter(int Voltage)
     {
-        public Range InputVoltageRange { get; } = new Range(Math.Max(Voltage - 3, 0), Voltage - 1);
+        public NumberRange<int> InputVoltageRange { get; } = new Range(Math.Max(Voltage - 3, 0), Voltage - 1);
     }
 }

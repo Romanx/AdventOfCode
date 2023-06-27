@@ -1,4 +1,6 @@
-﻿namespace DayFive2020
+﻿using Shared;
+
+namespace DayFive2020
 {
     public class Challenge : Shared.Challenge
     {
@@ -40,7 +42,7 @@
 
         private static int FindColumn(ReadOnlySpan<char> span)
         {
-            var column = new Range(0, 7);
+            NumberRange<int> column = new(0, 7);
             foreach (var c in span)
             {
                 column = c switch
@@ -51,12 +53,12 @@
                 };
             }
 
-            return column.Start.Value;
+            return column.Start;
         }
 
         private static int FindRow(ReadOnlySpan<char> span)
         {
-            var row = new Range(0, 127);
+            NumberRange<int> row = new(0, 127);
             foreach (var c in span)
             {
                 row = c switch
@@ -67,7 +69,7 @@
                 };
             }
 
-            return row.Start.Value;
+            return row.Start;
         }
 
         private static int FindSeatId(ReadOnlySpan<char> line)

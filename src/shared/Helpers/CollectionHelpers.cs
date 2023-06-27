@@ -12,7 +12,7 @@ namespace Shared
         /// Merges any overlapping and contigious ranges
         /// </summary>
         public static ICollection<NumberRange<T>> MergeOverlapping<T>(this IList<NumberRange<T>> ranges)
-            where T : IBinaryNumber<T>
+            where T : INumber<T>
         {
             if (ranges.Count == 0)
             {

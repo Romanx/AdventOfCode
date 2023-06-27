@@ -45,16 +45,16 @@ public class Challenge : Shared.Challenge
     }
 }
 
-readonly record struct GuardShift(DateOnly Date, int GuardId, ImmutableArray<Range> SleepTimes)
+readonly record struct GuardShift(DateOnly Date, int GuardId, ImmutableArray<NumberRange<int>> SleepTimes)
 {
     public int TotalTimeAsleep { get; } = BuildTotalSleepTime(SleepTimes);
 
-    private static int BuildTotalSleepTime(ImmutableArray<Range> sleepTimes)
+    private static int BuildTotalSleepTime(ImmutableArray<NumberRange<int>> sleepTimes)
     {
         var total = 0;
         foreach (var range in sleepTimes)
         {
-            total += range.End.Value - range.Start.Value;
+            total += range.End - range.Start;
         }
 
         return total;

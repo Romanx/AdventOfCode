@@ -17,7 +17,7 @@ namespace DayFifteen2018
         public void PartTwo(IInput input, IOutput output)
         {
             var initalState = input.Parse().Print();
-            var range = 4..256;
+            NumberRange<int> range = 4..256;
 
             var attackPower = range.BinarySearch(midpoint =>
             {

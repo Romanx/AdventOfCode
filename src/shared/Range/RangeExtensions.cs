@@ -1,32 +1,34 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.Numerics;
 
 namespace Shared
 {
     public static class RangeExtensions
     {
-        public static Range FirstHalf(this Range range)
+        public static bool Contains(this Range range, int number)
+            => number >= range.Start.Value && number <= range.End.Value;
+
+        public static NumberRange<T> FirstHalf<T>(this NumberRange<T> range) where T : INumber<T>
             => new(range.Start, range.MidPoint());
 
-        public static Range LastHalf(this Range range)
-            => new(range.MidPoint() + 1, range.End);
+        public static NumberRange<T> LastHalf<T>(this NumberRange<T> range) where T : INumber<T>
+            => new(range.MidPoint() + T.One, range.End);
 
-        public static int MidPoint(this Range range)
-            => (int)((range.End.Value + (long)range.Start.Value) / 2);
+        public static T MidPoint<T>(this NumberRange<T> range) where T : INumber<T>
+            => (range.End + range.Start) / T.CreateChecked(2);
 
-        public static bool Contains(this Range range, int value) => value >= range.Start.Value && value <= range.End.Value;
+        public static bool Contains<T>(this NumberRange<T> range, T value) where T : INumber<T>
+            => value >= range.Start && value <= range.End;
 
-        public static int BinarySearch(this Range range, Func<int, BinarySearchResult> func)
+        public static T BinarySearch<T>(this NumberRange<T> range, Func<T, BinarySearchResult> func) where T : INumber<T>
             => BinarySearch(range, func, null);
 
-        public static int BinarySearch(this Range range, Func<int, BinarySearchResult> func, Action<int, BinarySearchResult>? stepLog)
+        public static T BinarySearch<T>(this NumberRange<T> range, Func<T, BinarySearchResult> func, Action<T, BinarySearchResult>? stepLog)
+            where T : INumber<T>
         {
-            Debug.Assert(range.Start.IsFromEnd is false, "Cannot binary search if start is from end");
-            Debug.Assert(range.End.IsFromEnd is false, "Cannot binary search if end is from end");
-
-            while (range.Start.Value != range.End.Value)
+            while (range.Start != range.End)
             {
                 var midpoint = range.MidPoint();
                 var result = func(midpoint);
@@ -43,34 +45,32 @@ namespace Shared
                 }
             }
 
-            return range.Start.Value;
+            return range.Start;
         }
 
-        public static RangeEnumerator GetEnumerator(this Range range)
+        public static RangeEnumerator<T> GetEnumerator<T>(this NumberRange<T> range)
+            where T : INumber<T>
         {
-            if (range.Start.IsFromEnd || range.End.IsFromEnd)
-            {
-                throw new ArgumentException("Range cannot be from end on either axis", nameof(range));
-            }
-
-            return new RangeEnumerator(range.Start.Value, range.End.Value);
+            return new RangeEnumerator<T>(range.Start, range.End);
         }
 
-        public static EnumerableRange ToEnumerable(this Range range)
+        public static EnumerableRange<T> ToEnumerable<T>(this NumberRange<T> range)
+            where T : INumber<T>
         {
-            return new EnumerableRange(range);
+            return new EnumerableRange<T>(range);
         }
 
-        public struct EnumerableRange : IEnumerable<int>
+        public struct EnumerableRange<T> : IEnumerable<T>
+            where T : INumber<T>
         {
-            public Range Range { get; private set; }
+            public NumberRange<T> Range { get; private set; }
 
-            public EnumerableRange(Range range)
+            public EnumerableRange(NumberRange<T> range)
             {
                 Range = range;
             }
 
-            public IEnumerator<int> GetEnumerator()
+            public IEnumerator<T> GetEnumerator()
             {
                 var enumerator = Range.GetEnumerator();
                 while (enumerator.MoveNext())
@@ -80,18 +80,19 @@ namespace Shared
             IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         }
 
-        public struct RangeEnumerator : IEnumerator<int>
+        public struct RangeEnumerator<T> : IEnumerator<T>
+            where T : INumber<T>
         {
-            private readonly int _end;
-            private int _current;
+            private readonly T _end;
+            private T _current;
 
-            public RangeEnumerator(int start, int end)
+            public RangeEnumerator(T start, T end)
             {
-                _current = start - 1; // - 1 fixes a bug in the original code
+                _current = start - T.One; // - 1 fixes a bug in the original code
                 _end = end;
             }
 
-            public int Current => _current;
+            public T Current => _current;
 
             object System.Collections.IEnumerator.Current => Current;
 

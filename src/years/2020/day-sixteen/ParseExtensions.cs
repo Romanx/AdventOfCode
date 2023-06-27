@@ -4,7 +4,7 @@ namespace DaySixteen2020
 {
     record Data(ImmutableArray<Rule> Rules, ImmutableArray<int> MyTicket, ImmutableArray<ImmutableArray<int>> NearbyTickets);
 
-    record Rule(string Name, ImmutableArray<Range> ValueRanges)
+    record Rule(string Name, ImmutableArray<NumberRange<int>> ValueRanges)
     {
         internal bool Match(int field)
         {
@@ -46,10 +46,10 @@ namespace DaySixteen2020
                     var match = RuleRegex.Match(line.ToString());
 
                     var name = match.Groups[1].Value;
-                    var rangeOne = new Range(
+                    var rangeOne = new NumberRange<int>(
                         int.Parse(match.Groups[2].Value),
                         int.Parse(match.Groups[3].Value));
-                    var rangeTwo = new Range(
+                    var rangeTwo = new NumberRange<int>(
                         int.Parse(match.Groups[4].Value),
                         int.Parse(match.Groups[5].Value));
 

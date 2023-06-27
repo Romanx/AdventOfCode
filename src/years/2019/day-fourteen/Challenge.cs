@@ -21,7 +21,7 @@ public class Challenge : Shared.Challenge
 
         var factory = new Factory(reactions);
 
-        var range = 0..int.MaxValue;
+        NumberRange<int> range = 0..int.MaxValue;
 
         var result = range.BinarySearch(val =>
         {
