@@ -1,21 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using PCRE;
-using Shared.Helpers;
 
 namespace Shared
 {
-    public readonly record struct Point3d :
+    public readonly partial record struct Point3d :
         IComparable<Point3d>,
         IParsable<Point3d>,
         ISpanParsable<Point3d>,
         IPoint
     {
-        private static readonly PcreRegex regex = new(@"([-+]?[0-9]+),\s*([-+]?[0-9]+),\s*([-+]?[0-9]+)", PcreOptions.Compiled);
-
         public Point3d(int row, int column, int level)
         {
             Row = row;
@@ -52,7 +48,7 @@ namespace Shared
             => PointHelpers.GetNeighboursInDistance(
                 this,
                 distance,
-                static dim => 
+                static dim =>
                 {
                     var arr = dim.ToArray();
                     return new(arr[0], arr[1], arr[2]);
@@ -100,42 +96,5 @@ namespace Shared
             (other.Row, other.Column, other.Level).CompareTo((Row, Column, Level));
 
         public override string ToString() => $"[{X}, {Y}, {Z}]";
-
-        public static implicit operator Point3d((int X, int Y, int Z) i) => new(i.X, i.Y, i.Z);
-
-        public static implicit operator Point2d(Point3d point) => new(point.X, point.Y);
-
-        public static Point3d Parse(string s, IFormatProvider? provider = null)
-            => Parse(s.AsSpan(), provider);
-
-        public static bool TryParse([NotNullWhen(true)] string? s, IFormatProvider? provider, [MaybeNullWhen(false)] out Point3d result)
-            => TryParse(s.AsSpan(), provider, out result);
-
-        public static Point3d Parse(ReadOnlySpan<char> s, IFormatProvider? provider = null)
-        {
-            if (TryParse(s, provider, out var result))
-            {
-                return result;
-            }
-
-            throw new InvalidOperationException($"Unable to parse Point3d from '{s}'");
-        }
-
-        public static bool TryParse(ReadOnlySpan<char> s, IFormatProvider? provider, [MaybeNullWhen(false)] out Point3d result)
-        {
-            var match = regex.Match(s);
-            if (match.Success)
-            {
-                var x = int.Parse(match.Groups[1].Value);
-                var y = int.Parse(match.Groups[2].Value);
-                var z = int.Parse(match.Groups[3].Value);
-
-                result = new Point3d(x, y, z);
-                return true;
-            }
-
-            result = Origin;
-            return false;
-        }
     }
 }

@@ -21,7 +21,7 @@ public class Challenge : Shared.Challenge
         var intersections = Intersections(scaffolding);
 
         var alignment = intersections
-            .Sum(intersection => intersection.Center.X * intersection.Center.Y);
+            .Sum(intersection => intersection.Centre.X * intersection.Centre.Y);
 
         output.WriteProperty("Alignment Sum", alignment);
 

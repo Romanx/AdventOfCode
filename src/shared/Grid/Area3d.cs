@@ -1,4 +1,6 @@
-﻿namespace Shared.Grid
+﻿using System.Collections.Generic;
+
+namespace Shared.Grid
 {
     public readonly record struct Area3d(DimensionRange XRange, DimensionRange YRange, DimensionRange ZRange)
     {
@@ -28,6 +30,17 @@
         public override string ToString()
         {
             return $"[{XRange.Min},{YRange.Min},{ZRange.Min}] -> [{XRange.Max},{YRange.Max},{ZRange.Max}]";
+        }
+
+        public static Area3d Create(IEnumerable<Point3d> points)
+        {
+            var dimensions = PointHelpers.FindSpaceOfPoints(points);
+
+            return new Area3d(
+                dimensions[0],
+                dimensions[1],
+                dimensions[2]
+            );
         }
     }
 }

@@ -110,13 +110,13 @@ namespace Shared
         public static IEnumerable<Point2d> GetNeighbours(Point2d point)
             => Directions.All.Select(dir => point + dir);
 
-        public static AdjacentPoints GetNeighbours(
+        public static AdjacentPoints2d GetNeighbours(
             Point2d point,
             ISet<Point2d> points,
             AdjacencyType adjacencyType)
             => new(point, points, adjacencyType);
 
-        public static AdjacentPoints GetNeighbours(
+        public static AdjacentPoints2d GetNeighbours(
             Point2d point,
             AdjacencyType adjacencyType)
             => new(point, null, adjacencyType);
@@ -152,11 +152,11 @@ namespace Shared
                 .Select(kvp => KeyValuePair.Create(new Point2d(rowNum, kvp.Key), kvp.Value));
         }
 
-        public static IEnumerable<AdjacentPoints> Intersections(ImmutableHashSet<Point2d> points)
+        public static IEnumerable<AdjacentPoints2d> Intersections(ImmutableHashSet<Point2d> points)
         {
             foreach (var point in points)
             {
-                var adjacent = new AdjacentPoints(point, points, AdjacencyType.Cardinal);
+                var adjacent = new AdjacentPoints2d(point, points, AdjacencyType.Cardinal);
                 if (adjacent.Count is 4)
                     yield return adjacent;
             }

@@ -4,22 +4,22 @@ using System.Collections.Generic;
 
 namespace Shared;
 
-public readonly record struct AdjacentPoints : IEnumerable<Point2d>
+public readonly struct AdjacentPoints2d : IEnumerable<Point2d>
 {
     private readonly Point2d?[] adjacentPoints;
     private readonly AdjacencyType adjacencyType;
 
-    public AdjacentPoints(Point2d center, ISet<Point2d>? points)
-        : this(center, points, AdjacencyType.Cardinal)
+    public AdjacentPoints2d(Point2d centre, ISet<Point2d>? points)
+        : this(centre, points, AdjacencyType.Cardinal)
     {
     }
 
-    public AdjacentPoints(
-        Point2d center,
+    public AdjacentPoints2d(
+        Point2d centre,
         ISet<Point2d>? points,
         AdjacencyType adjacencyType)
     {
-        Center = center;
+        Centre = centre;
         this.adjacencyType = adjacencyType;
         adjacentPoints = new Point2d?[8];
         var count = 0;
@@ -32,7 +32,7 @@ public readonly record struct AdjacentPoints : IEnumerable<Point2d>
         {
             foreach (var direction in directions)
             {
-                var point = center + direction;
+                var point = centre + direction;
                 if (points.Contains(point))
                 {
                     adjacentPoints[(int)direction.DirectionType] = point;
@@ -44,7 +44,7 @@ public readonly record struct AdjacentPoints : IEnumerable<Point2d>
         {
             foreach (var direction in directions)
             {
-                var point = center + direction;
+                var point = centre + direction;
                 adjacentPoints[(int)direction.DirectionType] = point;
             }
 
@@ -54,7 +54,7 @@ public readonly record struct AdjacentPoints : IEnumerable<Point2d>
         Count = count;
     }
 
-    public Point2d Center { get; }
+    public Point2d Centre { get; }
 
     public Point2d? North => adjacentPoints[(int)DirectionType.North];
     public Point2d? NorthEast => adjacentPoints[(int)DirectionType.NorthEast];

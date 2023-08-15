@@ -17,5 +17,15 @@ namespace Shared
                 xRange.Pad(value),
                 yRange.Pad(value));
         }
+
+        public static Area3d Pad(this Area3d area, int value)
+        {
+            var (xRange, yRange, zRange) = area;
+
+            return new Area3d(
+                xRange.Pad(value),
+                yRange.Pad(value),
+                zRange.Pad(value));
+        }
     }
 }
