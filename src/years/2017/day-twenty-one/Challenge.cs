@@ -1,4 +1,7 @@
-﻿using CommunityToolkit.HighPerformance;
+﻿
+
+using CommunityToolkit.HighPerformance;
+using MemoryExtensions = System.MemoryExtensions;
 
 namespace DayTwentyOne2017
 {
@@ -22,7 +25,7 @@ namespace DayTwentyOne2017
                 pattern = RunStep(pattern, rules);
             }
 
-            output.WriteProperty("Lit Pixels", pattern.AsSpan().Count('#'));
+            output.WriteProperty("Lit Pixels", MemoryExtensions.Count(pattern.AsSpan(), '#'));
         }
 
         public void PartTwo(IInput input, IOutput output)
@@ -41,7 +44,7 @@ namespace DayTwentyOne2017
                 pattern = RunStep(pattern, rules);
             }
 
-            output.WriteProperty("Lit Pixels", pattern.AsSpan().Count('#'));
+            output.WriteProperty("Lit Pixels", MemoryExtensions.Count(pattern.AsSpan(), '#'));
         }
 
         private static char[,] RunStep(char[,] input, RuleSet rules)
