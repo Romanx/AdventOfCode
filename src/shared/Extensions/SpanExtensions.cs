@@ -91,20 +91,19 @@ namespace System
 
         public static bool Any<T>(this Span<T> span, T item)
             where T : IEquatable<T>
-            => Any((ReadOnlySpan<T>)span, item);
+            => span.IndexOf(item) != -1;
 
-        public static bool Any<T>(this ReadOnlySpan<T> span, T item)
-            where T : IEquatable<T>
+        public static T? Find<T>(this ReadOnlySpan<T> span, Predicate<T> match)
         {
             for (var i = 0; i < span.Length; i++)
             {
-                if (span[i].Equals(item))
+                if (match(span[i]))
                 {
-                    return true;
+                    return span[i];
                 }
             }
 
-            return false;
+            return default;
         }
     }
 }
