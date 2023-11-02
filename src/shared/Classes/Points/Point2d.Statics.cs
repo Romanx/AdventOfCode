@@ -31,7 +31,7 @@ namespace Shared
         }
 
         /// <summary>
-        /// Calculat the direction between the two points
+        /// Calculate the direction between the two points
         /// </summary>
         /// <param name="left">The left point</param>
         /// <param name="right">The right point</param>

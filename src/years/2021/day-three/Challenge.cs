@@ -1,4 +1,5 @@
 ﻿using System.Collections.Specialized;
+using System.Globalization;
 
 namespace DayThree2021;
 
@@ -13,10 +14,10 @@ public class Challenge : Shared.Challenge
         var bitInformation = ParseBitIndexCounts(numbers);
 
         var gammaRateBits = CalculateGammaRate(bitInformation);
-        var gammaRateValue = BitVector32Extensions.FromBinaryString(gammaRateBits).Data;
+        var gammaRateValue = int.Parse(gammaRateBits, NumberStyles.BinaryNumber);
 
         var epsilonRateBits = CalculateEpsilonRate(bitInformation);
-        var epsilonRateValue = BitVector32Extensions.FromBinaryString(epsilonRateBits).Data;
+        var epsilonRateValue = int.Parse(epsilonRateBits, NumberStyles.BinaryNumber);
 
         output.WriteProperty("Gamma Rate Bits", gammaRateBits);
         output.WriteProperty("Epsilon Rate Bits", epsilonRateBits);

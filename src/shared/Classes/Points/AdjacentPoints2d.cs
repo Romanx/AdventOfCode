@@ -9,14 +9,14 @@ public readonly struct AdjacentPoints2d : IEnumerable<Point2d>
     private readonly Point2d?[] adjacentPoints;
     private readonly AdjacencyType adjacencyType;
 
-    public AdjacentPoints2d(Point2d centre, ISet<Point2d>? points)
+    public AdjacentPoints2d(Point2d centre, IReadOnlySet<Point2d>? points)
         : this(centre, points, AdjacencyType.Cardinal)
     {
     }
 
     public AdjacentPoints2d(
         Point2d centre,
-        ISet<Point2d>? points,
+        IReadOnlySet<Point2d>? points,
         AdjacencyType adjacencyType)
     {
         Centre = centre;

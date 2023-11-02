@@ -7,7 +7,7 @@ namespace Shared
         public static string ReplaceAt(this string str, int index, int length, string replace)
         {
             return string.Create(str.Length - length + replace.Length, (str, index, length, replace),
-                (span, state) =>
+                static (span, state) =>
                 {
                     state.str.AsSpan()[..state.index].CopyTo(span);
                     state.replace.AsSpan().CopyTo(span[state.index..]);
@@ -18,19 +18,18 @@ namespace Shared
         public static string ReplaceCharAt(this string str, int index, char replace)
         {
             return string.Create(str.Length, (str, index, replace),
-                (span, state) =>
+                static (span, state) =>
                 {
                     state.str.AsSpan().CopyTo(span);
-                    span[index] = replace;
+                    span[state.index] = state.replace;
                 });
         }
 
+        private static readonly string[] separator = ["\r\n", "\r", "\n"];
+
         public static char[,] As2DArray(this string str)
         {
-            var lines = str.Split(
-                new string[] { "\r\n", "\r", "\n" },
-                StringSplitOptions.None
-            );
+            var lines = str.Split(separator, StringSplitOptions.None);
 
             var array = new char[lines.Length, lines[0].Length];
 

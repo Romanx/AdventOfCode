@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using CommunityToolkit.HighPerformance;
 
 namespace Shared.Grid
@@ -154,6 +155,56 @@ namespace Shared.Grid
             var yRange = new DimensionRange(0, span.Height - 1);
 
             return new Area2d(xRange, yRange);
+        }
+
+        public static Builder CreateBuilder() => new();
+
+        public sealed class Builder
+        {
+            private bool initialized = true;
+            private int minX;
+            private int maxX;
+
+            private int minY;
+            private int maxY;
+
+            public void Add(Point2d point)
+            {
+                if (initialized is false)
+                {
+                    minX = point.X;
+                    maxX = point.X;
+                    minY = point.Y;
+                    maxY = point.Y;
+                    initialized = true;
+                    return;
+                }
+
+                minX = Math.Min(minX, point.X);
+                maxX = Math.Max(maxX, point.X);
+                minY = Math.Min(minY, point.Y);
+                maxY = Math.Max(maxY, point.Y);
+            }
+
+            public void AddRange(IEnumerable<Point2d> points)
+            {
+                foreach (var point in points)
+                {
+                    Add(point);
+                }
+            }
+
+            public Area2d Build()
+            {
+                if (initialized is false)
+                {
+                    throw new InvalidOperationException("Unable to build an area with no points.");
+                }
+
+                return new(
+                    new DimensionRange(minX, maxX),
+                    new DimensionRange(minY, maxY));
+            }
         }
     }
 }

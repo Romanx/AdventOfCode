@@ -5,7 +5,6 @@ namespace Shared
 {
     public enum DirectionType
     {
-        None,
         North,
         NorthEast,
         East,
@@ -14,6 +13,7 @@ namespace Shared
         SouthWest,
         West,
         NorthWest,
+        None,
     }
 
     public readonly record struct Direction :
