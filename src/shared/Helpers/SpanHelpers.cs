@@ -95,11 +95,24 @@ namespace Shared.Helpers
             return builder.ToImmutable();
         }
 
+        /// <summary>
+        /// Turns the lines into a 2d array of chars indexed as y,x.
+        /// </summary>
+        /// <param name="lines"></param>
+        /// <returns></returns>
         public static char[,] As2dArray(ReadOnlyMemory<ReadOnlyMemory<char>> lines)
         {
             var lineSpan = lines.Span;
 
-            var array = new char[lineSpan[0].Length, lines.Length];
+            var yMax = lines.Length;
+            var xMax = 0;
+            for (var i = 0; i < lines.Length; i++)
+            {
+                xMax = int.Max(xMax, lines.Span[i].Length);
+            }
+
+            var array = new char[yMax, xMax];
+            array.AsSpan2D().Fill(' ');
 
             for (var y = 0; y < lines.Length; y++)
             {

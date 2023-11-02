@@ -54,6 +54,23 @@ public readonly struct AdjacentPoints2d : IEnumerable<Point2d>
         Count = count;
     }
 
+    public AdjacentPoints2d(
+        Point2d centre,
+        Point2d? north = null,
+        Point2d? east = null,
+        Point2d? south = null,
+        Point2d? west = null)
+    {
+        Centre = centre;
+        adjacencyType = AdjacencyType.Cardinal;
+        adjacentPoints = new Point2d?[8];
+
+        adjacentPoints[(int)DirectionType.North] = north;
+        adjacentPoints[(int)DirectionType.East] = east;
+        adjacentPoints[(int)DirectionType.South] = south;
+        adjacentPoints[(int)DirectionType.West] = west;
+    }
+
     public Point2d Centre { get; }
 
     public Point2d? North => adjacentPoints[(int)DirectionType.North];

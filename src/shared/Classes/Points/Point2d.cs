@@ -79,13 +79,15 @@ namespace Shared
         public bool Equals(Point2d other)
             => X == other.X && Y == other.Y;
 
-        public static int DimensionCount => 2;
-
         public void GetDimensions(Span<int> dimensions)
         {
             dimensions[0] = X;
             dimensions[1] = Y;
         }
+
+        public Point2d Flip() => (Y, X);
+
+        public static int DimensionCount => 2;
 
         public static Point2d Parse(string s, IFormatProvider? provider = null)
             => Parse(s.AsSpan(), provider);

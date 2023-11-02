@@ -38,7 +38,7 @@ namespace Shared
             var writer = new StringGridWriter(builder);
             var printer = printerFactory(array, writer);
             printer.Scan();
-            return builder.ToString().Trim();
+            return builder.ToString();
         }
 
         public static string Print(IEnumerable<Point2d> points, char identifier)

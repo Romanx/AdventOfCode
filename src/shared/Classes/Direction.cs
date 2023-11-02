@@ -44,6 +44,13 @@ namespace Shared
 
         public Direction Reverse() => DirectionActions.Reverse(this);
 
+        public Direction Turn(Direction direction) => direction.DirectionType switch
+        {
+            DirectionType.East => Right(),
+            DirectionType.West => Left(),
+            _ => throw new InvalidOperationException($"Unable to turn direction: '{direction}'")
+        };
+
         public int CompareTo(Direction other) => DirectionType.CompareTo(other.DirectionType);
 
         public static Direction Parse(string s, IFormatProvider? provider = null)
@@ -66,6 +73,9 @@ namespace Shared
             result = default;
             return false;
         }
+
+        public override string ToString()
+            => $"{DirectionType}";
     }
 
     public static class DirectionActions
