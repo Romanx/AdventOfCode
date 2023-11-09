@@ -7,7 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\shared\Shared.csproj" />
     <ProjectReference Include="..\source-generator\SourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-    <ProjectReference Include="..\years\**\*.csproj" />
+<!--    <ProjectReference Include="..\years\**\*.csproj" />-->
   </ItemGroup>
 
   <ItemGroup>

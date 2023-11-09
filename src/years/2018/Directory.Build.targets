@@ -1,7 +1,7 @@
 <Project>
   <Import Project="../Directory.Build.targets" />
 
-  <ItemGroup Condition="'$(MSBuildProjectName)' != 'Shared2018'">
+  <ItemGroup Condition=" '$(IsSharedCodeProject)' != 'true' ">
     <ProjectReference Include="$(MSBuildThisFileDirectory)\shared-2018\Shared2018.csproj" />
   </ItemGroup>
 </Project>

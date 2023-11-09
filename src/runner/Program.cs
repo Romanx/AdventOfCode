@@ -143,9 +143,14 @@ namespace Runner
             console.Write(new Rule() { Style = new Style(foreground: Color.Gold1) }.LeftAligned());
         }
 
-        private static async Task WriteOutputs(string header, Output output, Stopwatch stopwatch, IFileSystem fs)
+        private static async Task WriteOutputs(
+            IAnsiConsole console,
+            string header,
+            Output output,
+            TimeSpan elapsed,
+            IFileSystem fs)
         {
-            AnsiConsole.Write(new Rule($"{header} ({stopwatch.Elapsed.Humanize()})") { Style = new Style(foreground: Color.Gold1) }.LeftAligned());
+            console.Write(new Rule($"{header} ({elapsed.Humanize()})") { Style = new Style(foreground: Color.Gold1) }.LeftAligned());
 
             var props = output.GetProperties();
 
@@ -162,10 +167,10 @@ namespace Runner
                     table.AddRow(new Markup($"[#00d7ff]{Markup.Escape(name)}[/]"), new Text(value));
                 }
 
-                AnsiConsole.Write(table);
+                console.Write(table);
             }
 
-            output.WriteBlocks(AnsiConsole.Console);
+            output.WriteBlocks(console);
 
             var paths = await output.OutputFiles();
             if (paths.Length > 0)
@@ -182,7 +187,7 @@ namespace Runner
                     table.AddRow(new Markup(converted));
                 }
 
-                AnsiConsole.Write(table);
+                console.Write(table);
             }
         }
 
@@ -197,6 +202,7 @@ namespace Runner
             var type = challenge.GetType();
 
             await TryExecutePart(
+                console,
                 challenge,
                 type,
                 1,
@@ -205,6 +211,7 @@ namespace Runner
                 buildOutput);
 
             await TryExecutePart(
+                console,
                 challenge,
                 type,
                 2,
@@ -213,6 +220,7 @@ namespace Runner
                 buildOutput);
 
             static async Task TryExecutePart(
+                IAnsiConsole console,
                 Challenge challenge,
                 Type type,
                 int methodNumber,
@@ -244,9 +252,10 @@ namespace Runner
                     stopwatch.Stop();
 
                     await WriteOutputs(
+                        console,
                         methodName.Humanize(LetterCasing.Title),
                         output,
-                        stopwatch,
+                        stopwatch.Elapsed,
                         fileSystem);
                 }
             }

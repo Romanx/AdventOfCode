@@ -4,7 +4,7 @@ public class Challenge : Shared.Challenge
 {
     public override ChallengeInfo Info { get; } = new ChallengeInfo(new LocalDate(2018, 12, 13), "Mine Cart Madness");
 
-    public static void PartOne(IInput input, IOutput output)
+    public void PartOne(IInput input, IOutput output)
     {
         var track = input.Parse();
         var collision = track.Collisions().First();
@@ -12,7 +12,7 @@ public class Challenge : Shared.Challenge
         output.WriteProperty("First collision at", collision);
     }
 
-    public static void PartTwo(IInput input, IOutput output)
+    public void PartTwo(IInput input, IOutput output)
     {
         var track = input.Parse();
         var collision = track.Collisions().ToArray();
