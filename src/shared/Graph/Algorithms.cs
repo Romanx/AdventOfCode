@@ -272,7 +272,7 @@ namespace Shared.Graph
 
                 if (cameFrom.TryGetValue(current, out current) is false)
                 {
-                    return ImmutableArray<TNode>.Empty;
+                    return [];
                 }
             }
 

@@ -112,7 +112,7 @@ namespace Shared
 
         public static AdjacentPoints2d GetNeighbours(
             Point2d point,
-            IReadOnlySet<Point2d> points,
+            ISet<Point2d> points,
             AdjacencyType adjacencyType)
             => new(point, points, adjacencyType);
 

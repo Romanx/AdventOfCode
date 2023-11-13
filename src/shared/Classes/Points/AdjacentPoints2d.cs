@@ -9,14 +9,14 @@ public readonly struct AdjacentPoints2d : IEnumerable<Point2d>
     private readonly Point2d?[] adjacentPoints;
     private readonly AdjacencyType adjacencyType;
 
-    public AdjacentPoints2d(Point2d centre, IReadOnlySet<Point2d>? points)
+    public AdjacentPoints2d(Point2d centre, ISet<Point2d>? points)
         : this(centre, points, AdjacencyType.Cardinal)
     {
     }
 
     public AdjacentPoints2d(
         Point2d centre,
-        IReadOnlySet<Point2d>? points,
+        ISet<Point2d>? points,
         AdjacencyType adjacencyType)
     {
         Centre = centre;
@@ -83,6 +83,9 @@ public readonly struct AdjacentPoints2d : IEnumerable<Point2d>
     public Point2d? West => adjacentPoints[(int)DirectionType.West];
 
     public int Count { get; }
+
+    public bool Contains(Point2d point)
+        => Array.IndexOf(adjacentPoints, point) >= 0;
 
     public Point2d? this[Direction dir] => dir.DirectionType switch
     {

@@ -49,13 +49,14 @@ namespace Shared
             return new Point2d(xnew + pivot.X, ynew + pivot.Y);
         }
 
-        public IEnumerable<Point2d> GetAllNeighbours()
-        {
-            foreach (var direction in Directions.All)
-            {
-                yield return this + direction;
-            }
-        }
+        public AdjacentPoints2d GetNeighbours(AdjacencyType adjacencyType)
+            => new(this, null, adjacencyType);
+
+        public AdjacentPoints2d GetAllNeighbours()
+            => new(this, null, AdjacencyType.All);
+
+        public AdjacentPoints2d GetNeighbours(ISet<Point2d> points, AdjacencyType adjacencyType)
+            => new(this, points, adjacencyType);
 
         public Point3d Z(int depth) => new(Row, Column, depth);
 

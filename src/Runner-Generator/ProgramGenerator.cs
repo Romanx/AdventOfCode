@@ -69,11 +69,11 @@ public class ProgramGenerator : ISourceGenerator
                         var output = new Output(dayOutputDirectory, fs);
                         var stopwatch = Stopwatch.StartNew();
 
-                        {{ if part.isAsync }}
-                            await challenge.{{part.name}}(input, output);
-                        {{ else }}
-                            challenge.{{part.name}}(input, output);
-                        {{ end }}
+                        {{~ if part.isAsync ~}}
+                        await challenge.{{part.name}}(input, output);
+                        {{~ else ~}}
+                        challenge.{{part.name}}(input, output);
+                        {{~ end ~}}
 
                         stopwatch.Stop();
 

@@ -124,5 +124,21 @@ namespace System.Collections.Generic
             TKey key)
             where TKey : notnull
         => ref CollectionsMarshal.GetValueRefOrAddDefault(dictionary, key, out _);
+
+        public static TValue GetOrCalculateIfAbsent<TKey, TValue, TState>(
+            this Dictionary<TKey, TValue> dictionary,
+            TKey key,
+            Func<TKey, TState, TValue> calculationFunc,
+            TState state)
+            where TKey : notnull
+        {
+            ref var dictionaryValue = ref CollectionsMarshal.GetValueRefOrAddDefault(dictionary, key, out var exists);
+            if (exists is false)
+            {
+                dictionaryValue = calculationFunc(key, state);
+            }
+
+            return dictionaryValue!;
+        }
     }
 }
