@@ -81,7 +81,7 @@ namespace Template
                 repo.Dispose();
             }
 
-            string WriteTemplate(string title, UPath yearRoot, IFileSystem fs)
+            string WriteTemplate(string title, UPath yearRoot, PhysicalFileSystem fs)
             {
                 var dayWords = challengeDate.Day.ToWords();
                 var yearPath = yearRoot / $"{challengeDate.Year}";
