@@ -122,7 +122,7 @@ namespace DayFifteen2018
             static bool IsValidPosition(Game game, Point2d position) => game.OpenSpaces.Contains(position) &&
                 game.ActiveEntities.Any(ae => ae.Position == position) is false;
 
-            static IEnumerable<Point2d> NeighboursInReadingOrder(Point2d point) => PointHelpers.GetDirectNeighbours(point)
+            static IEnumerable<Point2d> NeighboursInReadingOrder(Point2d point) => point.GetNeighbours(AdjacencyType.Cardinal)
                 .OrderBy(p => p, ReadingOrderComparer.Instance);
         }
 

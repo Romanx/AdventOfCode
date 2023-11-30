@@ -27,7 +27,7 @@ public class Maze : IWeightedGraph<Point3d>
 
     public Point3d Exit { get; }
 
-    public IEnumerable<Point3d> Neigbours(Point3d node) => recursive
+    public IEnumerable<Point3d> Neighbours(Point3d node) => recursive
         ? RecursiveNeighbours(node)
         : NormalNeighbours(node);
 

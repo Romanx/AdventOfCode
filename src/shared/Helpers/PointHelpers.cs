@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
-using System.Numerics;
 using MoreLinq;
 using Shared.Grid;
 using Shared.Helpers;
@@ -103,23 +102,6 @@ namespace Shared
 
             return builder.MoveToImmutable();
         }
-
-        public static IEnumerable<Point2d> GetDirectNeighbours(Point2d point)
-            => Directions.CardinalDirections.Select(dir => point + dir);
-
-        public static IEnumerable<Point2d> GetNeighbours(Point2d point)
-            => Directions.All.Select(dir => point + dir);
-
-        public static AdjacentPoints2d GetNeighbours(
-            Point2d point,
-            ISet<Point2d> points,
-            AdjacencyType adjacencyType)
-            => new(point, points, adjacencyType);
-
-        public static AdjacentPoints2d GetNeighbours(
-            Point2d point,
-            AdjacencyType adjacencyType)
-            => new(point, null, adjacencyType);
 
         public static IEnumerable<T> PointsInSpace<T>(IEnumerable<DimensionRange> ranges, Func<IEnumerable<int>, T> factory)
             where T : IPoint

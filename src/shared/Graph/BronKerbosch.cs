@@ -62,7 +62,7 @@ namespace Shared.Graph
                 if (choices.Count > 0)
                 {
                     var pivotVertex = choices.Shuffle().First();
-                    pivoted = potential_clique.Except(graph.Neigbours(pivotVertex));
+                    pivoted = potential_clique.Except(graph.Neighbours(pivotVertex));
                 }
                 else
                 {
@@ -71,7 +71,7 @@ namespace Shared.Graph
 
                 foreach (var v in pivoted)
                 {
-                    var neighborsOfV = graph.Neigbours(v);
+                    var neighborsOfV = graph.Neighbours(v);
                     var sub = FindCliques(
                         graph,
                         potential_clique.Intersect(neighborsOfV),

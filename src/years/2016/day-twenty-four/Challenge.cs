@@ -69,7 +69,7 @@ namespace DayTwentyFour2016
                     break;
                 }
 
-                foreach (var next in PointHelpers.GetDirectNeighbours(current.Position))
+                foreach (var next in current.Position.GetNeighbours(AdjacencyType.Cardinal))
                 {
                     if (map.TryGetValue(next, out var nextCell) is false || nextCell.Type is CellType.Wall)
                     {

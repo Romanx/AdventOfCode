@@ -16,7 +16,7 @@ namespace DayTwentyTwo2018
             _factory = new RegionDetailsFactory(start, target, depth);
         }
 
-        public IEnumerable<Node> Neigbours(Node node)
+        public IEnumerable<Node> Neighbours(Node node)
         {
             var (point, currentTool) = node;
 
@@ -28,7 +28,7 @@ namespace DayTwentyTwo2018
                 yield return new Node(node.Position, otherTool);
             }
 
-            foreach (var neighbour in PointHelpers.GetDirectNeighbours(node.Position))
+            foreach (var neighbour in node.Position.GetNeighbours(AdjacencyType.Cardinal))
             {
                 if (neighbour.X < 0 || neighbour.Y < 0)
                 {

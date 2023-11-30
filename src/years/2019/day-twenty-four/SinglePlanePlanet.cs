@@ -14,7 +14,7 @@ namespace DayTwentyFour2019
 
             foreach (var point in Area.Items)
             {
-                var neighbors = PointHelpers.GetDirectNeighbours(point)
+                var neighbors = point.GetNeighbours(AdjacencyType.Cardinal)
                     .Where(Area.Contains)
                     .Count(plane.At);
 

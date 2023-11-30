@@ -114,7 +114,7 @@ public class Challenge : Shared.Challenge
 
         while (true)
         {
-            var adjacent = GetNeighbours(position, scaffolding, AdjacencyType.Cardinal);
+            var adjacent = position.GetNeighbours(scaffolding, AdjacencyType.Cardinal);
 
             if (adjacent[direction] is Point2d forwards)
             {

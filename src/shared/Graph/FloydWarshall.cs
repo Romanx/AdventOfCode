@@ -32,7 +32,7 @@ namespace Shared.Graph
             for (var i = 0; i < graph.Vertexes.Length; i++)
             {
                 var vertex = graph.Vertexes[i];
-                foreach (var neighbour in graph.Neigbours(vertex))
+                foreach (var neighbour in graph.Neighbours(vertex))
                 {
                     var index = graph.Vertexes.IndexOf(neighbour);
                     distances[i, index] = graph.Cost(vertex, neighbour);

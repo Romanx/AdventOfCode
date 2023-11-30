@@ -133,9 +133,9 @@ namespace DayFourteen2017
 
         public ImmutableDictionary<Point2d, CellType> Grid { get; }
 
-        public IEnumerable<Point2d> Neigbours(Point2d node)
+        public IEnumerable<Point2d> Neighbours(Point2d node)
         {
-            foreach (var neighbour in PointHelpers.GetDirectNeighbours(node))
+            foreach (var neighbour in node.GetNeighbours(AdjacencyType.Cardinal))
             {
                 if (Grid.TryGetValue(neighbour, out var type) && type is CellType.Used)
                 {

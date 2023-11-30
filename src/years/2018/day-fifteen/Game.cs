@@ -68,7 +68,7 @@ namespace DayFifteen2018
 
         public ImmutableArray<Entity> EntitesNextTo(Point2d position, EntityType entityType)
         {
-            return PointHelpers.GetDirectNeighbours(position)
+            return position.GetNeighbours(AdjacencyType.Cardinal)
                 .SelectMany(pos => ActiveEntities.Where(ae => ae.EntityType == entityType && ae.Position == pos))
                 .ToImmutableArray();
         }

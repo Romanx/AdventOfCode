@@ -98,6 +98,6 @@ namespace DayTwentyThree2018
             _graph[neighbour] = _graph[neighbour].Add(vertex);
         }
 
-        public IEnumerable<Nanobot> Neigbours(Nanobot node) => _graph[node];
+        public IEnumerable<Nanobot> Neighbours(Nanobot node) => _graph[node];
     }
 }

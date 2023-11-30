@@ -13,8 +13,7 @@ public class Challenge : Shared.Challenge
 
         foreach (var (point, height) in map)
         {
-            var neighbours = PointHelpers
-                .GetDirectNeighbours(point);
+            var neighbours = point.GetNeighbours(AdjacencyType.Cardinal);
 
             var lowest = neighbours // Go through all possible neighbours
                 .Select(n => map.TryGetValue(n, out var neighbourHeight) ? neighbourHeight : (int?)null) // Get their height or null for missing.
@@ -76,7 +75,7 @@ public class Challenge : Shared.Challenge
             {
                 foreach (var current in currentFrontier)
                 {
-                    foreach (var next in PointHelpers.GetDirectNeighbours(current))
+                    foreach (var next in current.GetNeighbours(AdjacencyType.Cardinal))
                     {
                         if (map.TryGetValue(next, out var nextHeight) && nextHeight != 9)
                         {

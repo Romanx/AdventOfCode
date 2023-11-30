@@ -99,7 +99,7 @@
 
             while (queue.TryDequeue(out var next))
             {
-                foreach (var point in PointHelpers.GetDirectNeighbours(next))
+                foreach (var point in next.GetNeighbours(AdjacencyType.Cardinal))
                 {
                     if (distance.ContainsKey(point))
                         continue;

@@ -14,9 +14,9 @@ namespace DayThirteen2016
 
         public int Cost(Point2d nodeA, Point2d nodeB) => 1;
 
-        public IEnumerable<Point2d> Neigbours(Point2d node)
+        public IEnumerable<Point2d> Neighbours(Point2d node)
         {
-            return PointHelpers.GetDirectNeighbours(node)
+            return node.GetNeighbours(AdjacencyType.Cardinal)
                 .Where(point => point.X >= 0 && point.Y >= 0)
                 .Where(point => _office.ContainsKey(point))
                 .Where(point => _office[point] is not CellType.Wall);

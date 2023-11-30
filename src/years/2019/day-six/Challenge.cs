@@ -22,7 +22,7 @@ public class Challenge : Shared.Challenge
                 return 0;
 
             var count = 1;
-            foreach (var neighbour in nodes.Neigbours(node))
+            foreach (var neighbour in nodes.Neighbours(node))
             {
                 count += GetOrbitCount(neighbour, nodes);
             }

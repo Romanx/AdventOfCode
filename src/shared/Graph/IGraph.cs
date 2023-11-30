@@ -6,6 +6,6 @@ namespace Shared.Graph
     public interface IGraph<T>
         where T : IEquatable<T>
     {
-        IEnumerable<T> Neigbours(T node);
+        IEnumerable<T> Neighbours(T node);
     }
 }

@@ -21,7 +21,7 @@ namespace Shared.Graph
 
         public ImmutableArray<T> Vertexes { get; }
 
-        public IEnumerable<T> Neigbours(T node) => _map.TryGetValue(node, out var neighbours)
+        public IEnumerable<T> Neighbours(T node) => _map.TryGetValue(node, out var neighbours)
             ? neighbours.OrderBy(c => c)
             : ImmutableArray<T>.Empty;
     }

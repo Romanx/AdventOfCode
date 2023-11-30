@@ -45,7 +45,7 @@ namespace Shared.Graph
             {
                 foreach (var current in currentFrontier)
                 {
-                    foreach (var next in graph.Neigbours(current))
+                    foreach (var next in graph.Neighbours(current))
                     {
                         if (cameFrom.ContainsKey(next) is false)
                         {
@@ -96,7 +96,7 @@ namespace Shared.Graph
                     }
                 }
 
-                foreach (var next in graph.Neigbours(current))
+                foreach (var next in graph.Neighbours(current))
                 {
                     var newCost = costSoFar[current] + THuristicValue.CreateChecked(graph.Cost(current, next));
                     if (costSoFar.TryGetValue(next, out var nextCost) is false || newCost < nextCost)
@@ -154,7 +154,7 @@ namespace Shared.Graph
                     break;
                 }
 
-                foreach (var next in graph.Neigbours(current))
+                foreach (var next in graph.Neighbours(current))
                 {
                     var newCost = costSoFar[current] + THuristicValue.CreateChecked(graph.Cost(current, next));
                     if (costSoFar.TryGetValue(next, out var nextCost) is false || newCost < nextCost)
@@ -200,7 +200,7 @@ namespace Shared.Graph
 
                     visited.Add(current, steps);
 
-                    foreach (var next in graph.Neigbours(current))
+                    foreach (var next in graph.Neighbours(current))
                     {
                         if (visited.ContainsKey(next) is false)
                         {
@@ -230,7 +230,7 @@ namespace Shared.Graph
             {
                 foreach (var current in currentFrontier)
                 {
-                    foreach (var next in graph.Neigbours(current))
+                    foreach (var next in graph.Neighbours(current))
                     {
                         if (visited.Add(next) is true)
                         {
@@ -296,7 +296,7 @@ namespace Shared.Graph
             {
                 indegree.TryAdd(node, 0);
 
-                foreach (var neighbour in graph.Neigbours(node))
+                foreach (var neighbour in graph.Neighbours(node))
                 {
                     indegree.AddOrUpdate(
                         neighbour,
@@ -324,7 +324,7 @@ namespace Shared.Graph
             {
                 ordered.Add(node);
 
-                foreach (var neighbour in graph.Neigbours(node))
+                foreach (var neighbour in graph.Neighbours(node))
                 {
                     indegree[neighbour]--;
 

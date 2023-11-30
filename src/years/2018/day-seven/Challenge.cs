@@ -35,7 +35,7 @@ public class Challenge : Shared.Challenge
         {
             indegree.TryAdd(node, 0);
 
-            foreach (var neighbour in graph.Neigbours(node))
+            foreach (var neighbour in graph.Neighbours(node))
             {
                 indegree.AddOrUpdate(
                     neighbour,
@@ -67,7 +67,7 @@ public class Challenge : Shared.Challenge
             second += time;
             ordered.Add(node);
 
-            foreach (var neighbour in graph.Neigbours(node))
+            foreach (var neighbour in graph.Neighbours(node))
             {
                 indegree[neighbour]--;
 

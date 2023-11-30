@@ -38,10 +38,10 @@ internal static class ParseExtensions
         portals.Remove(entrancePortal);
         portals.Remove(exitPortal);
 
-        var entrance = PointHelpers.GetNeighbours(entrancePortal.Position, open, AdjacencyType.Cardinal)
+        var entrance = entrancePortal.Position.GetNeighbours(open, AdjacencyType.Cardinal)
             .First();
 
-        var exit = PointHelpers.GetNeighbours(exitPortal.Position, open, AdjacencyType.Cardinal)
+        var exit = exitPortal.Position.GetNeighbours(open, AdjacencyType.Cardinal)
             .First();
 
         var portalPairs = MergePortals(portals, open);
@@ -71,13 +71,13 @@ internal static class ParseExtensions
             portals.Add(new PortalPair(
                 portalA.Identifier,
                 portalA.Position,
-                PointHelpers.GetNeighbours(portalB.Position, openSpace, AdjacencyType.Cardinal).First(),
+                portalB.Position.GetNeighbours(openSpace, AdjacencyType.Cardinal).First(),
                 portalA.IsInner));
 
             portals.Add(new PortalPair(
                 portalB.Identifier,
                 portalB.Position,
-                PointHelpers.GetNeighbours(portalA.Position, openSpace, AdjacencyType.Cardinal).First(),
+                portalA.Position.GetNeighbours(openSpace, AdjacencyType.Cardinal).First(),
                 portalB.IsInner));
         }
 
@@ -96,7 +96,7 @@ internal static class ParseExtensions
         {
             var first = portalPoints.First();
 
-            foreach (var second in PointHelpers.GetDirectNeighbours(first))
+            foreach (var second in first.GetNeighbours(AdjacencyType.Cardinal))
             {
                 if (portalPoints.Contains(second))
                 {
@@ -117,7 +117,7 @@ internal static class ParseExtensions
                         _ => throw new InvalidOperationException("Didn't handle merge correctly")
                     };
 
-                    var firstAdjacent = PointHelpers.GetNeighbours(first, openPoints, AdjacencyType.Cardinal);
+                    var firstAdjacent = first.GetNeighbours(openPoints, AdjacencyType.Cardinal);
 
                     if (firstAdjacent.Count is 1)
                     {

@@ -38,7 +38,7 @@ namespace DaySeventeen2016
                         continue;
                     }
 
-                    foreach (var next in Neigbours(current))
+                    foreach (var next in Neighbours(current))
                     {
                         nextFrontier.Add(next);
                     }
@@ -49,7 +49,7 @@ namespace DaySeventeen2016
             }
         }
 
-        public IEnumerable<string> Neigbours(string path)
+        public IEnumerable<string> Neighbours(string path)
         {
             var hash = Convert.ToHexString(_hasher.ComputeHash(Encoding.ASCII.GetBytes(_passcode + path)));
 

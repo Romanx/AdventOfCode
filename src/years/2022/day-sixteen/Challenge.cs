@@ -137,7 +137,7 @@ internal class ValveGraph : IWeightedGraph<Valve, byte>, IVertexGraph<Valve>
 
     public byte Cost(Valve nodeA, Valve nodeB) => 1;
 
-    public IEnumerable<Valve> Neigbours(Valve node)
+    public IEnumerable<Valve> Neighbours(Valve node)
          => valveMap[node];
 }
 

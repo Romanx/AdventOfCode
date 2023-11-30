@@ -78,7 +78,7 @@ namespace DayTwelve2017
             Nodes = _connections.Keys.ToImmutableHashSet();
         }
 
-        public IEnumerable<int> Neigbours(int node) =>
+        public IEnumerable<int> Neighbours(int node) =>
             _connections[node];
     }
 }

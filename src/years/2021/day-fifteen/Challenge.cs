@@ -89,14 +89,14 @@ record class Graph(ImmutableDictionary<Point2d, int> Map) : IWeightedGraph<Point
     public int Cost(Point2d nodeA, Point2d nodeB)
         => Map[nodeA] + Map[nodeB];
 
-    public IEnumerable<Point2d> Neigbours(Point2d node)
+    public IEnumerable<Point2d> Neighbours(Point2d node)
     {
         if (Map.ContainsKey(node) is false)
         {
             return Enumerable.Empty<Point2d>();
         }
 
-        return PointHelpers.GetDirectNeighbours(node)
+        return node.GetNeighbours(AdjacencyType.Cardinal)
             .Where(point => Map.ContainsKey(point));
     }
 }
